@@ -345,8 +345,8 @@
           
             <p>时间太快啦，转眼就一年了，又到了SMP CUP 2018的时候。今年比赛和去年略有不同，去年是一份数据三个任务，今年则是一个任务独享一份数据。任务一文本分类，任务三文本溯源。</p>
 <h1 id="比赛简介"><a href="#比赛简介" class="headerlink" title="比赛简介"></a>比赛简介</h1><ul>
-<li>任务一文本分类：给定一篇短文，判断是人类作者、自动摘要、机器翻译和机器作者中的哪一种，详见<img src="https://biendata.com/competition/smpeupt2018" alt="官网"></li>
-<li>任务三文本溯源：给定一个句子，判断是否复制或改编(删减/摘要/替换/重排等)于其它的句子，详见<img src="https://biendata.com/competition/smpetst2018" alt="官网"></li>
+<li>任务一文本分类：给定一篇短文，判断是人类作者、自动摘要、机器翻译和机器作者中的哪一种，详见<a href="https://biendata.com/competition/smpeupt2018" target="_blank" rel="noopener">官网</a></li>
+<li>任务三文本溯源：给定一个句子，判断是否复制或改编(删减/摘要/替换/重排等)于其它的句子，详见<a href="https://biendata.com/competition/smpetst2018" target="_blank" rel="noopener">官网</a></li>
 </ul>
 <h1 id="数据样例"><a href="#数据样例" class="headerlink" title="数据样例"></a>数据样例</h1><ul>
 <li>任务一：ID12345 ||| 方法通过文献研究、药物实测、炮制方法、方药配伍、煎服方法、安全性及临床用药特点等方面考证《伤寒论》药物剂量。</li>
@@ -357,7 +357,7 @@
 <li>任务三：句子相似度计算，然后对召回句子进行优化排序。这里要注意的是，任务三中没有任何的标签，因此是一个无监督的候选句子排序任务。考虑到句子间循环匹配的数量级，我搭建了ElasticSearch全文检索引擎来帮助初选优化，大大降低了检索成本。</li>
 </ul>
 <h1 id="模型实现"><a href="#模型实现" class="headerlink" title="模型实现"></a>模型实现</h1><ul>
-<li><img src="https://github.com/LuJunru/SMPCUP2018" alt="我在github上的开源代码"></li>
+<li><a href="https://github.com/LuJunru/SMPCUP2018" target="_blank" rel="noopener">我在github上的开源代码</a></li>
 </ul>
 <h1 id="比赛心得"><a href="#比赛心得" class="headerlink" title="比赛心得"></a>比赛心得</h1><ul>
 <li>任务一：<ul>
@@ -367,7 +367,7 @@
 </ul>
 </li>
 <li>任务三：<ul>
-<li>1.想到用ES来加速查询真的是个非常正确的决定，因为测试集计算量是验证集的200倍；</li>
+<li>1.想到用ES来加速查询真的是个非常正确的决定，因为测试集计算量是验证集的200倍;</li>
 <li>2.最后实现的还是句子匹配，而非文本理解和溯源。没想到很好的方法。</li>
 </ul>
 </li>
