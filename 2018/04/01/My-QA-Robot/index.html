@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Junru">
 <meta property="og:description" content="从2017年10月-2018年3月，出于实习公司的要求，我尝试搭建了一个简单的单轮检索式问答系统。 背景 目前，自动问答技术的实现主要有阅读式、检索式和生成式三大类。 阅读式：指机器阅读理解，通过给定文章和针对文章提出的具体问答对训练机器的阅读理解能力，并对针对文章的新问题作出回答。机器阅读理解包括passage-based、assertion-based、sentence-based和answe">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-01-06T02:04:54.924Z">
+<meta property="og:updated_time" content="2019-01-06T02:07:14.981Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="My QA Robot">
 <meta name="twitter:description" content="从2017年10月-2018年3月，出于实习公司的要求，我尝试搭建了一个简单的单轮检索式问答系统。 背景 目前，自动问答技术的实现主要有阅读式、检索式和生成式三大类。 阅读式：指机器阅读理解，通过给定文章和针对文章提出的具体问答对训练机器的阅读理解能力，并对针对文章的新问题作出回答。机器阅读理解包括passage-based、assertion-based、sentence-based和answe">
@@ -405,10 +405,72 @@
 <li>1.通过爬虫和用户历史数据建立QA式本地知识库；</li>
 <li>2.当给定用户新问题时，系统先通过ES（ElasticSearch，<a href="https://blog.csdn.net/cyony/article/details/65437708?locationNum=9&amp;fps=1" target="_blank" rel="noopener">ES原理</a>）进行词义级的本地检索得到参考问答初选集；</li>
 <li>3.使用语义深度匹配和问答质量评估从初选集中精选出参考问答精选集，按得分降序返回最终参考问答；</li>
-<li>4.若没有任何问答通过精选，则启动在线搜索获取标识有“最佳问答”的参考问答返回给用户，并将其中的优质问答缓存到本地ES索引中。<br>| 变量或参数名 | 说明 |<br>| —— | —— |<br>| StopWords | 停用词表 |<br>| KeyWords | 核心主题词表 |<br>| Text_Main_Content(TMC) | 用户新问题经分词、去除停用词后的分词结果 |<br>| Keywords_in_Content(KIC) | 用户新问题命中的核心主题词 |<br>| Text_NER_List(TNL) | 用户新问题中的分词后的NER |<br>| Question_Main_Content(QMC) | ES本地检索返回的候选问题经分词、去除停用词后的分词结果 |<br>| QuestionScore(QS) | 语义匹配模块返回的候选问题与新问题的相似度得分 |<br>| AnswerScore(AS) | 通过答案排序模块计算出的，候选问题对应的候选答案与用户新问题组成“好问答对”的概率得分 |<br>| FinalScore(FS) | 候选问答在精选规则下的最终得分 |<br>| THRESHOLD | 控制在精选集中记录ES初选结果的阈值。 |<br>| ZHIDAOMAX | 控制在线搜索时从百度知道返回的问答数量。 |<br>| SAVESCORE | 控制增量存储模块中的百度知道问答对的阈值 |<br>| ESMAX | 控制精选集中的精选问答数量 |</li>
+<li>4.若没有任何问答通过精选，则启动在线搜索获取标识有“最佳问答”的参考问答返回给用户，并将其中的优质问答缓存到本地ES索引中。</li>
 </ul>
 </li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>变量或参数名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>StopWords</td>
+<td>停用词表</td>
+</tr>
+<tr>
+<td>KeyWords</td>
+<td>核心主题词表</td>
+</tr>
+<tr>
+<td>Text_Main_Content(TMC)</td>
+<td>用户新问题经分词、去除停用词后的分词结果</td>
+</tr>
+<tr>
+<td>Keywords_in_Content(KIC)</td>
+<td>用户新问题命中的核心主题词</td>
+</tr>
+<tr>
+<td>Text_NER_List(TNL)</td>
+<td>用户新问题中的分词后的NER</td>
+</tr>
+<tr>
+<td>Question_Main_Content(QMC)</td>
+<td>ES本地检索返回的候选问题经分词、去除停用词后的分词结果</td>
+</tr>
+<tr>
+<td>QuestionScore(QS)</td>
+<td>语义匹配模块返回的候选问题与新问题的相似度得分</td>
+</tr>
+<tr>
+<td>AnswerScore(AS)</td>
+<td>通过答案排序模块计算出的，候选问题对应的候选答案与用户新问题组成“好问答对”的概率得分</td>
+</tr>
+<tr>
+<td>FinalScore(FS)</td>
+<td>候选问答在精选规则下的最终得分</td>
+</tr>
+<tr>
+<td>THRESHOLD</td>
+<td>控制在精选集中记录ES初选结果的阈值。</td>
+</tr>
+<tr>
+<td>ZHIDAOMAX</td>
+<td>控制在线搜索时从百度知道返回的问答数量。</td>
+</tr>
+<tr>
+<td>SAVESCORE</td>
+<td>控制增量存储模块中的百度知道问答对的阈值</td>
+</tr>
+<tr>
+<td>ESMAX</td>
+<td>控制精选集中的精选问答数量</td>
+</tr>
+</tbody>
+</table>
 <h1 id="子模块"><a href="#子模块" class="headerlink" title="子模块"></a>子模块</h1><ul>
 <li>根据上文项目思路的介绍，除主函数外，共调用了语义深度匹配、问答质量评估和在线搜索缓存三大子模块</li>
 <li>1.语义深度匹配子模块：<a href="http://blog.csdn.net/malefactor/article/details/50374237" target="_blank" rel="noopener">参考项目</a><ul>
