@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Junru">
 <meta property="og:description" content="从2017年10月-2018年3月，出于实习公司的要求，我尝试搭建了一个简单的单轮检索式问答系统。 背景 目前，自动问答技术的实现主要有阅读式、检索式和生成式三大类。 阅读式：指机器阅读理解，通过给定文章和针对文章提出的具体问答对训练机器的阅读理解能力，并对针对文章的新问题作出回答。机器阅读理解包括passage-based、assertion-based、sentence-based和answe">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-01-06T02:07:14.981Z">
+<meta property="og:updated_time" content="2019-01-06T02:09:02.623Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="My QA Robot">
 <meta name="twitter:description" content="从2017年10月-2018年3月，出于实习公司的要求，我尝试搭建了一个简单的单轮检索式问答系统。 背景 目前，自动问答技术的实现主要有阅读式、检索式和生成式三大类。 阅读式：指机器阅读理解，通过给定文章和针对文章提出的具体问答对训练机器的阅读理解能力，并对针对文章的新问题作出回答。机器阅读理解包括passage-based、assertion-based、sentence-based和answe">
@@ -401,13 +401,7 @@
 <li>检索式：检索式是一种取长补短的中间无监督技术。检索式要求搜集众多在线问答网站海量的历史问答对语料作为知识库，通过检索与新问题最接近的历史相似问题和最匹配这一新问题的历史最佳问答，变相完成自动问答任务。检索技术既避免了知识的局限，又利用了人类的先验经验积累，是当前处理通用问答任务较合适的方法之一。</li>
 </ul>
 <h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><ul>
-<li>结合实际，我的设计为：<ul>
-<li>1.通过爬虫和用户历史数据建立QA式本地知识库；</li>
-<li>2.当给定用户新问题时，系统先通过ES（ElasticSearch，<a href="https://blog.csdn.net/cyony/article/details/65437708?locationNum=9&amp;fps=1" target="_blank" rel="noopener">ES原理</a>）进行词义级的本地检索得到参考问答初选集；</li>
-<li>3.使用语义深度匹配和问答质量评估从初选集中精选出参考问答精选集，按得分降序返回最终参考问答；</li>
-<li>4.若没有任何问答通过精选，则启动在线搜索获取标识有“最佳问答”的参考问答返回给用户，并将其中的优质问答缓存到本地ES索引中。</li>
-</ul>
-</li>
+<li>结合实际，我的设计为：<br>1.通过爬虫和用户历史数据建立QA式本地知识库；<br>2.当给定用户新问题时，系统先通过ES（ElasticSearch，<a href="https://blog.csdn.net/cyony/article/details/65437708?locationNum=9&amp;fps=1" target="_blank" rel="noopener">ES原理</a>）进行词义级的本地检索得到参考问答初选集；<br>3.使用语义深度匹配和问答质量评估从初选集中精选出参考问答精选集，按得分降序返回最终参考问答；<br>4.若没有任何问答通过精选，则启动在线搜索获取标识有“最佳问答”的参考问答返回给用户，并将其中的优质问答缓存到本地ES索引中。</li>
 </ul>
 <table>
 <thead>
@@ -473,13 +467,13 @@
 </table>
 <h1 id="子模块"><a href="#子模块" class="headerlink" title="子模块"></a>子模块</h1><ul>
 <li>根据上文项目思路的介绍，除主函数外，共调用了语义深度匹配、问答质量评估和在线搜索缓存三大子模块</li>
-<li>1.语义深度匹配子模块：<a href="http://blog.csdn.net/malefactor/article/details/50374237" target="_blank" rel="noopener">参考项目</a><ul>
+<li>语义深度匹配子模块：<a href="http://blog.csdn.net/malefactor/article/details/50374237" target="_blank" rel="noopener">参考项目</a><ul>
 <li>句对预处理及建模: 将输入的句子1与句子2进行分词，然后将两组切分后的结果两两计算基于Word Embedding的余弦相似度，并填充成上图所示的2D Feature Map形式。当句对的分词list长度不同时，使用0填充缺失值。</li>
 <li>模型训练与调用：训练时，将训练集句对的Feature Map输入到CNN模型中，获取语义匹配模型并保存；预测时，调用预训练好的语义匹配模型，输入新句对的Feature Map，将返回这组句对的相似概率得分。</li>
 </ul>
 </li>
-<li>2.问答质量评估子模块：使用若干文本和非文本特征训练二分类器，<a href="http://pdfs.semanticscholar.org/c994/a986f7d1808bda7c668af7f682b40b712971.pdf" target="_blank" rel="noopener">参考论文</a></li>
-<li>3.在线搜索缓存子模块：<ul>
+<li>问答质量评估子模块：使用若干文本和非文本特征训练二分类器，<a href="http://pdfs.semanticscholar.org/c994/a986f7d1808bda7c668af7f682b40b712971.pdf" target="_blank" rel="noopener">参考论文</a></li>
+<li>在线搜索缓存子模块：<ul>
 <li>百度主页搜索: 向百度主页请求输入用户新问题后的检索结果，若检索结果的第一条中包含预设结果链接，则获取内容并向用户返回。</li>
 <li>百度知道搜索：当百度主页搜索没有结果时，在百度知道页面请求输入用户新问题后的检索结果，若Top K条结果中包含带有“最佳回答”标识的回答，则获取对应问答内容并返回。</li>
 <li>本地缓存优质问答：当百度知道搜索有结果返回时，调用问答质量评价子模块对该问答对进行质量判断，将高于设定阈值(SAVESCORE)的问答对缓存到本地知识库。缓存机制有助于后续提升系统整体的响应速度及性能。</li>
