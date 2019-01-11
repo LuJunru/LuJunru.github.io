@@ -87,10 +87,13 @@
 <meta property="og:site_name" content="Junru">
 <meta property="og:description" content="秋季学期的Applied Data Science课程要求做一个和城市数据有关的期末项目。我们小组设计了一个非常有哲学含义的项目：Does money make people happy? 思考 这是一个立意比较高、实践难度比较大的项目 为什么这么说？首先我们把这个命题翻译成机器学习用语就是：以能够描述金钱的变量作为特征，以能够描述人们心里高兴程度的变量为目标值，通过相关性分析或机器学习模型，能否">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-01-11T08:46:36.123Z">
+<meta property="og:image" content="https://github.com/LuJunru/ADS2018_Final_Project/blob/master/Data/Case.png">
+<meta property="og:image" content="http://yoursite.com/images/Score_TS.gif">
+<meta property="og:updated_time" content="2019-01-11T08:49:19.196Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Does money make people happy?">
 <meta name="twitter:description" content="秋季学期的Applied Data Science课程要求做一个和城市数据有关的期末项目。我们小组设计了一个非常有哲学含义的项目：Does money make people happy? 思考 这是一个立意比较高、实践难度比较大的项目 为什么这么说？首先我们把这个命题翻译成机器学习用语就是：以能够描述金钱的变量作为特征，以能够描述人们心里高兴程度的变量为目标值，通过相关性分析或机器学习模型，能否">
+<meta name="twitter:image" content="https://github.com/LuJunru/ADS2018_Final_Project/blob/master/Data/Case.png">
 
 
 
@@ -406,7 +409,7 @@
 <h1 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h1><ul>
 <li>ACS：<a href="https://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml?pid=ACS_17_5YR_DP03&amp;prodType=table" target="_blank" rel="noopener">基于邮编的纽约市人口普查经济指标</a></li>
 <li>PLUTO：<a href="https://www1.nyc.gov/site/planning/data-maps/open-data/dwn-pluto-mappluto.page" target="_blank" rel="noopener">纽约市房价地价数据</a>。值得感慨的是美国人把这个数据开源到了每栋房屋的级别，坐标、用地类型和价格信息都很详细，数据建设是真的好。考虑到居住人口比移动人口有更好的参考价值，我们根据用地类型筛选出了居住用地，计算了每个邮编区域的平均地价和房价。此外，从ACS数据中选取了最有代表性的中位数收入数据补充到这一组特征中</li>
-<li>情绪：我们使用Twitter API收集了<a href="https://github.com/LuJunru/ADS2018_Final_Project/blob/master/Data/102420_112619_424000.json.zip" target="_blank" rel="noopener">纽约市内从2018年10月24日20点到2018年11月26日19点的带有打卡信息的42万tweets</a>，其中打卡信息就是发推地点的准确经纬度坐标。之后，我们筛选了发送时间在早8点之前和晚7点之后的数据–因为它们更可能来自居住地。紧接着，我们对全部文本进行自然语言处理，包括分词、停用词处理、词形还原和情感分量化等过程。量化时借鉴了两部词典，分别是<a href="https://github.com/LuJunru/ADS2018_Final_Project/blob/master/Data/sentiwordnet.tsv(" target="_blank" rel="noopener">英文词情感词典</a>和<a href="https://github.com/LuJunru/ADS2018_Final_Project/blob/master/Data/Emoji_Sentiment_Dictionary.csv" target="_blank" rel="noopener">emoji情感词典</a>。至于我们为什么要特别处理emojis，是因为在某些情况下表情符号可以传达文字无法传达的情绪，请看下图：<br>!()[<a href="https://github.com/LuJunru/ADS2018_Final_Project/blob/master/Data/Case.png]" target="_blank" rel="noopener">https://github.com/LuJunru/ADS2018_Final_Project/blob/master/Data/Case.png]</a></li>
+<li>情绪：我们使用Twitter API收集了<a href="https://github.com/LuJunru/ADS2018_Final_Project/blob/master/Data/102420_112619_424000.json.zip" target="_blank" rel="noopener">纽约市内从2018年10月24日20点到2018年11月26日19点的带有打卡信息的42万tweets</a>，其中打卡信息就是发推地点的准确经纬度坐标。之后，我们筛选了发送时间在早8点之前和晚7点之后的数据–因为它们更可能来自居住地。紧接着，我们对全部文本进行自然语言处理，包括分词、停用词处理、词形还原和情感分量化等过程。量化时借鉴了两部词典，分别是<a href="https://github.com/LuJunru/ADS2018_Final_Project/blob/master/Data/sentiwordnet.tsv(" target="_blank" rel="noopener">英文词情感词典</a>和<a href="https://github.com/LuJunru/ADS2018_Final_Project/blob/master/Data/Emoji_Sentiment_Dictionary.csv" target="_blank" rel="noopener">emoji情感词典</a>。至于我们为什么要特别处理emojis，是因为在某些情况下表情符号可以传达文字无法传达的情绪，请看下图：<br><img src="https://github.com/LuJunru/ADS2018_Final_Project/blob/master/Data/Case.png" alt=""></li>
 </ul>
 <h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><ul>
 <li>基于以上数据，我们做了相关性检测、回归和分类算法的测试</li>
@@ -416,7 +419,7 @@
 <li>第一次自己设计一个有意思的社会学命题，并尝试用数据科学和机器学习的方法去解决问题</li>
 <li>存在很多问题，特别是人口普查的样本和推特样本严重不一致</li>
 <li>但还是很自豪，并希望继续努力</li>
-<li>放一张纽约市积极情绪图做一纪念：<br>!()[/images/Score_TS.gif]</li>
+<li>放一张纽约市积极情绪图做一纪念：<br><img src="/images/Score_TS.gif" alt=""></li>
 </ul>
 
       
