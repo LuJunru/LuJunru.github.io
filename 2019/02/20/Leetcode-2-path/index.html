@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Data Mining Contest,">
+  <meta name="keywords" content="Leetcode,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="时间太快啦，转眼就一年了，又到了SMP CUP 2018的时候。今年比赛和去年略有不同，去年是一份数据三个任务，今年则是一个任务独享一份数据。任务一文本分类，任务三文本溯源。 比赛简介 任务一文本分类：给定一篇短文，判断是人类作者、自动摘要、机器翻译和机器作者中的哪一种，详见官网 任务三文本溯源：给定一个句子，判断是否复制或改编(删减/摘要/替换/重排等)于其它的句子，详见官网  数据样例 任务一">
-<meta name="keywords" content="Data Mining Contest">
+<meta name="description" content="根据我个人的总结，Leetcode上Array类问题中，easy主要是解决一维数组的搜索和排序问题，技巧要点是用pointer和hash表来减少loop成本；medium则是上升到了二维数组、矩阵和图的层次，至于技巧还需要慢慢摸索。在这里总结一些典型的路径搜索问题。 Unique Paths Problem: A robot is located at the top-left corner of">
+<meta name="keywords" content="Leetcode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SMP CUP 2018">
-<meta property="og:url" content="http://yoursite.com/2018/07/12/SMP-CUP-2018/index.html">
+<meta property="og:title" content="Leetcode 2: path">
+<meta property="og:url" content="http://yoursite.com/2019/02/20/Leetcode-2-path/index.html">
 <meta property="og:site_name" content="Junru">
-<meta property="og:description" content="时间太快啦，转眼就一年了，又到了SMP CUP 2018的时候。今年比赛和去年略有不同，去年是一份数据三个任务，今年则是一个任务独享一份数据。任务一文本分类，任务三文本溯源。 比赛简介 任务一文本分类：给定一篇短文，判断是人类作者、自动摘要、机器翻译和机器作者中的哪一种，详见官网 任务三文本溯源：给定一个句子，判断是否复制或改编(删减/摘要/替换/重排等)于其它的句子，详见官网  数据样例 任务一">
+<meta property="og:description" content="根据我个人的总结，Leetcode上Array类问题中，easy主要是解决一维数组的搜索和排序问题，技巧要点是用pointer和hash表来减少loop成本；medium则是上升到了二维数组、矩阵和图的层次，至于技巧还需要慢慢摸索。在这里总结一些典型的路径搜索问题。 Unique Paths Problem: A robot is located at the top-left corner of">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-01-05T02:30:53.000Z">
+<meta property="og:updated_time" content="2019-03-05T21:59:02.909Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SMP CUP 2018">
-<meta name="twitter:description" content="时间太快啦，转眼就一年了，又到了SMP CUP 2018的时候。今年比赛和去年略有不同，去年是一份数据三个任务，今年则是一个任务独享一份数据。任务一文本分类，任务三文本溯源。 比赛简介 任务一文本分类：给定一篇短文，判断是人类作者、自动摘要、机器翻译和机器作者中的哪一种，详见官网 任务三文本溯源：给定一个句子，判断是否复制或改编(删减/摘要/替换/重排等)于其它的句子，详见官网  数据样例 任务一">
+<meta name="twitter:title" content="Leetcode 2: path">
+<meta name="twitter:description" content="根据我个人的总结，Leetcode上Array类问题中，easy主要是解决一维数组的搜索和排序问题，技巧要点是用pointer和hash表来减少loop成本；medium则是上升到了二维数组、矩阵和图的层次，至于技巧还需要慢慢摸索。在这里总结一些典型的路径搜索问题。 Unique Paths Problem: A robot is located at the top-left corner of">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/12/SMP-CUP-2018/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/20/Leetcode-2-path/">
 
 
 
 
 
-  <title>SMP CUP 2018 | Junru</title>
+  <title>Leetcode 2: path | Junru</title>
   
 
 
@@ -315,7 +315,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/12/SMP-CUP-2018/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/20/Leetcode-2-path/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Junru Lu">
@@ -332,7 +332,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">SMP CUP 2018</h1>
+          <h1 class="post-title" itemprop="name headline">Leetcode 2: path</h1>
         
 
         <div class="post-meta">
@@ -344,8 +344,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-12T00:00:00-04:00">
-                2018-07-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-20T16:55:44-05:00">
+                2019-02-20
               </time>
             
 
@@ -363,8 +363,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/12/SMP-CUP-2018/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/12/SMP-CUP-2018/" itemprop="commentCount"></span>
+                <a href="/2019/02/20/Leetcode-2-path/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/20/Leetcode-2-path/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -372,7 +372,7 @@
 
           
           
-             <span id="/2018/07/12/SMP-CUP-2018/" class="leancloud_visitors" data-flag-title="SMP CUP 2018">
+             <span id="/2019/02/20/Leetcode-2-path/" class="leancloud_visitors" data-flag-title="Leetcode 2: path">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -403,35 +403,27 @@
       
 
       
-        <p>时间太快啦，转眼就一年了，又到了SMP CUP 2018的时候。今年比赛和去年略有不同，去年是一份数据三个任务，今年则是一个任务独享一份数据。任务一文本分类，任务三文本溯源。</p>
-<h1 id="比赛简介"><a href="#比赛简介" class="headerlink" title="比赛简介"></a>比赛简介</h1><ul>
-<li>任务一文本分类：给定一篇短文，判断是人类作者、自动摘要、机器翻译和机器作者中的哪一种，详见<a href="https://biendata.com/competition/smpeupt2018" target="_blank" rel="noopener">官网</a></li>
-<li>任务三文本溯源：给定一个句子，判断是否复制或改编(删减/摘要/替换/重排等)于其它的句子，详见<a href="https://biendata.com/competition/smpetst2018" target="_blank" rel="noopener">官网</a></li>
-</ul>
-<h1 id="数据样例"><a href="#数据样例" class="headerlink" title="数据样例"></a>数据样例</h1><ul>
-<li>任务一：ID12345 ||| 方法通过文献研究、药物实测、炮制方法、方药配伍、煎服方法、安全性及临床用药特点等方面考证《伤寒论》药物剂量。</li>
-<li>任务三：自动摘要 ||| 自动摘要生成的文章，从新闻网站爬取后调用各种自动摘要工具生成，共60,000篇。</li>
-</ul>
-<h1 id="思路总结"><a href="#思路总结" class="headerlink" title="思路总结"></a>思路总结</h1><ul>
-<li>任务一：基础文本分类模型如TextCNN、TextRNN和Fasttext等分别训练，然后模型融合。</li>
-<li>任务三：句子相似度计算，然后对召回句子进行优化排序。这里要注意的是，任务三中没有任何的标签，因此是一个无监督的候选句子排序任务。考虑到句子间循环匹配的数量级，我搭建了ElasticSearch全文检索引擎来帮助初选优化，大大降低了检索成本。</li>
-</ul>
-<h1 id="模型实现"><a href="#模型实现" class="headerlink" title="模型实现"></a>模型实现</h1><ul>
-<li><a href="https://github.com/LuJunru/SMPCUP2018" target="_blank" rel="noopener">我在github上的开源代码</a></li>
-</ul>
-<h1 id="比赛心得"><a href="#比赛心得" class="headerlink" title="比赛心得"></a>比赛心得</h1><ul>
-<li>任务一：<ul>
-<li>1.基础模型没能做到极致，仅仅尝试了TextCNN和Fasttext；</li>
-<li>2.计算资源要充足，没能把TextRNN做起来的原因有一部分就是实验室的服务器没有GPU…；</li>
-<li>3.时间要安排好，工作要分配好，临近毕业实在是太忙了…</li>
-</ul>
+        <p>根据我个人的总结，Leetcode上Array类问题中，easy主要是解决一维数组的搜索和排序问题，技巧要点是用pointer和hash表来减少loop成本；medium则是上升到了二维数组、矩阵和图的层次，至于技巧还需要慢慢摸索。在这里总结一些典型的路径搜索问题。</p>
+<h1 id="Unique-Paths"><a href="#Unique-Paths" class="headerlink" title="Unique Paths"></a>Unique Paths</h1><ul>
+<li>Problem: A robot is located at the top-left corner of a m x n grid. The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid. How many possible unique paths are there?</li>
+<li>Example: m = 3, n = 2, return 3. From the top-left corner, there are a total of 3 ways to reach the bottom-right corner: 1. Right -&gt; Right -&gt; Down; 2. Right -&gt; Down -&gt; Right; 3. Down -&gt; Right -&gt; Right</li>
+<li>Link: <a href="https://leetcode.com/problems/unique-paths/" target="_blank" rel="noopener">https://leetcode.com/problems/unique-paths/</a></li>
+<li>Answer:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Comment: Easiest way is to use math</span><br><span class="line"></span><br><span class="line">class Solution:</span><br><span class="line">    def uniquePaths(self, m, n):</span><br><span class="line">        return int(math.factorial(m + n - 2) / math.factorial(m - 1) / math.factorial(n - 1))</span><br></pre></td></tr></table></figure>
 </li>
-<li>任务三：<ul>
-<li>1.想到用ES来加速查询真的是个非常正确的决定，因为测试集计算量是验证集的200倍;</li>
-<li>2.最后实现的还是句子匹配，而非文本理解和溯源。没想到很好的方法。</li>
 </ul>
+<h1 id="Unique-Paths-II"><a href="#Unique-Paths-II" class="headerlink" title="Unique Paths II"></a>Unique Paths II</h1><ul>
+<li>Problem: A robot is located at the top-left corner of a m x n grid. The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid. Now consider if some obstacles are added to the grids. How many unique paths would there be?</li>
+<li>Example: Input [[0,0,0], [0,1,0], [0,0,0]], then output should be 2. The Explanation is: there is one obstacle in the middle of the 3x3 grid above. There are two ways to reach the bottom-right corner: 1. Right -&gt; Right -&gt; Down -&gt; Down; 2. Down -&gt; Down -&gt; Right -&gt; Right</li>
+<li>Link: <a href="https://leetcode.com/problems/unique-paths-ii/" target="_blank" rel="noopener">https://leetcode.com/problems/unique-paths-ii/</a></li>
+<li>Answer:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"># Comment: pure math cannot be use here, as the location of obstacles are random.</span><br><span class="line"># Fastest idea is recurrence, which is executable but with explosive complexity.</span><br><span class="line"># A better solution is dynamic programming.</span><br><span class="line"></span><br><span class="line">class Solution:</span><br><span class="line">    def uniquePathsWithObstacles(self, obstacleGrid):</span><br><span class="line">        m = len(obstacleGrid)</span><br><span class="line">        n = len(obstacleGrid[0])</span><br><span class="line">        obstacleGrid[0][0] = 1 - obstacleGrid[0][0]</span><br><span class="line">        </span><br><span class="line">        for i in range(1, n):</span><br><span class="line">            if not obstacleGrid[0][i]:</span><br><span class="line">                obstacleGrid[0][i] = obstacleGrid[0][i-1]</span><br><span class="line">            else:</span><br><span class="line">                obstacleGrid[0][i] = 0</span><br><span class="line">                </span><br><span class="line">        for i in range(1, m):</span><br><span class="line">            if not obstacleGrid[i][0]:</span><br><span class="line">                obstacleGrid[i][0] = obstacleGrid[i-1][0]</span><br><span class="line">            else:</span><br><span class="line">                obstacleGrid[i][0] = 0</span><br><span class="line">        </span><br><span class="line">        for i in range(1, m):</span><br><span class="line">            for j in range(1, n):</span><br><span class="line">                if not obstacleGrid[i][j]:</span><br><span class="line">                    obstacleGrid[i][j] = obstacleGrid[i][j-1]+obstacleGrid[i-1][j]</span><br><span class="line">                else:</span><br><span class="line">                    obstacleGrid[i][j] = 0</span><br><span class="line">                    </span><br><span class="line">        return obstacleGrid[-1][-1]</span><br></pre></td></tr></table></figure>
 </li>
-<li>总的来说，写代码比去年顺手多了，也规范很多。比赛套路也熟悉了很多，从容了一些。但是真的要到进一步提升效果，冲刺排名的时候，就会因为平时积累不够而有心无力。比如说模型融合应该是要基于差异性大的底层模型，这一点我也是在整个比赛结束时才深有体会。再比如Attention和LSTM相关的网络都没能写完、运算完，师哥说的Fasttext能有0.976的结果也没有实现，这些都是因为平时没有去实现过。所以未来还是要好好加油啊！</li>
+</ul>
+<h1 id="Minimum-Path-Sum"><a href="#Minimum-Path-Sum" class="headerlink" title="Minimum Path Sum"></a>Minimum Path Sum</h1><ul>
+<li>Problem: Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right which minimizes the sum of all numbers along its path. Note: You can only move either down or right at any point in time.</li>
+<li>Example: Input [[1,3,1], [1,5,1], [4,2,1]] (In fact, this is an weighted version of Probelm Unique Path), output 7 (1-&gt;3-&gt;1-&gt;1-&gt;1).</li>
+<li>Link: <a href="https://leetcode.com/problems/minimum-path-sum/" target="_blank" rel="noopener">https://leetcode.com/problems/minimum-path-sum/</a></li>
+<li>Answer:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># Recurrence: possible but low-effiency</span><br><span class="line"># Dynamic Programming</span><br><span class="line"></span><br><span class="line">class Solution:</span><br><span class="line">    def minPathSum(self, grid):</span><br><span class="line">        m = len(grid)</span><br><span class="line">        n = len(grid[0])</span><br><span class="line"></span><br><span class="line">        for i in range(1, m):</span><br><span class="line">            grid[i][0] += grid[i - 1][0]</span><br><span class="line"></span><br><span class="line">        for i in range(1, n):</span><br><span class="line">            grid[0][i] += grid[0][i - 1]</span><br><span class="line"></span><br><span class="line">        for i in range(1, m):</span><br><span class="line">            for j in range(1, n):</span><br><span class="line">                grid[i][j] += min(grid[i][j - 1], grid[i - 1][j])</span><br><span class="line"></span><br><span class="line">        return grid[-1][-1]</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 
       
@@ -450,7 +442,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Data-Mining-Contest/" rel="tag"># Data Mining Contest</a>
+            <a href="/tags/Leetcode/" rel="tag"># Leetcode</a>
           
         </div>
       
@@ -463,8 +455,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/13/NLP-Internship-in-Ideepwise-Infotech/" rel="next" title="NLP Internship in Ideepwise Infotech">
-                <i class="fa fa-chevron-left"></i> NLP Internship in Ideepwise Infotech
+              <a href="/2019/02/02/Algorithm/" rel="next" title="Algorithm">
+                <i class="fa fa-chevron-left"></i> Algorithm
               </a>
             
           </div>
@@ -472,10 +464,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/11/Does-money-make-people-happy/" rel="prev" title="Does money make people happy?">
-                Does money make people happy? <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -631,7 +619,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#比赛简介"><span class="nav-number">1.</span> <span class="nav-text">比赛简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据样例"><span class="nav-number">2.</span> <span class="nav-text">数据样例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路总结"><span class="nav-number">3.</span> <span class="nav-text">思路总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型实现"><span class="nav-number">4.</span> <span class="nav-text">模型实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#比赛心得"><span class="nav-number">5.</span> <span class="nav-text">比赛心得</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Unique-Paths"><span class="nav-number">1.</span> <span class="nav-text">Unique Paths</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unique-Paths-II"><span class="nav-number">2.</span> <span class="nav-text">Unique Paths II</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Minimum-Path-Sum"><span class="nav-number">3.</span> <span class="nav-text">Minimum Path Sum</span></a></li></ol></div>
             
 
           </div>
