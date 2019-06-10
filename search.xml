@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[2019 Spring Interviews]]></title>
+    <url>%2F2019%2F06%2F09%2F2019-Spring-Interviews%2F</url>
+    <content type="text"><![CDATA[2019年春季学期，为了找工作做了很多准备，现在总结如下。]]></content>
+      <tags>
+        <tag>Interview</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Leetcode-5-stack]]></title>
     <url>%2F2019%2F06%2F09%2FLeetcode-5-stack%2F</url>
     <content type="text"><![CDATA[本文整理Leetcode上与stack有关的题目 Sum of Subarray Minimums Problem: Given an array of integers A, find the sum of min(B), where B ranges over every substring of A. Since the answer may be large, return the answer modulo 10^9 + 7. Example: Input [3,1,2,4], output 17. Explanation: Subarrays are [3], [1], [2], [4], [3,1], [1,2], [2,4], [3,1,2], [1,2,4], [3,1,2,4]. Minimums are 3, 1, 2, 4, 1, 1, 2, 1, 1, 1. Sum is 17. Link: https://leetcode.com/problems/sum-of-subarray-minimums/ Answer:1234567```# Smallest Subsequence of Distinct Characters- Problem: Return the lexicographically smallest subsequence of text that contains all the distinct characters of text exactly once.- Example: Input &apos;ecbacba&apos;, output &apos;eacb&apos;. Explanation: from left to right, we can generate candidate subsequences as &apos;ecba&apos;, &apos;ecab&apos;, &apos;ebac&apos;, &apos;ebca&apos;, &apos;eacb&apos;. The smallest one is &apos;eacb&apos;.- Link: https://leetcode.com/problems/smallest-subsequence-of-distinct-characters/- Answer: `]]></content>
