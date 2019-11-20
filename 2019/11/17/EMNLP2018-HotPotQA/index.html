@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Machine Comprehension,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="HotPotQA: 一个旨在推动能回答开放域问题、具备高度可解释性多跳阅读理解模型研究的数据集  背景 最近准备开始研究前沿的阅读理解进展，目前主要想把目光放在多跳（Multi-hop）阅读理解领域。2018年6月的时候，在做本科论文的阶段，我集中讨论了当时单跳（single-hop）阅读理解的进展：依托“向量化 - 自编码 - 语义交互 - 答案抽取/生成”的框架，借助注意力机制集中提升语义交互">
+<meta name="keywords" content="Machine Comprehension">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EMNLP2018: HotPotQA">
+<meta property="og:url" content="http://yoursite.com/2019/11/17/EMNLP2018-HotPotQA/index.html">
+<meta property="og:site_name" content="Junru">
+<meta property="og:description" content="HotPotQA: 一个旨在推动能回答开放域问题、具备高度可解释性多跳阅读理解模型研究的数据集  背景 最近准备开始研究前沿的阅读理解进展，目前主要想把目光放在多跳（Multi-hop）阅读理解领域。2018年6月的时候，在做本科论文的阶段，我集中讨论了当时单跳（single-hop）阅读理解的进展：依托“向量化 - 自编码 - 语义交互 - 答案抽取/生成”的框架，借助注意力机制集中提升语义交互">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/images/HotPotQA_Sample.png">
+<meta property="og:image" content="http://yoursite.com/images/HotPotQA_split.png">
+<meta property="og:image" content="http://yoursite.com/images/HotPotQA_question.png">
+<meta property="og:image" content="http://yoursite.com/images/HotPotQA_reasoning.png">
+<meta property="og:image" content="http://yoursite.com/images/HotPotQA_Benchmark.png">
+<meta property="og:image" content="http://yoursite.com/images/HotPotQA_JointF1.png">
+<meta property="og:image" content="http://yoursite.com/images/HotPotQA_Results.png">
+<meta property="og:updated_time" content="2019-11-20T22:13:40.248Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EMNLP2018: HotPotQA">
+<meta name="twitter:description" content="HotPotQA: 一个旨在推动能回答开放域问题、具备高度可解释性多跳阅读理解模型研究的数据集  背景 最近准备开始研究前沿的阅读理解进展，目前主要想把目光放在多跳（Multi-hop）阅读理解领域。2018年6月的时候，在做本科论文的阶段，我集中讨论了当时单跳（single-hop）阅读理解的进展：依托“向量化 - 自编码 - 语义交互 - 答案抽取/生成”的框架，借助注意力机制集中提升语义交互">
+<meta name="twitter:image" content="http://yoursite.com/images/HotPotQA_Sample.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/17/EMNLP2018-HotPotQA/">
+
+
+
+
+
+  <title>EMNLP2018: HotPotQA | Junru</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Junru</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-file"></i> <br>
+            
+            Resume
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            Commonweal 404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/17/EMNLP2018-HotPotQA/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Junru Lu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/29519546.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junru">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">EMNLP2018: HotPotQA</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-17T10:11:50+00:00">
+                2019-11-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/17/EMNLP2018-HotPotQA/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/11/17/EMNLP2018-HotPotQA/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/11/17/EMNLP2018-HotPotQA/" class="leancloud_visitors" data-flag-title="EMNLP2018: HotPotQA">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>views
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p align="center">HotPotQA: 一个旨在推动能回答开放域问题、具备高度可解释性多跳阅读理解模型研究的数据集</p>
+
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><ul>
+<li>最近准备开始研究前沿的阅读理解进展，目前主要想把目光放在多跳（Multi-hop）阅读理解领域。2018年6月的时候，在做本科论文的阶段，我集中讨论了当时单跳（single-hop）阅读理解的进展：依托“向量化 - 自编码 - 语义交互 - 答案抽取/生成”的框架，借助注意力机制集中提升语义交互层的语义匹配度，从而实现更准确的答案抽取或生成。18年上半年，阅读理解主要是针对（单个段落/文章，单个问题，单个回答）的任务形式。数据集代表是SQuAD（单个段落）、MS MARCO（单篇文章）以及Dureader（多篇文章）等。但这些数据针对的任务实质上都是单跳阅读理解，即从丰富的文章中抽取出答案所在的段落，然后采用（单个段落，单个问题，单个回答）的框架进行处理。Dureader可能包含了一部分需要跨文档、跨段落才能回答的问题，并且提供了同一问题下的多个回答。但从数据集设计上来看，以上数据集并没有充分考虑更贴近实际的多跳阅读理解任务。</li>
+</ul>
+<h2 id="资料库"><a href="#资料库" class="headerlink" title="资料库"></a>资料库</h2><ul>
+<li>文章链接：<a href="https://arxiv.org/abs/1809.09600v1" target="_blank" rel="noopener">https://arxiv.org/abs/1809.09600v1</a></li>
+<li>文章背景：《HotpotQA: A Dataset for Diverse, Explainable Multi-hop Question Answering》是EMNLP 2018的长文，18年9月份上传到Arxiv</li>
+<li>代码链接：<a href="https://github.com/hotpotqa/hotpot" target="_blank" rel="noopener">https://github.com/hotpotqa/hotpot</a></li>
+<li>官网链接：<a href="https://hotpotqa.github.io/" target="_blank" rel="noopener">https://hotpotqa.github.io/</a></li>
+</ul>
+<h2 id="文章内容"><a href="#文章内容" class="headerlink" title="文章内容"></a>文章内容</h2><h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><ul>
+<li>为了实现更复杂的阅读理解任务，并且鼓励可解释性很强的阅读理解模型的研究，因此文章提出了HotPotQA这一数据集。这一数据集中的绝大部分问题都需要融合多个段落的信息才能回答，即（多个段落，单个问题，单个回答）的任务形式。此外，数据集也明确给出了标注人员在回答问题时使用到的句子依据（supporting facts）。如下图所示。<br><img src="/images/HotPotQA_Sample.png" alt=""></li>
+</ul>
+<h3 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a>背景</h3><ul>
+<li>以往的阅读理解要么是单跳，要么就是伪多跳。单跳数据集上面已经讲了，伪多跳主要是指TriviaQA和SearchQA。这两个数据集虽然也是针对多跳阅读理解构建，但是基本上问题都可以通过选取单个段落来完成回答。所以其实这俩数据集和Dureader差不多。目前（2018年上半年）开始出现了确切需要多跳才能完成的阅读理解数据集，比如QAngaroo和COMPLEXWEBQUESTIONS，但它们都是基于某个知识库构建出来的，那么只要借助知识库，就比较好回答。模型在这两个数据集上实际在做的事情不是阅读理解，而是抽取知识和关系，再借助结构化的知识库做答案生成。</li>
+<li>此外，没有一个数据集给出了标注人员的理解依据，也就无法学习到人的推理过程。</li>
+<li>所以，提出了HotPotQA。这个数据集确保了绝大多数问题必须通过跨段落阅读来实现回答，而且给出了理解依据 - 让研究人员去想怎么让机器沿着人的推理路线去推理 - 以期实现真正的阅读理解。和上面两个多跳阅读数据集不同的是，HotPotQA不是通过现有知识库构造的，所以模型只能阅读文本去抽取/生成答案，无法依靠外界知识库。</li>
+</ul>
+<h3 id="数据集收集"><a href="#数据集收集" class="headerlink" title="数据集收集"></a>数据集收集</h3><ul>
+<li>HotPotQA和SQuAD一样，都是基于维基百科的，并在亚马逊众包平台上标注实现。</li>
+<li>首先，HotPotQA团队抽取了维基百科所有文章的第一段，并依据里面的超链接，构造了一个维基实体网；接着，人工选出591类维基百科上最受欢迎的查询类目，每个类中都包含了若干具体的词条（每个词条都已经选出了第一段）；之后，随机选一个词条B，并根据维基实体网选一个指向该词条的邻居词条A。这就形成了两段相关的段落。最后，团队要求众包工人提一个必须借助两段段落才能回答的问题。这类构造法可称为“桥梁构造”，因为基于指向关系，标注者可以提一个从A到B，需要借助B才能回答的问题。B就是这里的“桥梁”（Bridge Entity）。 </li>
+<li>除了“桥梁构造”，HotPotQA团队还设计了在以往数据集中很少见到的比较类问题。他们获取了维基百科中42组相似实体的列表，按列表长度加权选出一个列表，然后随机算两个实体对应的词条作为段落。这类构造我称之为“一般比较问题”。这类问题很容易问出一个诸如“Who has played for more NBA teams, Michael Jordan or Kobe Bryant?”的问题。</li>
+<li>但是比较问题中会有一类特殊情况，也就是“yes/no是否问题“。比如“Is Iron Maiden or AC/DC from the UK?”，因为是选择问题，所以完全可以依据一篇文章直接作出答案。所以在这里有个特殊规定，就是要用“Are Iron Maiden and AC/DC from the UK?”来保证多跳。</li>
+<li>最后用随机法来构造候选段落对：随机数小于0.75，桥梁构造；大于0.75，且二次随机数小于0.5，构造是否问题；大于0.75，且二次随机数大于0.5，构造一般比较问题。同时，再一次指出，标注员对两个段落提出的问题回答时，会要求给出依据。</li>
+<li>（我的解读）：从数据集构造可以看出，候选段落的构造很精妙，特意选择了容易提出多跳问题的段落对。但这一点可能会限制问题类型，也能看到从实体查找、共指消解出发去构造推理系统会是一个好的办法。另外，由于问题不是来自真实问答社区、论坛等，抽象型、概念型问题少。</li>
+</ul>
+<h3 id="数据集处理"><a href="#数据集处理" class="headerlink" title="数据集处理"></a>数据集处理</h3><ul>
+<li>经过亚马逊平台的标注，该团队总共收集到了112779个有效的样本。</li>
+<li><p>这些样本经过以下步骤进行了校验与划分：</p>
+<ul>
+<li>贡献最大（top-contributing）的标注员们标注了70%以上的数据，从中随机筛选标注样本（人均3～10条），并将这部分样本中基本仅靠单跳推理就能完成的样本归类为train-easy数据集</li>
+<li>对剩下的全部数据，使用SOTA单跳推理模型进行试验，60%可被回答正确（注意：当时还没有bert，单跳推理系统的效果还没有被推到人类以上的水平）。这些被回答正确的样本归类为train-medium数据集。</li>
+<li>对于最后这部分无法被当前单跳系统解决的数据，是真正的多跳阅读理解训练样本。研究团队将它拆分为train-hard、dev、test-distractor和test-fullwiki四个部分。其中，test-distractor是针对distractor条件的设计。在该条件下，团队采用bigram tf-idf的办法、将问题作为查询依据从维基百科中抽取8个段落，再加上真正相关的两个段落，模型被要求基于这10个段落，回答问题。而test-fullwiki的设计是让模型基于所有维基百科文章的第一段来回答问题。之所以要拆解出两个test集，是为了避免信息的相互流通（avoid leaking information）。</li>
+<li>最后，真正的train集还是采用了三个train结合的办法。一方面是因为基准模型显示这样效果更好，另一方面是因为在数量最庞大的train-medium上，加了distractor和fullwiki的要求后，现有单跳模型效果不佳，证明这部分数据也还是具有挑战性。<br><img src="/images/HotPotQA_split.png" alt=""></li>
+</ul>
+</li>
+<li><p>（我的解读）：在直接给出两个标注段和问题的情况下，单跳推理其实在很大程度上可以回答这个数据集里的数据，按文章所说至少66%。而且自从18年12月有了Bert以后，这个准确率还可以更高。另外，train-hard、dev和两个test集才是真正的多跳样本，而且distractor和fullwiki的技术要求会有所不同。distractor是需要先从有限噪音中选出正确的段落，再采用多跳推理，在一定程度上可以参考MS MARCO和Dureader数据集；fullwiki则需要模型能够真正理解问题内容，然后再选出正确段落，再做推理。distractor还有可能继续沿用语义匹配的办法，但想在fullwiki条件下用语义匹配，那么训练成本就会大大增加。实体匹配应该是fullwiki条件下需要融合到阅读理解中的重要一步。</p>
+</li>
+</ul>
+<h3 id="数据集分析"><a href="#数据集分析" class="headerlink" title="数据集分析"></a>数据集分析</h3><ul>
+<li><p>问题类型：在问题前三个词或最后一个词中查找WH-words、copulas（“is”，“are”）和auxiliary verb（“does”，“did”）作为问题中心词（CQW），然后向右扩展至多两个词或者向左扩展一个词（“in which”或“by whom”时）作为问句类型的定义。最终问题分布如下，无颜色区域是因为这种类型问题太少。<br><img src="/images/HotPotQA_question.png" alt=""></p>
+</li>
+<li><p>答案类型：从整个数据集中随机抽取了100个答案，68%都是回答实体，17%回答时间、数字等属性，4%回答形容词。</p>
+</li>
+<li><p>推理类型：从dev和test中随机抽取了100个样本，然后将多跳推理类型分为三类。</p>
+<ul>
+<li>一是回答桥梁构造的推理，在问题中找到实体A，然后找到实体A的段落，从段落中分析出实体B，再到实体B所在的段落中分析出问题问的内容，这类样本占到42%。在有些情况下（6%），桥梁构造会变得简单一些，问题会有一些词能够帮助直接在实体B所在段落中定位出答案，而不需要再进行一次推理。还有一些桥梁构造推理的情况（15%），尽管不一定能直接定位答案，但问题已经暗示了足够强的属性，可以有效缩小候选实体B和答案的范围。从下表的例子可以看到，I类桥梁构造问题最难，因为可能需要背景知识或者再度推理才能知道“Sacramento King”是一个“team”；II类问题已经暗示了需要寻找former的人名，并且在这个例子中其实提供了nicknamed信息；III类问题则是通过located分析出“Havelock”是一个“city”，不像I类那样那么摸不着头脑。</li>
+<li>二是回答比较类问题（27%），思路就是把问题中要比较的两个实体所在的段落都选出来，然后分析要比较的内容，比如数字、日期、年纪、国籍等。</li>
+<li><p>三是其余类型：2%需要较多文中信息支撑的桥梁构造问题，6%单跳问题和2%无法回答的问题。<br><img src="/images/HotPotQA_reasoning.png" alt=""></p>
+</li>
+<li><p>HotPotQA团队也在train-medium和train-hard集中做了随机100样本的推理类型分析，结果是桥梁构造类（38%+29%+2%=69%），比较类20%，其它（7%+2%+2%=11%）。总的来说类型分布还是比较一致的。</p>
+</li>
+</ul>
+</li>
+<li>（我的解读）：首先我觉得问题类型的分析很有意思，定位问题词+扩张的方法有效区分了问题类型，这对于模型设计有很大帮助，而且这种思路在别的数据集分析上也可以用到。答案分析告诉我们这个数据基本是都是实体问题。推理类型的分析是最重要的，这说明可以从两个角度去构建模型，一是根据问题中的实体和支撑信息去寻找可能的候选段落，广度查找两次，然后结合问题中的标志词提取出答案；二是统计比较类问题的常见模板，然后依据模版进行回答。这种推理思路的分析，是对人类阅读习惯的一种分析和模仿。</li>
+</ul>
+<h3 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h3><ul>
+<li><p>该团队基于当时最新的机器阅读理解技术 - 字符级embedding、self-attention和bi-attention - 来设计SOTA级别的基线模型。与一般针对（单个文档，单个问题，单个回答）任务的单跳阅读理解模型不同的是，他们的模型还融合了本数据集特有的句子依据。注意，他们使用一个独立的二分类器来判断任意一句句子是否是可用的依据。<br><img src="/images/HotPotQA_Benchmark.png" alt=""></p>
+</li>
+<li><p>训练、调试和测试设计：在进行训练前，针对fullwiki这个设定，该团队先做了信息抽取预处理，使用逆序过滤（inverted-index-based filtering）和bigram tf-idf技术选出top10段落作为候选段落。注意，这里的bigram tf-idf技术同之前构造distractor条件是一致的，top10这个数量也是为了和distractor条件保持一致。然后针对训练，因为fullwiki设定下是没有段落信息可训练的，因此训练只能基于distractor设定，然后再把训练好的模型分别应用到distractor和刚才处理过的fullwiki上进行调试和测试。</p>
+</li>
+<li><p>度量指标：两种指标三个维度。两种指标指的是使用EM（Exact Match）和F1。三个维度指分别在答案、句子依据和二者联合的维度上进行评估。需要特别指出，联合指标比前两个单独维度更严格。joint EM仅在答案判断和句子依据判断都正确是才为1，否则均为0。joint F1中的准确率和召回率均是两个单独维度下准确率之积与召回率之积。<br><img src="/images/HotPotQA_JointF1.png" alt=""></p>
+</li>
+<li><p>模型结果展示：一大堆表格来袭…仔细分析数字会发现：1.Table 4说明了如果不事先给出背景段落 - 哪怕是带有噪音的小范围信息 - 仅仅依靠信息检索的方法从海量wiki中检索到可能的段落，再基于检索结果进行阅读理解，效果会明显下降；2.Table 5也显示了当前检索效果一般；3.Table 6说明了检索效果不佳是由于桥梁构造类问题，而比较类问题的实体由于通常直接在问题中点明，所以查询效果较好；4.Table 7是一组消融实验，这里证明了在对正确段落加了噪音设计后（distractor）train-medium和train-easy也适合作为训练集的一部分来提高模型的效果。<br><img src="/images/HotPotQA_Results.png" alt=""></p>
+</li>
+<li><p>人类结果测试：HotPotQA团队还额外找了一组标注人员，来测试人类在该数据集上的水平。结果证明当直接给出正确段落时，模型和人类找句子依据的能力差不多，但提取答案时模型明显不足。而当给定distractor设定时，模型就远远落后于人类。</p>
+</li>
+<li><p>（我的解读）：这个模型是一个多任务联合的训练模型，但图画的不太好，感觉不直观（也许看了代码之后会有改观）。从结果来看，海量wiki中抽取出正确的背景段落是很难的，这可能是因为多跳之后需要参考的文本已经和问题语义关系不大。这就要求模型要能依据每一段正确的背景文本，找出完整的推理链，而这都是以前单跳模型最大的限制。</p>
+</li>
+</ul>
+<h2 id="我的解读"><a href="#我的解读" class="headerlink" title="我的解读"></a>我的解读</h2><ul>
+<li>整篇文章看下来，特别出彩的部分是对标注完的数据进行分析，当发现很大部分可以用单跳模型解决时，准确分析了解决的原因，并提出用添加噪音的方法去提升这部分数据的价值。最后整个数据的设计确实会引导模型开发摆脱当前（2018.06）语义匹配的导向，而转向推理链构建的导向。</li>
+</ul>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><ul>
+<li>CoQA和QuAC是同时期提出的另外两个阅读理解数据集，针对(单个段落，历史问答对1～n，当前问答对)的对话式阅读理解任务。这两类数据集都是在此前纯阅读理解的基础上尝试引入更贴近人类真实阅读的场景，引导模型开发从黑盒走向白盒、从语义匹配走向逻辑推理。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Comprehension/" rel="tag"># Machine Comprehension</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/10/Leetcode-Hard-Median-of-Two-Sorted-Arrays/" rel="next" title="Leetcode Hard: Median of Two Sorted Arrays">
+                <i class="fa fa-chevron-left"></i> Leetcode Hard: Median of Two Sorted Arrays
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/18/HotPotQA-methodology-development-timeline/" rel="prev" title="HotPotQA: methodology development timeline">
+                HotPotQA: methodology development timeline <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/29519546.png" alt="Junru Lu">
+            
+              <p class="site-author-name" itemprop="name">Junru Lu</p>
+              <p class="site-description motion-element" itemprop="description">Keep moving</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/LuJunru" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:junru31415926@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.linkedin.com/in/junrulu/" target="_blank" title="Linkin">
+                      
+                        <i class="fa fa-fw fa-linkedin"></i>Linkin</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://leetcode.com/lujunru/" target="_blank" title="Leetcode">
+                      
+                        <i class="fa fa-fw fa-link"></i>Leetcode</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资料库"><span class="nav-number">2.</span> <span class="nav-text">资料库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章内容"><span class="nav-number">3.</span> <span class="nav-text">文章内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要"><span class="nav-number">3.1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#背景-1"><span class="nav-number">3.2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据集收集"><span class="nav-number">3.3.</span> <span class="nav-text">数据集收集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据集处理"><span class="nav-number">3.4.</span> <span class="nav-text">数据集处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据集分析"><span class="nav-number">3.5.</span> <span class="nav-text">数据集分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验"><span class="nav-number">3.6.</span> <span class="nav-text">实验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我的解读"><span class="nav-number">4.</span> <span class="nav-text">我的解读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充"><span class="nav-number">5.</span> <span class="nav-text">补充</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Junru Lu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      views
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      views
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script src="/js/src/Valine.min.js"></script>
+
+  
+  
+  <script src="/js/src/Valine.min.js"></script>
+
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'K0Bex2OyEIkYjY5TNrQTS3j0-MdYXbMMI',
+        appKey: '2qXfVbvC2BWhwqq3JN18uppG',
+        placeholder: '(￣∇￣)来啊，快活啊!',
+        avatar:'mm',
+        guest_info:['nick'],
+        pageSize:'10' || 10,
+    });
+   var infoEle = document.querySelector('#comments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0){
+      infoEle.childNodes.forEach(function(item) {
+        item.parentNode.removeChild(item);
+      });
+    }
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("TESN0aruYWfEKaMV36cdA8qo-gzGzoHsz", "73zKQnJQHrfIPjWV2puu1YS3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
