@@ -8,7 +8,7 @@
   <entry>
     <title><![CDATA[HotPotQA: methodology development timeline]]></title>
     <url>%2F2019%2F11%2F18%2FHotPotQA-methodology-development-timeline%2F</url>
-    <content type="text"><![CDATA[Time Model Name Institute Name Distractor Full Wiki My Reading Notes 2018-10-10 Benchmark CMU, Stanford &amp; UM ✅ ✅ 2018-11-21 QFE NTT ✅ ✅ TBC 2019-02-21 CogQA THU &amp; Alibaba ✅ 2019-02-27 DecompRC U of Washington &amp; AI2 ✅ ✅ TBC 2019-03-05 MUPPET Technion ✅ TBC 2019-04-22 DFGN SFTU &amp; ByteDance ✅ TBC 2019-05-15 SemanticRetrievalMRS UNC ✅ TBC 2019-05-18 KGNN THU ✅ ✅ TBC 2019-05-21 GoldEn Retriever Stanford ✅ TBC 2019-08-31 SAE JD ✅ TBC 2019-09-27 HGN Microsoft ✅ TBC 2019-10-07 HGN + SemanticRetrievalMRS IR Microsofr ✅ TBC 2019-11-19 SAE-large JD ✅ TBC Note: only include models with published articles]]></content>
+    <content type="text"><![CDATA[Time Model Name Institute Name Distractor Full Wiki My Reading Notes 2018-10-10 Benchmark CMU, Stanford &amp; UM ✅ ✅ Benchmark阅读笔记 2018-11-21 QFE NTT ✅ ✅ TBC 2019-02-21 CogQA THU &amp; Alibaba ✅ CogQA阅读笔记 2019-02-27 DecompRC U of Washington &amp; AI2 ✅ ✅ TBC 2019-03-05 MUPPET Technion ✅ TBC 2019-04-22 DFGN SFTU &amp; ByteDance ✅ TBC 2019-05-15 SemanticRetrievalMRS UNC ✅ TBC 2019-05-18 KGNN THU ✅ ✅ TBC 2019-05-21 GoldEn Retriever Stanford ✅ TBC 2019-08-31 SAE JD ✅ TBC 2019-09-27 HGN Microsoft ✅ TBC 2019-10-07 HGN + SemanticRetrievalMRS IR Microsofr ✅ TBC 2019-11-19 SAE-large JD ✅ TBC Note: only include models with published articles]]></content>
       <tags>
         <tag>Machine Comprehension</tag>
       </tags>
