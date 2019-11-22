@@ -3,7 +3,10 @@
   <entry>
     <title><![CDATA[ACL2019: CogQA]]></title>
     <url>%2F2019%2F11%2F22%2FACL2019-CogQA%2F</url>
-    <content type="text"></content>
+    <content type="text"><![CDATA[CogQA: 针对大规模多跳阅读理解的认知图谱模型 背景 资料库 文章链接：https://arxiv.org/abs/1905.05460 文章背景：《Cognitive Graph for Multi-Hop Reading Comprehension at Scale》是ACL 2019的最佳DEMO Paper之一，19年5月&gt;份上传到Arxiv 代码链接：https://github.com/THUDM/CogQA 中文简介：https://zhuanlan.zhihu.com/p/72981392 文章内容摘要 背景 模型结构 模型实施 实验结论我的解读 补充]]></content>
+      <tags>
+        <tag>Machine Comprehension</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[HotPotQA: methodology development timeline]]></title>
