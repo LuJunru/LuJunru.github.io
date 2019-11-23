@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[ACL2019: CogQA]]></title>
     <url>%2F2019%2F11%2F22%2FACL2019-CogQA%2F</url>
-    <content type="text"><![CDATA[CogQA: 针对大规模多跳阅读理解的认知图谱模型 背景 资料库 文章链接：https://arxiv.org/abs/1905.05460 文章背景：《Cognitive Graph for Multi-Hop Reading Comprehension at Scale》是ACL 2019的最佳DEMO Paper之一，19年5月&gt;份上传到Arxiv 代码链接：https://github.com/THUDM/CogQA 中文简介：https://zhuanlan.zhihu.com/p/72981392 文章内容摘要 背景 模型结构 模型实施 实验结论我的解读 补充]]></content>
+    <content type="text"><![CDATA[CogQA: 针对大规模多跳阅读理解的认知图谱模型 背景 前几天简单了解了一下多跳阅读理解领域的重要数据集HotPotQA，接下来就开始看一些相关工作。首先梳理了一下已经公开论文的模型的时间线，可以看到研究方向的变迁： （1811最初探索）日本NTT的QFE模型，在Benchmark的基础上做了一点改动，区别不大 （1902传统思路）华盛顿大学和Allen研究院的DecompQA，致力于将multi-hop问题分解成多个single-hop问题，效果一般 （1902-05新思路GNN）清华的CogQA和KGNN、交大-字节跳动的DFGN均采用GNN来维护迭代推理网络 （1903-05新思路优化IR）Technion的MUPPET旨在构建一个迭代查询的过程，检索向量会随着已经查到的线索进行更新；官方团队中的Peng Qi提出了GoldEn Retriever，这个模型旨在根据推理结果不断生成新的问题，形成一种与wiki知识库交互的查询过程；UNC提出从段落、句子和词三个层次提升信息检索的效果，在此基础上进一步进行阅读理解任务 （1908-11思路定型）到了近几个月，从榜单来看，大家已经比较明确了两条研究思路。一是在fullwiki的设定下，必须要优化信息检索的效果来寻找正确的背景材料，二是在distractor的设定或已经找到了正确背景材料的情况下，需要实现精细化的多步推理。针对第一点，微软的HGN沿用了UNC的方案；针对第二点，京东的SAE及SAE-large、微软的HGN和哈工大-讯飞的C2F reader均继续在GNN上进行探索。这里补充一下，C2F Reader并没有出版文章，但因为是10月以来的SOTA，而且网上可以找到一点报道，所以也写进来了。 根据模型时间线，可以看到清华的CogQA是最早将GNN引入这一研究领域的模型，因此我也打算从CogQA开始进行论文阅读。 资料库 文章链接：https://arxiv.org/abs/1905.05460 文章背景：《Cognitive Graph for Multi-Hop Reading Comprehension at Scale》是ACL 2019的最佳DEMO Paper之一，19年5月份上传到Arxiv 代码链接：https://github.com/THUDM/CogQA 中文简介：https://zhuanlan.zhihu.com/p/72981392 文章内容摘要 背景 模型结构 模型实施 实验 结论 我的解读 补充]]></content>
       <tags>
         <tag>Machine Comprehension</tag>
       </tags>
