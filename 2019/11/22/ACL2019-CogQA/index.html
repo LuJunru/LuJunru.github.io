@@ -89,7 +89,10 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/images/CogQA_Algo.png">
 <meta property="og:image" content="http://yoursite.com/images/CogQA_Model.png">
-<meta property="og:updated_time" content="2019-11-24T00:56:04.149Z">
+<meta property="og:image" content="http://yoursite.com/images/CogQA_Results.png">
+<meta property="og:image" content="http://yoursite.com/images/CogQA_Hop.png">
+<meta property="og:image" content="http://yoursite.com/images/CogQA_Cases.png">
+<meta property="og:updated_time" content="2019-11-24T12:59:18.122Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ACL2019: CogQA">
 <meta name="twitter:description" content="CogQA: 针对大规模多跳阅读理解的认知图谱模型  背景 前几天简单了解了一下多跳阅读理解领域的重要数据集HotPotQA，接下来就开始看一些相关工作。首先梳理了一下已经公开论文的模型的时间线，可以看到研究方向的变迁： （1811最初探索）日本NTT的QFE模型，在Benchmark的基础上做了一点改动，区别不大 （1902传统思路）华盛顿大学和Allen研究院的DecompQA，致力于将mul">
@@ -451,7 +454,7 @@
 </li>
 <li>系统2：GNN网络。另外本文发现，GNN的更新可以留到G完全构建结束后再一次性进行，这与算法设计中的每轮更新在效果上没有大的区别，但效率上更高。</li>
 <li>最终答案预测：根据疑问词可以轻易分辨出不同问题的类型，HotPotQA的数据可以分为桥梁型（可以参见<a href="https://lujunru.github.io/2019/11/17/EMNLP2018-HotPotQA/" target="_blank" rel="noopener">我的HotPotQA阅读笔记</a>）、一般比较型和是否型。CogQA分别使用三个全连接网络来选出候选答案节点中最可能的答案，桥梁型的输入即为迭代后的语义本身，一般比较型和是否型则输入候选答案之间的语义表示向量的差。</li>
-<li>训练细节：1.起始位终止位的概率都通过数据本身来构造。答案只有一个，所以答案起始位是一个[0, 0, 1, 0, 0]这样的向量；下一跳实体可以有多个如k，那么下一跳实体起始位是一个[0, 0, 1/k, 0, 1/k]这样的向量；2.为了提高模型鉴别不相关段落的能力，作者团队提前将一些不相关的下一跳实体加入到图谱G中，由于系统1设计了负采样阈值，因此只需要将这些例子对应的起始位值直接设为1即可；3.为了提高模型鉴别正确答案的能力，也同样将一些不正确的答案实体加入到G中。</li>
+<li>训练细节：1.起始位终止位的概率都通过数据本身来构造。答案只有一个，所以答案起始位是一个[0, 0, 1, 0, 0]这样的向量；下一跳实体可以有多个如k，那么下一跳实体起始位是一个[0, 0, 1/k, 0, 1/k]这样的向量；2.为了提高模型鉴别不相关段落的能力，作者团队提前将一些不相关的下一跳实体加入到图谱G中，由于系统1设计了负采样阈值，因此只需要将这些例子对应的起始位值直接设为1即可；3.为了提高模型鉴别正确答案的能力，也同样将一些不正确的答案实体加入到G中；4.G中还有一部分节点是正确的相关节点，这部分是通过分析训练集给的句子依据，使用基于Levenshten距离的模糊匹配实现。</li>
 <li>（我的解读）：<ul>
 <li>首先有个疑问其实，一般比较型和是否型的输入是所有候选答案两两之间的语义表示向量的差吗？准备后续看代码再解决</li>
 <li>负采样阈值和负样本的设计真的太棒了</li>
@@ -459,8 +462,30 @@
 </li>
 </ul>
 <h3 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h3><ul>
-<li><h2 id="我的解读"><a href="#我的解读" class="headerlink" title="我的解读"></a>我的解读</h2></li>
-<li></li>
+<li>实验设置：先将系统1预训练1轮，再对系统1和2联合训练1轮</li>
+<li>副产物：实验发现系统1可以单独剥离出来作为一个抽取实体的底层模块加入到别的模型中，有助于改善传统信息检索方案的效果。比如这个方法可以帮助HotPotQA的benchmark的信息检索部分，把句子依据的抽中率从56%提升到72%。</li>
+<li><p>实验结果如下图。图中CogQA-onlyR指的是不做系统1预训练，直接用Benchmark中的实体初始化G；CogQA-onlyQ指的是系统1预训练时仅用问题信息；CogQA-sys1指的是仅使用系统1抽取实体。<br><img src="/images/CogQA_Results.png" alt=""></p>
+</li>
+<li><p>新的度量指标：logical rigor。这一指标是JointEM与AnsEM的比值，反映了数据中有多少答案是确切通过推理得到，而非语义匹配误打误撞的 。CogQA的得分为33.4%，远胜于Benchmark的7.9%。</p>
+</li>
+<li><p>轮次分析：下图是该指标在hop轮数上的分析，即对于模型推理能力的分析。可以看到：1.CogQA相比于Benchmark最大的特点就是推理的稳健性大大提升；2.在一般比较类和是否类问题上，CogQA并没有特别明显的效果提升，这是因为句子依据中无法推理出线索，比如问是否相等、比大小等，本文认为这部分数据需要更多的标注。<br><img src="/images/CogQA_Hop.png" alt=""></p>
+</li>
+<li><p>消融实验：</p>
+<ul>
+<li>CogQA-onlyR和benchmark的对比说明，CogQA优势明显</li>
+<li>CogQA-onlyQ的设置是为了更接近真实的人类问答：仅有问题，然后从零开始寻找资料。其效果依然说明了CogQA在信息检索和阅读推理上的优势</li>
+<li>CogQA-sys1的效果相比于完整的CogQA下降了很多，说明GNN推理还是很重要的</li>
+<li>另外还发现系统1中Bert不是最重要的，这种语义抽取、实体查找的框架更重要</li>
+</ul>
+</li>
+<li><p>案例分析：下图展示了三个从模型预测中倒推模型如何可解释地完成多跳阅读推理的案例。Case2展示了多条推理路径的并行实现。Case3展示了迭代循环推理，分析出了笔名和真名的区别。<br><img src="/images/CogQA_Cases.png" alt=""></p>
+</li>
+<li><p>我的解读：logical rigor的提出和轮次分析比较有意思。针对没有明显提升的两类问题，可能可以通过附加模块的办法来解决 - 尽管这样做过于偏任务导向了。</p>
+</li>
+</ul>
+<h2 id="我的解读"><a href="#我的解读" class="headerlink" title="我的解读"></a>我的解读</h2><ul>
+<li>CogQA在HotPotQA研究上是一个非常重要的模型。它用一种简洁而直观的方法实现了复杂却可解释的类人脑阅读理解机制。</li>
+<li>未来的提升可能集中在三个方面，一是针对系统1构建更复杂的黑盒语义提取和实体抽取机制，二是针对系统2使用推理能力更强的图神经网络，三是针对系统1和2的交互Clues去提升其准确性。</li>
 </ul>
 
       
