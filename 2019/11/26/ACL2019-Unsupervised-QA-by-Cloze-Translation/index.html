@@ -89,8 +89,11 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/images/UQA_Framework.png">
 <meta property="og:image" content="http://yoursite.com/images/UQA_Results.png">
+<meta property="og:image" content="http://yoursite.com/images/UQA_Ablations.png">
+<meta property="og:image" content="http://yoursite.com/images/UQA_Cases.png">
+<meta property="og:image" content="http://yoursite.com/images/UQA_CasesStac.png">
 <meta property="og:image" content="http://yoursite.com/images/UQA_FewShot.png">
-<meta property="og:updated_time" content="2019-11-26T23:34:10.442Z">
+<meta property="og:updated_time" content="2019-11-27T09:23:29.291Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ACL2019: Unsupervised QA by Cloze Translation">
 <meta name="twitter:description" content="背景 这篇文章是我在浏览ACL2019 list的时候发现的，感觉比较有意思 - 无监督QA。同时，为了本周的组会所准备。  资料库 文章链接：https://arxiv.org/abs/1906.04980 文章背景：《unsupervised Question Answering by Cloze Translation》是ACL 2019的长文之一，19年6月份上传到Arxiv 代码链接：h">
@@ -468,15 +471,30 @@
 <li>下图是实验结果。其中无监督的其它模型是18年Dhingra等在做半监督QA时产生的，他们也用了完形填空的思路，但是没有改写成自然问句这一步，而且严重依赖于Wikipedia文章的结构。可以看到本文模型显著高于以前的无监督方法，并且超过了SQuAD的基线有监督模型（但其实也仅仅只是高于基线模型而已）。<br><img src="/images/UQA_Results.png" alt=""></li>
 </ul>
 </li>
-<li><p>消融实验：测试本文模型中不同设计策略的效果对比</p>
+<li><p>在SQuAD上的消融实验：测试本文模型中不同设计策略的效果对比</p>
+<ul>
+<li><p>结果如下<br><img src="/images/UQA_Ablations.png" alt=""></p>
 </li>
-<li>Seq2Seq模型的效果分析：</li>
+<li><p>表中第一行与第二行对比，可以看出启发式规则有一定作用；第二行第三行对比，显示问句更短时效果更好；第三行与第四行对比显示用NE比NP更好，尽管在SQuAD的分析中显示NP占84.2%、NE占52.4%，但本文研究显示SQuAD中每段文本平均有33个NP14个NE，因此用NE搜索可以降低候选答案的搜索空间；第一、五、九行显示了不同问句构造方法上，Seq2Seq是最好的，但并没有第二种噪声转换的方法好很多，这说明在SQuAD上问句不一定需要非常遵循自然语序，只要让模型知道这是个问句即可。此外，从模型上也能看到用成熟的QA模型训练比用概率模型好很多。</p>
+</li>
+</ul>
+</li>
+<li><p>错误分析：</p>
+<ul>
+<li>将SQuAD dev集按照答案类型划分后，无论答案类型是不是NE，Bert为基础的无监督模型效果比较稳健（64.5 vs. 47.9），而BiDAF+SA的模型效果不稳定（58.9 vs. 23.0非NE）。这说明Bert确实已经捕捉到了一些语言学特征，而BiDAF还是更偏向于NER抽取系统。</li>
+<li>本文模型对于“When”类型问题处理的最好，详见论文图3。</li>
+</ul>
+</li>
+<li>Seq2Seq无监督翻译的具体效果分析：下图展示了一些CASE，以及具体的转换统计值。<br><img src="/images/UQA_Cases.png" alt=""></li>
+</ul>
+<p><img src="/images/UQA_CasesStac.png" alt=""></p>
+<ul>
 <li>超小样本的训练分析：效果非常好<br><img src="/images/UQA_FewShot.png" alt=""></li>
 </ul>
 <h2 id="我的解读"><a href="#我的解读" class="headerlink" title="我的解读"></a>我的解读</h2><ul>
 <li>其实本文的思想概括起来很简单，就是用一套方法从未标注文本中生成质量低于人工标注、但成本极低的自动标注语料。然后用一些现有模型在这套语料上训练，得到一套参数后直接迁移到精心标注的语料上测试。事实证明这么做是有一定的效果的，而且能大大增加机器训练可使用的语料范围。</li>
-<li>未来的改进思路可以是：1.改进自动标注的方案，这也是最终极的目标之一；2.迁移时可以再做适当的fine-tune，也许能显著提高标注语料上的效果；3.引入更大规模的无监督文本做实验，也许效果更佳。</li>
-<li>最关键的是，这个方案在工业上会很落地。</li>
+<li>未来的改进思路可以是：1.改进问题改写/自动标注的方案；2.引入更大规模的无监督文本做实验。</li>
+<li>最关键的是，这个方案在工业上会很落地。上面提到的英文复现就是一个工业界机构的成果，用XLNet能够把这个任务推到更高的SOTA。</li>
 </ul>
 
       
