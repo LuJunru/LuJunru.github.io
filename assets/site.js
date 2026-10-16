@@ -17,7 +17,8 @@ if (tools) {
       paper.hidden = !matches;
       if (matches) visible++;
     }
-    count.textContent = visible === papers.length ? `${visible} selected publications` : `${visible} of ${papers.length} publications`;
+    const template = visible === papers.length ? count.dataset.allTemplate : count.dataset.filteredTemplate;
+    count.textContent = template.replace('{n}', String(visible)).replace('{total}', String(papers.length));
     empty.hidden = visible > 0;
   }
   for (const button of buttons) {
@@ -38,5 +39,12 @@ if (language) language.addEventListener('change', () => {
   const code = language.value === 'Zh' ? 'Zh' : 'En';
   const preview = document.getElementById('cv-preview');
   preview.src = `/pdf/${code}_resume.pdf#view=FitH`;
-  preview.title = `${code === 'Zh' ? 'Chinese' : 'English'} curriculum vitae PDF`;
+  preview.title = code === 'Zh' ? preview.dataset.titleZh : preview.dataset.titleEn;
+});
+// Keep the current section on explicit language switches; never redirect by locale.
+const languageSwitch = document.querySelector('.language-switch');
+if (languageSwitch) languageSwitch.addEventListener('click', () => {
+  const destination = new URL(languageSwitch.href);
+  destination.hash = window.location.hash;
+  languageSwitch.href = destination.href;
 });

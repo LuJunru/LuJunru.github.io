@@ -6,45 +6,471 @@
   "linkedin": "https://www.linkedin.com/in/junrulu",
   "articles_url": "https://huggingface.co/Junrulu/activity/articles",
   "articles": [
-    {"title": "大模型的记忆管理：从记忆外挂到主动管理", "date": "2026-10-09", "topic": "LLM MEMORY", "summary": "记忆结构、检索策略与主动上下文管理的技术演进。", "url": "https://huggingface.co/blog/Junrulu/llm-memory-overview"},
-    {"title": "结合Deepseek代码探讨MLA的改进及收益", "date": "2025-02-20", "topic": "EFFICIENT ATTENTION", "summary": "从代码分析低秩投影、KV cache与矩阵吸收。", "url": "https://huggingface.co/blog/Junrulu/mla-codebased-analysis"},
-    {"title": "大模型偏好优化技术：DPO及其变种", "date": "2025-02-20", "topic": "PREFERENCE OPTIMIZATION", "summary": "DPO理论、主要变体与偏好优化实践。", "url": "https://huggingface.co/blog/Junrulu/dpo-and-variants"}
+    {
+      "title": "大模型的记忆管理：从记忆外挂到主动管理",
+      "date": "2026-10-09",
+      "topic": "LLM MEMORY",
+      "summary": "记忆结构、检索策略与主动上下文管理的技术演进。",
+      "url": "https://huggingface.co/blog/Junrulu/llm-memory-overview"
+    },
+    {
+      "title": "结合Deepseek代码探讨MLA的改进及收益",
+      "date": "2025-02-20",
+      "topic": "EFFICIENT ATTENTION",
+      "summary": "从代码分析低秩投影、KV cache与矩阵吸收。",
+      "url": "https://huggingface.co/blog/Junrulu/mla-codebased-analysis"
+    },
+    {
+      "title": "大模型偏好优化技术：DPO及其变种",
+      "date": "2025-02-20",
+      "topic": "PREFERENCE OPTIMIZATION",
+      "summary": "DPO理论、主要变体与偏好优化实践。",
+      "url": "https://huggingface.co/blog/Junrulu/dpo-and-variants"
+    }
   ],
   "scholar": "https://scholar.google.com/citations?user=-aTMQm8AAAAJ",
-  "topics": {"foundation": "Foundation models", "efficient": "Efficient attention", "agents": "Agents & alignment", "other": "Other research"},
+  "topics": {
+    "foundation": "Foundation models",
+    "efficient": "Efficient attention",
+    "agents": "Agents & alignment",
+    "other": "Other research"
+  },
   "featured": [
-    {"name": "Youtu-LLM", "area": "FOUNDATION MODELS", "kind": "model", "venue": "Technical report", "summary": "A lightweight language model pre-trained from scratch, with a Commonsense–STEM–Agent curriculum and native reasoning and planning capabilities.", "url": "https://arxiv.org/abs/2512.24618"},
-    {"name": "SSA", "area": "EFFICIENT ATTENTION", "kind": "sparse", "venue": "ICML 2026", "summary": "Bidirectional alignment of full and sparse attention outputs during training, addressing the mismatch between the two attention modes.", "url": "https://arxiv.org/abs/2511.20102"},
-    {"name": "ContextPilot", "area": "AGENT MEMORY", "kind": "memory", "venue": "EMNLP 2026", "summary": "Proactive context management for long-horizon agents, with planning, memory, soft offloading, and action-level credit assignment.", "url": "https://arxiv.org/abs/2608.28476"}
+    {
+      "name": "Youtu-LLM",
+      "area": "FOUNDATION MODELS",
+      "area_zh": "基础模型",
+      "summary_zh": "从零预训练的轻量语言模型，以常识、STEM与智能体任务组成训练课程，培养原生推理与规划能力。",
+      "kind": "model",
+      "venue": "Technical report",
+      "summary": "A lightweight language model pre-trained from scratch, with a Commonsense–STEM–Agent curriculum and native reasoning and planning capabilities.",
+      "url": "https://arxiv.org/abs/2512.24618"
+    },
+    {
+      "name": "SSA",
+      "area": "EFFICIENT ATTENTION",
+      "area_zh": "高效注意力",
+      "summary_zh": "在训练中双向对齐全注意力与稀疏注意力的输出，缩小两种注意力模式之间的差距。",
+      "kind": "sparse",
+      "venue": "ICML 2026",
+      "summary": "Bidirectional alignment of full and sparse attention outputs during training, addressing the mismatch between the two attention modes.",
+      "url": "https://arxiv.org/abs/2511.20102"
+    },
+    {
+      "name": "ContextPilot",
+      "area": "AGENT MEMORY",
+      "area_zh": "智能体记忆",
+      "summary_zh": "面向长程智能体的主动上下文管理，结合规划、长期记忆、软卸载与动作级强化学习信用分配。",
+      "kind": "memory",
+      "venue": "EMNLP 2026",
+      "summary": "Proactive context management for long-horizon agents, with planning, memory, soft offloading, and action-level credit assignment.",
+      "url": "https://arxiv.org/abs/2608.28476"
+    }
   ],
   "news": [
-    {"date": "2026-08-28", "label": "AUG 2026", "html": "<a href=\"https://arxiv.org/abs/2608.28476\" target=\"_blank\" rel=\"noopener noreferrer\">ContextPilot</a> is available, accepted to EMNLP 2026 Main. <a href=\"https://github.com/Tencent/ContextPilot\" target=\"_blank\" rel=\"noopener noreferrer\">Code ↗</a>"},
-    {"date": "2026-05-25", "label": "MAY 2026", "html": "We released <a href=\"https://nmm-roadmap.github.io/\" target=\"_blank\" rel=\"noopener noreferrer\">Toward Native Multimodal Modeling: A Roadmap</a>, covering architectures, training, data, deployment, and evaluation."},
-    {"date": "2026-01-27", "label": "JAN 2026", "html": "<a href=\"https://arxiv.org/abs/2601.19798\" target=\"_blank\" rel=\"noopener noreferrer\">Youtu-VL</a> introduces unified autoregressive supervision for visual and language tokens."},
-    {"date": "2025-12-31", "label": "DEC 2025", "html": "We released <a href=\"https://arxiv.org/abs/2512.24618\" target=\"_blank\" rel=\"noopener noreferrer\">Youtu-LLM</a>, a lightweight language model pre-trained from scratch."}
+    {
+      "date": "2026-08-28",
+      "label": "AUG 2026",
+      "label_zh": "2026年8月",
+      "html_zh": "<a href=\"https://arxiv.org/abs/2608.28476\" target=\"_blank\" rel=\"noopener noreferrer\">ContextPilot</a> 已公开，获 EMNLP 2026 主会录用。<a href=\"https://github.com/Tencent/ContextPilot\" target=\"_blank\" rel=\"noopener noreferrer\">代码 ↗</a>",
+      "html": "<a href=\"https://arxiv.org/abs/2608.28476\" target=\"_blank\" rel=\"noopener noreferrer\">ContextPilot</a> is available, accepted to EMNLP 2026 Main. <a href=\"https://github.com/Tencent/ContextPilot\" target=\"_blank\" rel=\"noopener noreferrer\">Code ↗</a>"
+    },
+    {
+      "date": "2026-05-25",
+      "label": "MAY 2026",
+      "label_zh": "2026年5月",
+      "html_zh": "我们发布了<a href=\"https://nmm-roadmap.github.io/\" target=\"_blank\" rel=\"noopener noreferrer\">《Toward Native Multimodal Modeling: A Roadmap》</a>，梳理原生多模态架构、训练、数据、部署与评测。",
+      "html": "We released <a href=\"https://nmm-roadmap.github.io/\" target=\"_blank\" rel=\"noopener noreferrer\">Toward Native Multimodal Modeling: A Roadmap</a>, covering architectures, training, data, deployment, and evaluation."
+    },
+    {
+      "date": "2026-01-27",
+      "label": "JAN 2026",
+      "label_zh": "2026年1月",
+      "html_zh": "<a href=\"https://arxiv.org/abs/2601.19798\" target=\"_blank\" rel=\"noopener noreferrer\">Youtu-VL</a> 将视觉与语言词元纳入统一的自回归监督。",
+      "html": "<a href=\"https://arxiv.org/abs/2601.19798\" target=\"_blank\" rel=\"noopener noreferrer\">Youtu-VL</a> introduces unified autoregressive supervision for visual and language tokens."
+    },
+    {
+      "date": "2025-12-31",
+      "label": "DEC 2025",
+      "label_zh": "2025年12月",
+      "html_zh": "我们发布了<a href=\"https://arxiv.org/abs/2512.24618\" target=\"_blank\" rel=\"noopener noreferrer\">Youtu-LLM</a>，一个从零预训练的轻量语言模型。",
+      "html": "We released <a href=\"https://arxiv.org/abs/2512.24618\" target=\"_blank\" rel=\"noopener noreferrer\">Youtu-LLM</a>, a lightweight language model pre-trained from scratch."
+    }
   ],
   "education": [
-    {"institution": "University of Warwick", "degree": "Ph.D. in Computer Science", "dates": "2019–2024", "advisor": "Advisor: <a href=\"https://sites.google.com/view/yulanhe/home\" target=\"_blank\" rel=\"noopener noreferrer\">Prof. Yulan He</a>"},
-    {"institution": "New York University", "degree": "M.S. in Applied Urban Science & Informatics", "dates": "2018–2019"},
-    {"institution": "Peking University", "degree": "Double Bachelor of Economics", "dates": "2015–2018"},
-    {"institution": "University of International Relations", "degree": "B.Eng. in Information Management and Information System", "dates": "2014–2018", "advisor": "Advisor: <a href=\"https://aclanthology.org/people/b/binyang-li/\" target=\"_blank\" rel=\"noopener noreferrer\">Prof. Binyang Li</a>"}
+    {
+      "institution": "University of Warwick",
+      "institution_zh": "华威大学",
+      "degree_zh": "计算机科学博士",
+      "advisor_zh": "导师：<a href=\"https://sites.google.com/view/yulanhe/home\" target=\"_blank\" rel=\"noopener noreferrer\">何瑜岚教授</a>",
+      "degree": "Ph.D. in Computer Science",
+      "dates": "2019–2024",
+      "advisor": "Advisor: <a href=\"https://sites.google.com/view/yulanhe/home\" target=\"_blank\" rel=\"noopener noreferrer\">Prof. Yulan He</a>"
+    },
+    {
+      "institution": "New York University",
+      "institution_zh": "纽约大学",
+      "degree_zh": "应用城市科学与信息学硕士",
+      "degree": "M.S. in Applied Urban Science & Informatics",
+      "dates": "2018–2019"
+    },
+    {
+      "institution": "Peking University",
+      "institution_zh": "北京大学",
+      "degree_zh": "经济学双学位",
+      "degree": "Double Bachelor of Economics",
+      "dates": "2015–2018"
+    },
+    {
+      "institution": "University of International Relations",
+      "institution_zh": "国际关系学院",
+      "degree_zh": "信息管理与信息系统专业工学学士",
+      "advisor_zh": "导师：<a href=\"https://aclanthology.org/people/b/binyang-li/\" target=\"_blank\" rel=\"noopener noreferrer\">李斌阳教授</a>",
+      "degree": "B.Eng. in Information Management and Information System",
+      "dates": "2014–2018",
+      "advisor": "Advisor: <a href=\"https://aclanthology.org/people/b/binyang-li/\" target=\"_blank\" rel=\"noopener noreferrer\">Prof. Binyang Li</a>"
+    }
   ],
+  "papers_source": "https://huggingface.co/Junrulu/papers",
   "publications": [
-    {"id": "contextpilot", "year": 2026, "topic": "agents", "title": "ContextPilot: Teaching Agents for Proactive Context Management via Fine-grained RL", "authors": "Zhuoshi Pan, Qizhi Pei, Junru Lu, Honglin Lin, H. Vicky Zhao, Di Yin, Xing Sun", "venue": "EMNLP 2026 · Main", "links": {"paper": "https://arxiv.org/abs/2608.28476", "code": "https://github.com/Tencent/ContextPilot"}},
-    {"id": "nmm", "year": 2026, "topic": "foundation", "title": "Toward Native Multimodal Modeling: A Roadmap", "authors": "Siyu An, Junru Lu, Junnan Dong, et al.", "venue": "EMNLP 2026", "links": {"paper": "https://arxiv.org/abs/2605.25343", "project": "https://nmm-roadmap.github.io/"}},
-    {"id": "ssa", "year": 2026, "topic": "efficient", "title": "SSA: Sparse Sparse Attention by Aligning Full and Sparse Attention Outputs in Feature Space", "authors": "Zhenyi Shen, Junru Lu, Lin Gui, Jiazheng Li, Yulan He, Di Yin, Xing Sun", "venue": "ICML 2026", "links": {"paper": "https://arxiv.org/abs/2511.20102", "code": "https://github.com/zhenyi4/ssa"}},
-    {"id": "youtu-vl", "year": 2026, "topic": "foundation", "title": "Youtu-VL: Unleashing Visual Potential via Unified Vision-Language Supervision", "authors": "Zhixiang Wei, Yi Li, Zhehan Kan, et al. (including Junru Lu)", "venue": "Technical report", "links": {"paper": "https://arxiv.org/abs/2601.19798"}},
-    {"id": "youtu-llm", "year": 2025, "topic": "foundation", "title": "Youtu-LLM: Unlocking the Native Agentic Potential for Lightweight Large Language Models", "authors": "Junru Lu, Jiarui Qin, Lingfeng Qiao, et al.", "venue": "Technical report", "links": {"paper": "https://arxiv.org/abs/2512.24618"}},
-    {"id": "optiscene", "year": 2025, "topic": "other", "title": "OptiScene: LLM-driven Indoor Scene Layout Generation via Scaled Human-aligned Data Synthesis and Multi-Stage Preference Optimization", "authors": "Yixuan Yang, Zhen Luo, Tongsheng Ding, Junru Lu, Mingqi Gao, Jinyu Yang, Victor Sanchez, Feng Zheng", "venue": "NeurIPS 2025", "links": {"paper": "https://arxiv.org/abs/2506.07570", "project": "https://polysummit.github.io/optiscene.github.io/"}},
-    {"id": "two-heads", "year": 2025, "topic": "agents", "title": "Two Heads Are Better Than One: Dual-Model Verbal Reflection at Inference-Time", "authors": "Jiazheng Li, Yuxiang Zhou, Junru Lu, Gladys Tyen, Lin Gui, Cesare Aloisi, Yulan He", "venue": "EMNLP 2025", "links": {"paper": "https://aclanthology.org/2025.emnlp-main.155/", "code": "https://github.com/lijiazheng99/DARS"}},
-    {"id": "rolemrc", "year": 2025, "topic": "agents", "title": "RoleMRC: A Fine-Grained Composite Benchmark for Role-Playing and Instruction-Following", "authors": "Junru Lu, Jiazheng Li, Guodong Shen, Lin Gui, Siyu An, Yulan He, Di Yin, Xing Sun", "venue": "ACL 2025 · Findings", "links": {"paper": "https://aclanthology.org/2025.findings-acl.1082/", "code": "https://github.com/LuJunru/RoleMRC"}},
-    {"id": "refusal", "year": 2025, "topic": "agents", "title": "Tell Me What You Don’t Know: Enhancing Refusal Capabilities of Role-Playing Agents via Representation Space Analysis and Editing", "authors": "Wenhao Liu, Siyu An, Junru Lu, et al.", "venue": "ACL 2025 · Findings", "links": {"paper": "https://aclanthology.org/2025.findings-acl.311/"}},
-    {"id": "fipo", "year": 2025, "topic": "agents", "title": "FIPO: Free-form Instruction-oriented Prompt Optimization with Preference Dataset and Modular Fine-tuning Schema", "authors": "Junru Lu, Siyu An, Min Zhang, Yulan He, Di Yin, Xing Sun", "venue": "COLING 2025", "links": {"paper": "https://aclanthology.org/2025.coling-main.731/", "code": "https://github.com/LuJunru/FIPO_Project"}},
-    {"id": "sampo", "year": 2024, "topic": "agents", "title": "Eliminating Biased Length Reliance of Direct Preference Optimization via Down-Sampled KL Divergence", "authors": "Junru Lu, Jiazheng Li, Siyu An, Meng Zhao, Yulan He, Di Yin, Xing Sun", "venue": "EMNLP 2024", "links": {"paper": "https://aclanthology.org/2024.emnlp-main.60/", "code": "https://github.com/LuJunru/SamPO"}},
-    {"id": "vad", "year": 2024, "topic": "other", "title": "Advancing Video Anomaly Detection: A Bi-Directional Hybrid Framework for Enhanced Single- and Multi-Task Approaches", "authors": "Guodong Shen, Yuqi Ouyang, Junru Lu, Yixuan Yang, Victor Sanchez", "venue": "IEEE Transactions on Image Processing", "links": {"paper": "https://doi.org/10.1109/TIP.2024.3512369", "code": "https://github.com/SHENGUODONG19951126/ConvTTrans-ConvLSTM"}},
-    {"id": "memochat", "year": 2023, "topic": "agents", "title": "MemoChat: Tuning LLMs to Use On-the-fly Text Memos for Consistent Long-Range Conversations", "authors": "Junru Lu, Siyu An, Mingbao Lin, Gabriele Pergola, Yulan He, Di Yin, Xing Sun, Yunsheng Wu", "venue": "Preprint", "links": {"paper": "https://arxiv.org/abs/2308.08239", "code": "https://github.com/LuJunru/MemoChat"}},
-    {"id": "napss", "year": 2023, "topic": "other", "title": "NapSS: Paragraph-level Medical Text Simplification via Narrative Prompting and Sentence-matching Summarization", "authors": "Junru Lu, Jiazheng Li, Byron Wallace, Yulan He, Gabriele Pergola", "venue": "EACL 2023 · Findings", "links": {"paper": "https://aclanthology.org/2023.findings-eacl.80/", "code": "https://github.com/LuJunru/NapSS"}},
-    {"id": "tranclr", "year": 2022, "topic": "other", "title": "Event-Centric Question Answering via Contrastive Learning and Invertible Event Transformation", "authors": "Junru Lu, Xingwei Tan, Gabriele Pergola, Lin Gui, Yulan He", "venue": "EMNLP 2022 · Findings", "links": {"paper": "https://aclanthology.org/2022.findings-emnlp.176/", "code": "https://github.com/LuJunru/TranCLR"}},
-    {"id": "chime", "year": 2020, "topic": "agents", "title": "CHIME: Cross-passage Hierarchical Memory Network for Generative Review Question Answering", "authors": "Junru Lu, Gabriele Pergola, Lin Gui, Binyang Li, Yulan He", "venue": "COLING 2020", "links": {"paper": "https://aclanthology.org/2020.coling-main.229/"}}
+    {
+      "id": "vrsd",
+      "arxiv_id": "2610.16354",
+      "year": 2026,
+      "topic": "agents",
+      "title": "Self-Distillation with Verbal Regularization",
+      "authors": "Jiazheng Li, Yawei Li, Junru Lu, Zhenyi Shen, Di Yin, Lin Gui, Xing Sun, David Rügamer, Xinpeng Wang, Yulan He",
+      "venue": "Preprint",
+      "links": {
+        "paper": "https://arxiv.org/abs/2610.16354"
+      },
+      "published_at": "2026-10-12"
+    },
+    {
+      "id": "elephantbench",
+      "arxiv_id": "2608.28478",
+      "year": 2026,
+      "topic": "agents",
+      "title": "Blind Men and the Elephant: Probing the Epistemic Myopia of LLMs under Long-Tail Divergent Knowledge",
+      "authors": "Zhuoshi Pan, Junru Lu, Yan Qian, H. Vicky Zhao, Di Yin, Xing Sun",
+      "venue": "Preprint",
+      "links": {
+        "paper": "https://arxiv.org/abs/2608.28478",
+        "code": "https://github.com/Tencent/ElephantBench"
+      },
+      "published_at": "2026-08-28"
+    },
+    {
+      "id": "contextpilot",
+      "year": 2026,
+      "topic": "agents",
+      "title": "ContextPilot: Teaching Agents for Proactive Context Management via Fine-grained RL",
+      "authors": "Zhuoshi Pan, Qizhi Pei, Junru Lu, Honglin Lin, H. Vicky Zhao, Di Yin, Xing Sun",
+      "venue": "EMNLP 2026 · Main",
+      "links": {
+        "paper": "https://arxiv.org/abs/2608.28476",
+        "code": "https://github.com/Tencent/ContextPilot"
+      },
+      "arxiv_id": "2608.28476",
+      "published_at": "2026-08-28"
+    },
+    {
+      "id": "nmm",
+      "year": 2026,
+      "topic": "foundation",
+      "title": "Toward Native Multimodal Modeling: A Roadmap",
+      "authors": "Siyu An, Junru Lu, Junnan Dong, et al.",
+      "venue": "EMNLP 2026",
+      "links": {
+        "paper": "https://arxiv.org/abs/2605.25343",
+        "project": "https://nmm-roadmap.github.io/"
+      },
+      "arxiv_id": "2605.25343",
+      "published_at": "2026-05-25"
+    },
+    {
+      "id": "code-as-room",
+      "arxiv_id": "2605.18451",
+      "year": 2026,
+      "topic": "other",
+      "title": "Code-as-Room: Generating 3D Rooms from Top-Down View Images via Agentic Code Synthesis",
+      "authors": "Yixuan Yang, Zhen Luo, Wanshui Gan, Jinkun Hao, Junru Lu, Jinghao Yan, Zhaoyang Lyu, Xudong Xu",
+      "venue": "Preprint",
+      "links": {
+        "paper": "https://arxiv.org/abs/2605.18451"
+      },
+      "published_at": "2026-05-18"
+    },
+    {
+      "id": "youtu-vl",
+      "year": 2026,
+      "topic": "foundation",
+      "title": "Youtu-VL: Unleashing Visual Potential via Unified Vision-Language Supervision",
+      "authors": "Zhixiang Wei, Yi Li, Zhehan Kan, et al. (including Junru Lu)",
+      "venue": "Technical report",
+      "links": {
+        "paper": "https://arxiv.org/abs/2601.19798"
+      },
+      "arxiv_id": "2601.19798",
+      "published_at": "2026-01-27"
+    },
+    {
+      "id": "ssa",
+      "year": 2026,
+      "topic": "efficient",
+      "title": "SSA: Sparse Sparse Attention by Aligning Full and Sparse Attention Outputs in Feature Space",
+      "authors": "Zhenyi Shen, Junru Lu, Lin Gui, Jiazheng Li, Yulan He, Di Yin, Xing Sun",
+      "venue": "ICML 2026",
+      "links": {
+        "paper": "https://arxiv.org/abs/2511.20102",
+        "code": "https://github.com/zhenyi4/ssa"
+      },
+      "arxiv_id": "2511.20102",
+      "published_at": "2025-11-25"
+    },
+    {
+      "id": "youtu-llm",
+      "year": 2025,
+      "topic": "foundation",
+      "title": "Youtu-LLM: Unlocking the Native Agentic Potential for Lightweight Large Language Models",
+      "authors": "Junru Lu, Jiarui Qin, Lingfeng Qiao, et al.",
+      "venue": "Technical report",
+      "links": {
+        "paper": "https://arxiv.org/abs/2512.24618"
+      },
+      "arxiv_id": "2512.24618",
+      "published_at": "2025-12-31"
+    },
+    {
+      "id": "optiscene",
+      "year": 2025,
+      "topic": "other",
+      "title": "OptiScene: LLM-driven Indoor Scene Layout Generation via Scaled Human-aligned Data Synthesis and Multi-Stage Preference Optimization",
+      "authors": "Yixuan Yang, Zhen Luo, Tongsheng Ding, Junru Lu, Mingqi Gao, Jinyu Yang, Victor Sanchez, Feng Zheng",
+      "venue": "NeurIPS 2025",
+      "links": {
+        "paper": "https://arxiv.org/abs/2506.07570",
+        "project": "https://polysummit.github.io/optiscene.github.io/"
+      },
+      "arxiv_id": "2506.07570",
+      "published_at": "2025-06-09"
+    },
+    {
+      "id": "two-heads",
+      "year": 2025,
+      "topic": "agents",
+      "title": "Two Heads Are Better Than One: Dual-Model Verbal Reflection at Inference-Time",
+      "authors": "Jiazheng Li, Yuxiang Zhou, Junru Lu, Gladys Tyen, Lin Gui, Cesare Aloisi, Yulan He",
+      "venue": "EMNLP 2025",
+      "links": {
+        "paper": "https://aclanthology.org/2025.emnlp-main.155/",
+        "code": "https://github.com/lijiazheng99/DARS"
+      },
+      "arxiv_id": "2502.19230",
+      "published_at": "2025-02-26"
+    },
+    {
+      "id": "rolemrc",
+      "year": 2025,
+      "topic": "agents",
+      "title": "RoleMRC: A Fine-Grained Composite Benchmark for Role-Playing and Instruction-Following",
+      "authors": "Junru Lu, Jiazheng Li, Guodong Shen, Lin Gui, Siyu An, Yulan He, Di Yin, Xing Sun",
+      "venue": "ACL 2025 · Findings",
+      "links": {
+        "paper": "https://aclanthology.org/2025.findings-acl.1082/",
+        "code": "https://github.com/LuJunru/RoleMRC"
+      },
+      "arxiv_id": "2502.11387",
+      "published_at": "2025-02-17"
+    },
+    {
+      "id": "refusal",
+      "year": 2025,
+      "topic": "agents",
+      "title": "Tell Me What You Don’t Know: Enhancing Refusal Capabilities of Role-Playing Agents via Representation Space Analysis and Editing",
+      "authors": "Wenhao Liu, Siyu An, Junru Lu, et al.",
+      "venue": "ACL 2025 · Findings",
+      "links": {
+        "paper": "https://aclanthology.org/2025.findings-acl.311/"
+      },
+      "arxiv_id": "2409.16913",
+      "published_at": "2024-09-25"
+    },
+    {
+      "id": "llplace",
+      "arxiv_id": "2406.03866",
+      "year": 2025,
+      "topic": "other",
+      "title": "LLplace: The 3D Indoor Scene Layout Generation and Editing via Large Language Model",
+      "authors": "Yixuan Yang, Junru Lu, Zixiang Zhao, Zhen Luo, James J.Q. Yu, Victor Sanchez, Feng Zheng",
+      "venue": "IROS 2025",
+      "links": {
+        "paper": "https://arxiv.org/abs/2406.03866"
+      },
+      "published_at": "2024-06-06"
+    },
+    {
+      "id": "fipo",
+      "year": 2025,
+      "topic": "agents",
+      "title": "FIPO: Free-form Instruction-oriented Prompt Optimization with Preference Dataset and Modular Fine-tuning Schema",
+      "authors": "Junru Lu, Siyu An, Min Zhang, Yulan He, Di Yin, Xing Sun",
+      "venue": "COLING 2025",
+      "links": {
+        "paper": "https://aclanthology.org/2025.coling-main.731/",
+        "code": "https://github.com/LuJunru/FIPO_Project"
+      },
+      "arxiv_id": "2402.11811",
+      "published_at": "2024-02-19"
+    },
+    {
+      "id": "vad",
+      "year": 2024,
+      "topic": "other",
+      "title": "Advancing Video Anomaly Detection: A Bi-Directional Hybrid Framework for Enhanced Single- and Multi-Task Approaches",
+      "authors": "Guodong Shen, Yuqi Ouyang, Junru Lu, Yixuan Yang, Victor Sanchez",
+      "venue": "IEEE Transactions on Image Processing",
+      "links": {
+        "paper": "https://doi.org/10.1109/TIP.2024.3512369",
+        "code": "https://github.com/SHENGUODONG19951126/ConvTTrans-ConvLSTM"
+      },
+      "arxiv_id": "2504.14753",
+      "published_at": "2025-04-20"
+    },
+    {
+      "id": "snfinllm",
+      "arxiv_id": "2408.02302",
+      "year": 2024,
+      "topic": "foundation",
+      "title": "SNFinLLM: Systematic and Nuanced Financial Domain Adaptation of Chinese Large Language Models",
+      "authors": "Shujuan Zhao, Lingfeng Qiao, Kangyang Luo, Qian-Wen Zhang, Junru Lu, Di Yin",
+      "venue": "Preprint",
+      "links": {
+        "paper": "https://arxiv.org/abs/2408.02302"
+      },
+      "published_at": "2024-08-05"
+    },
+    {
+      "id": "sampo",
+      "year": 2024,
+      "topic": "agents",
+      "title": "Eliminating Biased Length Reliance of Direct Preference Optimization via Down-Sampled KL Divergence",
+      "authors": "Junru Lu, Jiazheng Li, Siyu An, Meng Zhao, Yulan He, Di Yin, Xing Sun",
+      "venue": "EMNLP 2024",
+      "links": {
+        "paper": "https://aclanthology.org/2024.emnlp-main.60/",
+        "code": "https://github.com/LuJunru/SamPO"
+      },
+      "arxiv_id": "2406.10957",
+      "published_at": "2024-06-16"
+    },
+    {
+      "id": "finverse",
+      "arxiv_id": "2406.06379",
+      "year": 2024,
+      "topic": "agents",
+      "title": "FinVerse: An Autonomous Agent System for Versatile Financial Analysis",
+      "authors": "Siyu An, Qin Li, Junru Lu, Di Yin, Xing Sun",
+      "venue": "Preprint",
+      "links": {
+        "paper": "https://arxiv.org/abs/2406.06379",
+        "demo": "https://www.youtube.com/watch?v=sk8L9_Wv7J4"
+      },
+      "published_at": "2024-06-10"
+    },
+    {
+      "id": "memochat",
+      "year": 2023,
+      "topic": "agents",
+      "title": "MemoChat: Tuning LLMs to Use On-the-fly Text Memos for Consistent Long-Range Conversations",
+      "authors": "Junru Lu, Siyu An, Mingbao Lin, Gabriele Pergola, Yulan He, Di Yin, Xing Sun, Yunsheng Wu",
+      "venue": "Preprint",
+      "links": {
+        "paper": "https://arxiv.org/abs/2308.08239",
+        "code": "https://github.com/LuJunru/MemoChat"
+      },
+      "arxiv_id": "2308.08239",
+      "published_at": "2023-08-16"
+    },
+    {
+      "id": "event-qa-pr",
+      "arxiv_id": "2305.04522",
+      "year": 2023,
+      "topic": "other",
+      "title": "Event Knowledge Incorporation with Posterior Regularization for Event-Centric Question Answering",
+      "authors": "Junru Lu, Gabriele Pergola, Lin Gui, Yulan He",
+      "venue": "Preprint",
+      "links": {
+        "paper": "https://arxiv.org/abs/2305.04522",
+        "code": "https://github.com/LuJunru/EventQAviaPR"
+      },
+      "published_at": "2023-05-08"
+    },
+    {
+      "id": "napss",
+      "year": 2023,
+      "topic": "other",
+      "title": "NapSS: Paragraph-level Medical Text Simplification via Narrative Prompting and Sentence-matching Summarization",
+      "authors": "Junru Lu, Jiazheng Li, Byron Wallace, Yulan He, Gabriele Pergola",
+      "venue": "EACL 2023 · Findings",
+      "links": {
+        "paper": "https://aclanthology.org/2023.findings-eacl.80/",
+        "code": "https://github.com/LuJunru/NapSS"
+      },
+      "arxiv_id": "2302.05574",
+      "published_at": "2023-02-11"
+    },
+    {
+      "id": "tranclr",
+      "year": 2022,
+      "topic": "other",
+      "title": "Event-Centric Question Answering via Contrastive Learning and Invertible Event Transformation",
+      "authors": "Junru Lu, Xingwei Tan, Gabriele Pergola, Lin Gui, Yulan He",
+      "venue": "EMNLP 2022 · Findings",
+      "links": {
+        "paper": "https://aclanthology.org/2022.findings-emnlp.176/",
+        "code": "https://github.com/LuJunru/TranCLR"
+      },
+      "arxiv_id": "2210.12902",
+      "published_at": "2022-10-24"
+    },
+    {
+      "id": "chime",
+      "year": 2020,
+      "topic": "agents",
+      "title": "CHIME: Cross-passage Hierarchical Memory Network for Generative Review Question Answering",
+      "authors": "Junru Lu, Gabriele Pergola, Lin Gui, Binyang Li, Yulan He",
+      "venue": "COLING 2020",
+      "links": {
+        "paper": "https://aclanthology.org/2020.coling-main.229/"
+      },
+      "arxiv_id": "2011.00519",
+      "published_at": "2020-11-01"
+    }
+  ],
+  "papers_source_ids": [
+    "2610.16354",
+    "2608.28478",
+    "2608.28476",
+    "2605.25343",
+    "2605.18451",
+    "2601.19798",
+    "2512.24618",
+    "2511.20102",
+    "2506.07570",
+    "2504.14753",
+    "2502.19230",
+    "2502.11387",
+    "2409.16913",
+    "2408.02302",
+    "2406.10957",
+    "2406.06379",
+    "2406.03866",
+    "2402.11811",
+    "2308.08239",
+    "2305.04522",
+    "2302.05574",
+    "2210.12902",
+    "2011.00519"
   ]
 }
