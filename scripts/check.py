@@ -71,6 +71,7 @@ for filename in files:
     suffix = filename.removeprefix('zh/').removesuffix('index.html')
     expected_switch = '/' + ('' if is_zh else 'zh/') + suffix
     assert parser.language_switch == expected_switch, f'Wrong language-switch destination: {filename}'
+    assert f'/love/?lang={"zh" if is_zh else "en"}' in parser.links, f'Missing discreet counter entry: {filename}'
     if filename in ('index.html', 'zh/index.html'):
         assert set(parser.papers) == set(site['papers_source_ids']) and len(parser.papers) == len(publications), f'Missing or duplicate papers: {filename}'
         assert site['linkedin'] in parser.links, f'Missing LinkedIn: {filename}'
@@ -98,6 +99,20 @@ for filename in files:
             if u.fragment not in other.ids:
                 errors.append((filename, value, 'missing cross-page anchor'))
 assert not errors, errors
+
+love_html = (ROOT / 'love/index.html').read_text()
+love = Links()
+love.feed(love_html)
+assert 'noindex, nofollow, noarchive' in love_html, 'Counter page should not be indexed'
+assert 'data-start="2016-12-31T10:00:00+08:00"' in love_html, 'Original counter date changed'
+assert {'d', 'h', 'm', 's'} <= love.ids, 'Missing counter units'
+for value in love.links:
+    parsed = urlsplit(value)
+    if not parsed.scheme and not value.startswith('/'):
+        assert (ROOT / 'love' / unquote(parsed.path)).is_file(), f'Missing counter resource: {value}'
+background = (ROOT / 'love/assets/bg.jpg').read_bytes()
+assert background[:2] == b'\xff\xd8' and background[-2:] == b'\xff\xd9', 'Incomplete counter background'
+assert b'Exif\x00\x00' not in background, 'Counter photo must not expose EXIF metadata'
 
 pdfs = {}
 for language in ('En', 'Zh'):

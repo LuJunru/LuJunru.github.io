@@ -13,7 +13,7 @@ DATA = json.loads((ROOT / "data/site.json").read_text(encoding="utf-8"))
 I18N = json.loads((ROOT / "data/i18n.json").read_text(encoding="utf-8"))
 ESC = html.escape
 ARROW = '<span aria-hidden="true">↗</span>'
-ASSET_VERSION = "20261016-folded-notes"
+ASSET_VERSION = "20261016-love"
 
 
 def route(path="/", lang="en"):
@@ -62,6 +62,7 @@ def nav(active="research", lang="en", page="/"):
 <a href="{route('/', lang)}#publications">{text['publications']}</a><a href="{route('/', lang)}#experience">{text['experience']}</a>
 <a href="{route('/blog/', lang)}"{' class="active"' if active == 'blog' else ''}>{text['notes']}</a>
 <a class="nav-cv" href="{route('/resume/', lang)}"{' aria-current="page"' if active == 'cv' else ''}>{text['cv']} {ARROW}</a>
+<a class="love-entry" href="/love/?lang={lang}" aria-label="{'Our shared days' if lang == 'en' else '我们的日期计时'}" title="{'Our shared days' if lang == 'en' else '我们的日期计时'}"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg></a>
 <a class="language-switch" href="{route(page, other)}" lang="{I18N[other]['language']}" hreflang="{I18N[other]['language']}" aria-label="{text['switch_label']}">{text['switch_text']}</a>
 </nav></div></header>'''
 
