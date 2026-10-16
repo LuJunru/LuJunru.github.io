@@ -13,7 +13,7 @@ DATA = json.loads((ROOT / "data/site.json").read_text(encoding="utf-8"))
 I18N = json.loads((ROOT / "data/i18n.json").read_text(encoding="utf-8"))
 ESC = html.escape
 ARROW = '<span aria-hidden="true">↗</span>'
-ASSET_VERSION = "20261016-bilingual"
+ASSET_VERSION = "20261016-folded-notes"
 
 
 def route(path="/", lang="en"):
@@ -139,7 +139,7 @@ def homepage(lang="en"):
 <section id="experience" class="experience-section"><div class="section-heading"><div><p class="eyebrow">{text['background_eyebrow']}</p><h2>{text['background_heading']}</h2></div><a class="text-link" href="{route('/resume/', lang)}">{text['view_cv']} {ARROW}</a></div>
 <div class="background-grid"><div class="career-block"><p class="mini-heading">{text['experience_label']}</p><h3>{text['tencent']}</h3><p class="role">{text['role']}</p><p class="muted">{text['career_dates']}</p><p>{text['career_summary']}</p><div class="research-tags">{tags}</div></div>
 <div class="education-block"><p class="mini-heading">{text['education_label']}</p><ul>{education}</ul></div></div></section>
-<section class="notes-teaser"><div><p class="eyebrow">{text['notes_eyebrow']}</p><h2>{text['notes_heading']}</h2><p>{text['notes_intro']}</p></div><a class="outline-button" href="{route('/blog/', lang)}">{text['browse_archive']} {ARROW}</a></section>
+<details class="earlier-notes home-archive"><summary><span class="archive-title">{text['earlier_notes']}</span><span class="archive-dates">2017–2019</span><span class="archive-chevron" aria-hidden="true">⌄</span></summary><div class="archive-content"><p class="muted">{text['notes_intro']}</p><a class="text-link" href="{route('/blog/', lang)}#earlier-notes">{text['browse_archive']} {ARROW}</a></div></details>
 </main>''' + footer(lang)
 
 
@@ -165,7 +165,7 @@ def blogpage(lang="en"):
     rows = ''.join(f'<article class="note-row"><time>{date}</time><a href="{ESC(url)}">{ESC(title)} {ARROW}</a></article>' for date, url, title in items)
     return head(text['blog_title'], '/blog/', lang) + nav('blog', lang, '/blog/') + f'''<main id="main" class="page-shell blog-page"><p class="eyebrow">{text['blog_eyebrow']}</p><h1>{text['blog_heading']}</h1><p class="page-intro">{text['blog_intro']}</p>
 <section class="blog-writing" aria-labelledby="essays-heading"><div class="section-heading"><h2 id="essays-heading">{text['technical_essays']}</h2>{link(DATA['articles_url'], text['on_hf'] + ' ' + ARROW, 'text-link')}</div>{article_cards(lang)}</section>
-<section aria-labelledby="archive-heading"><div class="section-heading"><h2 id="archive-heading">{text['earlier_notes']}</h2><span class="section-note">{text['archive_caption']}</span></div><div class="notes-list">{rows}</div></section><a class="text-link" href="/about/">{text['personal_notes']} {ARROW}</a></main>''' + footer(lang)
+<details id="earlier-notes" class="earlier-notes"><summary><span class="archive-title">{text['earlier_notes']}</span><span class="archive-dates">2017–2019</span><span class="archive-chevron" aria-hidden="true">⌄</span></summary><div class="archive-content"><div class="notes-list">{rows}</div><a class="text-link" href="/about/">{text['personal_notes']} {ARROW}</a></div></details></main>''' + footer(lang)
 
 
 def errorpage(lang="en"):

@@ -19,6 +19,7 @@ class Links(HTMLParser):
         self.papers = []
         self.language_switch = None
         self.lang = None
+        self.earlier_notes = []
     def handle_starttag(self, tag, attrs):
         data = dict(attrs)
         if tag == 'html':
@@ -26,6 +27,8 @@ class Links(HTMLParser):
         if data.get('id'):
             assert data['id'] not in self.ids, f'Duplicate HTML id: {data["id"]}'
             self.ids.add(data['id'])
+        if tag == 'details' and 'earlier-notes' in data.get('class', '').split():
+            self.earlier_notes.append('open' in data)
         if data.get('data-arxiv'):
             self.papers.append(data['data-arxiv'])
         if 'language-switch' in data.get('class', '').split():
@@ -75,6 +78,7 @@ for filename in files:
             assert f'/pdf/{code}_resume.pdf' in parser.links, f'CV path changed: {filename}'
     if filename.endswith('index.html') and 'resume' not in filename:
         assert all(a['url'] in parser.links and a['title'] in contents for a in articles), f'Missing article in {filename}'
+        assert parser.earlier_notes == [False], f'Earlier notes must be collapsed by default: {filename}'
     for value in parser.links:
         u = urlsplit(value)
         if u.scheme or u.netloc:
