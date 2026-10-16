@@ -31,8 +31,8 @@ def head(title, path="/", desc=None):
 <meta property="og:url" content="https://lujunru.github.io{path}">
 <meta property="og:image" content="https://lujunru.github.io/assets/portrait.jpg">
 <meta name="twitter:card" content="summary"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/assets/site.css"><script src="/assets/site.js" defer></script>
-<script type="application/ld+json">{json.dumps({'@context': 'https://schema.org', '@type': 'Person', 'name': 'Junru Lu', 'alternateName': '陆俊如', 'url': 'https://lujunru.github.io/', 'jobTitle': 'Foundation Model Researcher', 'affiliation': {'@type': 'Organization', 'name': 'Tencent YouTu Lab'}, 'sameAs': [DATA['scholar'], 'https://github.com/LuJunru']}, ensure_ascii=False)}</script>
+<link rel="stylesheet" href="/assets/site.css?v=20261016-writing"><script src="/assets/site.js" defer></script>
+<script type="application/ld+json">{json.dumps({'@context': 'https://schema.org', '@type': 'Person', 'name': 'Junru Lu', 'alternateName': '陆俊如', 'url': 'https://lujunru.github.io/', 'jobTitle': 'Foundation Model Researcher', 'affiliation': {'@type': 'Organization', 'name': 'Tencent YouTu Lab'}, 'sameAs': [DATA['scholar'], DATA['github'], DATA['linkedin']]}, ensure_ascii=False)}</script>
 </head><body><a class="skip-link" href="#main">Skip to content</a>'''
 
 
@@ -76,8 +76,17 @@ def diagram(kind):
     return f'<svg viewBox="0 0 270 166" role="img" aria-label="Abstract {kind} research illustration">{shapes}</svg>'
 
 
+def article_cards():
+    cards = []
+    for article in sorted(DATA['articles'], key=lambda item: item['date'], reverse=True):
+        cards.append(f'''<article class="article-card"><div class="article-meta"><time datetime="{ESC(article['date'])}">{ESC(article['date'])}</time><span>{ESC(article['topic'])}</span></div>
+<h3 lang="zh-CN">{link(article['url'], ESC(article['title']))}</h3><p lang="zh-CN">{ESC(article['summary'])}</p>
+{link(article['url'], 'Read on Hugging Face ' + ARROW, 'article-link')}</article>''')
+    return '<div class="article-grid">' + ''.join(cards) + '</div>'
+
+
 def homepage():
-    socials = ' '.join(link(url, label + ' ' + ARROW, 'social-link') for label, url in [('Email', 'mailto:' + DATA['email']), ('Scholar', DATA['scholar']), ('GitHub', DATA['github']), ('Hugging Face', DATA['huggingface'])])
+    socials = ' '.join(link(url, label + ' ' + ARROW, 'social-link') for label, url in [('Email', 'mailto:' + DATA['email']), ('Scholar', DATA['scholar']), ('GitHub', DATA['github']), ('Hugging Face', DATA['huggingface']), ('LinkedIn', DATA['linkedin'])])
     cards = ''
     for i, f in enumerate(DATA['featured'], 1):
         cards += f'''<article class="feature-card {f['kind']}"><div class="feature-art">{diagram(f['kind'])}</div>
@@ -96,6 +105,7 @@ def homepage():
 <figure class="portrait-block"><div class="portrait-frame"><img src="/assets/portrait.jpg" width="420" height="560" alt="Portrait of Junru Lu" fetchpriority="high"></div><figcaption>Junru Lu <span>陆俊如</span><span class="portrait-rule"></span>Researcher, Tencent</figcaption></figure></section>
 <section id="research" class="research-section"><div class="section-heading"><div><p class="eyebrow">01 / RESEARCH</p><h2>Selected work</h2></div><p>From training models<br>to making them more efficient.</p></div><div class="feature-grid">{cards}</div></section>
 <section class="updates-section"><div class="section-heading compact"><h2>Recent updates</h2><span class="section-note">Public releases & research</span></div><ul class="news-list">{news}</ul></section>
+<section id="writing" class="writing-section"><div class="section-heading"><div><p class="eyebrow">WRITING / TECHNICAL ESSAYS</p><h2>Ideas, beyond the paper.</h2></div><a class="text-link" href="/blog/">All writing & notes {ARROW}</a></div>{article_cards()}</section>
 <section id="publications" class="publications-section"><div class="section-heading"><div><p class="eyebrow">02 / PUBLICATIONS</p><h2>Papers & technical reports</h2></div>{link(DATA['scholar'], 'Full list on Scholar ' + ARROW, 'text-link')}</div>
 <div class="publication-tools" hidden><div class="filters" role="group" aria-label="Filter publications"><button class="filter-button selected" type="button" data-filter="all" aria-pressed="true">All work</button>{filters}</div><label class="search-box"><span class="search-icon" aria-hidden="true">⌕</span><span class="sr-only">Search publications by title, author, or venue</span><input id="paper-search" type="search" placeholder="Search papers…" autocomplete="off"></label></div>
 <p id="pub-count" class="pub-count" aria-live="polite">{len(DATA['publications'])} selected publications</p><div id="publication-list">{pubs}</div><p id="empty-state" hidden>No matching publications. Try another title, author, or topic.</p></section>
@@ -123,7 +133,9 @@ def blogpage():
             items.append((date, '/' + str(p.parent.relative_to(ROOT)) + '/', title))
     items.sort(reverse=True)
     rows = ''.join(f'<article class="note-row"><time>{date}</time><a href="{ESC(url)}">{ESC(title)} {ARROW}</a></article>' for date, url, title in items)
-    return head('Research Notes | Junru Lu', '/blog/') + nav('blog') + f'''<main id="main" class="page-shell blog-page"><p class="eyebrow">THE NOTEBOOK / 2017–2019</p><h1>Research notes.</h1><p class="page-intro">A preserved archive of reading notes, early projects, and learning. The content and original article URLs remain unchanged.</p><div class="notes-list">{rows}</div><a class="text-link" href="/about/">Personal notes from the archive {ARROW}</a></main>''' + footer()
+    return head('Writing & Notes | Junru Lu', '/blog/') + nav('blog') + f'''<main id="main" class="page-shell blog-page"><p class="eyebrow">WRITING & NOTES</p><h1>Research notes.</h1><p class="page-intro">Technical essays on model memory, efficient attention, and preference optimization, alongside an archive of earlier reading notes and projects.</p>
+<section class="blog-writing" aria-labelledby="essays-heading"><div class="section-heading"><h2 id="essays-heading">Technical essays</h2>{link(DATA['articles_url'], 'On Hugging Face ' + ARROW, 'text-link')}</div>{article_cards()}</section>
+<section aria-labelledby="archive-heading"><div class="section-heading"><h2 id="archive-heading">Earlier notes</h2><span class="section-note">2017–2019 · Original URLs preserved</span></div><div class="notes-list">{rows}</div></section><a class="text-link" href="/about/">Personal notes from the archive {ARROW}</a></main>''' + footer()
 
 
 def build():

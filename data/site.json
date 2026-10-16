@@ -3,6 +3,13 @@
   "email": "junru31415926@gmail.com",
   "github": "https://github.com/LuJunru",
   "huggingface": "https://huggingface.co/Junrulu",
+  "linkedin": "https://www.linkedin.com/in/junrulu",
+  "articles_url": "https://huggingface.co/Junrulu/activity/articles",
+  "articles": [
+    {"title": "大模型的记忆管理：从记忆外挂到主动管理", "date": "2026-10-09", "topic": "LLM MEMORY", "summary": "记忆结构、检索策略与主动上下文管理的技术演进。", "url": "https://huggingface.co/blog/Junrulu/llm-memory-overview"},
+    {"title": "结合Deepseek代码探讨MLA的改进及收益", "date": "2025-02-20", "topic": "EFFICIENT ATTENTION", "summary": "从代码分析低秩投影、KV cache与矩阵吸收。", "url": "https://huggingface.co/blog/Junrulu/mla-codebased-analysis"},
+    {"title": "大模型偏好优化技术：DPO及其变种", "date": "2025-02-20", "topic": "PREFERENCE OPTIMIZATION", "summary": "DPO理论、主要变体与偏好优化实践。", "url": "https://huggingface.co/blog/Junrulu/dpo-and-variants"}
+  ],
   "scholar": "https://scholar.google.com/citations?user=-aTMQm8AAAAJ",
   "topics": {"foundation": "Foundation models", "efficient": "Efficient attention", "agents": "Agents & alignment", "other": "Other research"},
   "featured": [

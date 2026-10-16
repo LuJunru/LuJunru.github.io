@@ -29,6 +29,13 @@ assert len({p['id'] for p in publications}) == len(publications), 'Duplicate pub
 assert all('Junru Lu' in p['authors'] for p in publications), 'Missing author attribution'
 assert all(p['topic'] in site['topics'] for p in publications), 'Unknown topic'
 assert all(p.get('links', {}).get('paper', '').startswith('https://') for p in publications), 'Missing publication URL'
+articles = site['articles']
+assert len({article['url'] for article in articles}) == len(articles), 'Duplicate article URL'
+assert all(article['url'].startswith('https://huggingface.co/blog/Junrulu/') for article in articles), 'Unexpected article URL'
+for filename in ('index.html', 'blog/index.html'):
+    contents = (ROOT / filename).read_text()
+    assert all(article['url'] in contents and article['title'] in contents for article in articles), f'Missing article in {filename}'
+assert site['linkedin'] in (ROOT / 'index.html').read_text(), 'Missing LinkedIn link'
 
 files = ['index.html', 'resume/index.html', 'blog/index.html', '404.html']
 errors = []
@@ -65,4 +72,4 @@ for language in ('En', 'Zh'):
 before = {filename: (ROOT / filename).read_bytes() for filename in files}
 subprocess.run([sys.executable, str(ROOT / 'scripts/build.py')], check=True)
 assert all((ROOT / filename).read_bytes() == content for filename, content in before.items()), 'Build is not deterministic'
-print(f'PASS: {len(publications)} publications, all generated internal links, two fixed PDF paths, deterministic build.')
+print(f'PASS: {len(publications)} publications, {len(articles)} articles, LinkedIn, all generated internal links, two fixed PDF paths, deterministic build.')
