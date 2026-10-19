@@ -67,9 +67,10 @@ def nav(active="research", lang="en", page="/"):
 </nav></div></header>'''
 
 
-def footer(lang="en"):
+def footer(lang="en", home=False):
     text = I18N[lang]
-    return f'''<footer class="site-footer"><div><a class="footer-name" href="{route('/', lang)}">{text['name']} <span>{text['secondary_name']}</span></a><p>{text['footer_topics']}</p></div>
+    footer_class = "site-footer home-footer" if home else "site-footer"
+    return f'''<footer class="{footer_class}"><div><a class="footer-name" href="{route('/', lang)}">{text['name']} <span>{text['secondary_name']}</span></a><p>{text['footer_topics']}</p></div>
 <div class="footer-links">{link('mailto:' + DATA['email'], text['get_in_touch'] + ' ↗')}{link('https://github.com/LuJunru/LuJunru.github.io', text['source'] + ' ↗')}<span>© 2026 Junru Lu</span></div></footer></body></html>'''
 
 
@@ -141,7 +142,7 @@ def homepage(lang="en"):
 <div class="background-grid"><div class="career-block"><p class="mini-heading">{text['experience_label']}</p><h3>{text['tencent']}</h3><p class="role">{text['role']}</p><p class="muted">{text['career_dates']}</p><p>{text['career_summary']}</p><div class="research-tags">{tags}</div></div>
 <div class="education-block"><p class="mini-heading">{text['education_label']}</p><ul>{education}</ul></div></div></section>
 <details class="earlier-notes home-archive"><summary><span class="archive-title">{text['earlier_notes']}</span><span class="archive-dates">2017–2019</span><span class="archive-chevron" aria-hidden="true">⌄</span></summary><div class="archive-content"><p class="muted">{text['notes_intro']}</p><a class="text-link" href="{route('/blog/', lang)}#earlier-notes">{text['browse_archive']} {ARROW}</a></div></details>
-</main>''' + footer(lang)
+</main>''' + footer(lang, home=True)
 
 
 def cvpage(lang="en"):

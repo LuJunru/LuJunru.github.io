@@ -54,6 +54,10 @@ assert all('Junru Lu' in p['authors'] for p in publications), 'Missing author at
 assert all(p['topic'] in site['topics'] for p in publications), 'Unknown topic'
 assert all(p.get('links', {}).get('paper', '').startswith('https://') for p in publications), 'Missing publication URL'
 assert all(re.fullmatch(r'\d{4}\.\d{4,5}', p['arxiv_id']) for p in publications), 'Invalid arXiv identifier'
+archive_css = (ROOT / 'assets/site.css').read_text()
+assert '.home-archive{margin:48px 0 0}' in archive_css, 'Home archive adds an empty row before the footer'
+assert '.site-footer.home-footer{border-top:0}' in archive_css, 'Home footer draws a duplicate separator'
+assert '.home-archive{margin:32px 0 0}' in archive_css, 'Mobile archive adds an empty row before the footer'
 articles = site['articles']
 assert len({a['url'] for a in articles}) == len(articles), 'Duplicate article URL'
 assert all(a['url'].startswith('https://huggingface.co/blog/Junrulu/') for a in articles), 'Unexpected article URL'
@@ -73,6 +77,7 @@ for filename in files:
     assert parser.language_switch == expected_switch, f'Wrong language-switch destination: {filename}'
     assert f'/love/?lang={"zh" if is_zh else "en"}' in parser.links, f'Missing discreet counter entry: {filename}'
     if filename in ('index.html', 'zh/index.html'):
+        assert '<footer class="site-footer home-footer">' in contents, f'Home archive/footer seam changed: {filename}'
         assert set(parser.papers) == set(site['papers_source_ids']) and len(parser.papers) == len(publications), f'Missing or duplicate papers: {filename}'
         assert site['linkedin'] in parser.links, f'Missing LinkedIn: {filename}'
         for code in ('En', 'Zh'):
