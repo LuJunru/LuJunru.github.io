@@ -142,7 +142,8 @@
       "authors": "Jiazheng Li, Yawei Li, Junru Lu, Zhenyi Shen, Di Yin, Lin Gui, Xing Sun, David Rügamer, Xinpeng Wang, Yulan He",
       "venue": "Preprint",
       "links": {
-        "paper": "https://arxiv.org/abs/2610.16354"
+        "paper": "https://arxiv.org/abs/2610.16354",
+        "code": "https://github.com/lijiazheng99/VRSD"
       },
       "published_at": "2026-10-12"
     },
@@ -156,7 +157,8 @@
       "venue": "Preprint",
       "links": {
         "paper": "https://arxiv.org/abs/2608.28478",
-        "code": "https://github.com/Tencent/ElephantBench"
+        "code": "https://github.com/Tencent/ElephantBench",
+        "data": "https://huggingface.co/datasets/tencent/ElephantBench"
       },
       "published_at": "2026-08-28"
     },
@@ -169,7 +171,8 @@
       "venue": "EMNLP 2026 · Main",
       "links": {
         "paper": "https://arxiv.org/abs/2608.28476",
-        "code": "https://github.com/Tencent/ContextPilot"
+        "code": "https://github.com/Tencent/ContextPilot",
+        "model": "https://huggingface.co/tencent/ContextPilot-8B"
       },
       "arxiv_id": "2608.28476",
       "published_at": "2026-08-28"
@@ -183,7 +186,8 @@
       "venue": "EMNLP 2026",
       "links": {
         "paper": "https://arxiv.org/abs/2605.25343",
-        "project": "https://nmm-roadmap.github.io/"
+        "project": "https://nmm-roadmap.github.io/",
+        "resources": "https://github.com/NMM-Roadmap/Awesome-NMM-List"
       },
       "arxiv_id": "2605.25343",
       "published_at": "2026-05-25"
@@ -197,7 +201,8 @@
       "authors": "Yixuan Yang, Zhen Luo, Wanshui Gan, Jinkun Hao, Junru Lu, Jinghao Yan, Zhaoyang Lyu, Xudong Xu",
       "venue": "Preprint",
       "links": {
-        "paper": "https://arxiv.org/abs/2605.18451"
+        "paper": "https://arxiv.org/abs/2605.18451",
+        "code": "https://github.com/YxuanAr/Code-as-Room"
       },
       "published_at": "2026-05-18"
     },
@@ -210,7 +215,8 @@
       "venue": "Technical report",
       "links": {
         "paper": "https://arxiv.org/abs/2601.19798",
-        "code": "https://github.com/TencentCloudADP/youtu-vl"
+        "code": "https://github.com/TencentCloudADP/youtu-vl",
+        "model": "https://huggingface.co/tencent/Youtu-VL-4B-Instruct"
       },
       "arxiv_id": "2601.19798",
       "published_at": "2026-01-27"
@@ -238,7 +244,8 @@
       "venue": "Technical report",
       "links": {
         "paper": "https://arxiv.org/abs/2512.24618",
-        "code": "https://github.com/TencentCloudADP/youtu-tip/tree/master/youtu-llm"
+        "code": "https://github.com/TencentCloudADP/youtu-tip/tree/master/youtu-llm",
+        "model": "https://huggingface.co/tencent/Youtu-LLM-2B"
       },
       "arxiv_id": "2512.24618",
       "published_at": "2025-12-31"
@@ -253,7 +260,8 @@
       "links": {
         "paper": "https://arxiv.org/abs/2506.07570",
         "project": "https://polysummit.github.io/optiscene.github.io/",
-        "code": "https://github.com/PolySummit/OptiScene"
+        "code": "https://github.com/PolySummit/OptiScene",
+        "data": "https://huggingface.co/datasets/B3rrYang/3D-SynthPlace_indoor_scenes_dataset"
       },
       "arxiv_id": "2506.07570",
       "published_at": "2025-06-09"
@@ -281,7 +289,8 @@
       "venue": "ACL 2025 · Findings",
       "links": {
         "paper": "https://aclanthology.org/2025.findings-acl.1082/",
-        "code": "https://github.com/LuJunru/RoleMRC"
+        "code": "https://github.com/LuJunru/RoleMRC",
+        "data": "https://huggingface.co/datasets/Junrulu/RoleMRC"
       },
       "arxiv_id": "2502.11387",
       "published_at": "2025-02-17"
@@ -321,7 +330,9 @@
       "venue": "COLING 2025",
       "links": {
         "paper": "https://aclanthology.org/2025.coling-main.731/",
-        "code": "https://github.com/LuJunru/FIPO_Project"
+        "code": "https://github.com/LuJunru/FIPO_Project",
+        "data": "https://huggingface.co/datasets/Junrulu/Prompt_Preference_Dataset",
+        "model": "https://huggingface.co/Junrulu/FIPO-IPL-IPO-Tulu2-70B"
       },
       "arxiv_id": "2402.11811",
       "published_at": "2024-02-19"
@@ -362,7 +373,8 @@
       "venue": "EMNLP 2024",
       "links": {
         "paper": "https://aclanthology.org/2024.emnlp-main.60/",
-        "code": "https://github.com/LuJunru/SamPO"
+        "code": "https://github.com/LuJunru/SamPO",
+        "model": "https://huggingface.co/Junrulu/Llama-3-8B-Instruct-Iterative-SamPO"
       },
       "arxiv_id": "2406.10957",
       "published_at": "2024-06-16"
@@ -390,7 +402,9 @@
       "venue": "Preprint",
       "links": {
         "paper": "https://arxiv.org/abs/2308.08239",
-        "code": "https://github.com/LuJunru/MemoChat"
+        "code": "https://github.com/LuJunru/MemoChat",
+        "data": "https://huggingface.co/datasets/Junrulu/MemoChat_Instructions",
+        "model": "https://huggingface.co/Junrulu/MemoChat-Vicuna-7B"
       },
       "arxiv_id": "2308.08239",
       "published_at": "2023-08-16"
