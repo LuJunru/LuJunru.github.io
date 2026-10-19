@@ -209,7 +209,8 @@
       "authors": "Zhixiang Wei, Yi Li, Zhehan Kan, et al. (including Junru Lu)",
       "venue": "Technical report",
       "links": {
-        "paper": "https://arxiv.org/abs/2601.19798"
+        "paper": "https://arxiv.org/abs/2601.19798",
+        "code": "https://github.com/TencentCloudADP/youtu-vl"
       },
       "arxiv_id": "2601.19798",
       "published_at": "2026-01-27"
@@ -236,7 +237,8 @@
       "authors": "Junru Lu, Jiarui Qin, Lingfeng Qiao, et al.",
       "venue": "Technical report",
       "links": {
-        "paper": "https://arxiv.org/abs/2512.24618"
+        "paper": "https://arxiv.org/abs/2512.24618",
+        "code": "https://github.com/TencentCloudADP/youtu-tip/tree/master/youtu-llm"
       },
       "arxiv_id": "2512.24618",
       "published_at": "2025-12-31"
@@ -250,7 +252,8 @@
       "venue": "NeurIPS 2025",
       "links": {
         "paper": "https://arxiv.org/abs/2506.07570",
-        "project": "https://polysummit.github.io/optiscene.github.io/"
+        "project": "https://polysummit.github.io/optiscene.github.io/",
+        "code": "https://github.com/PolySummit/OptiScene"
       },
       "arxiv_id": "2506.07570",
       "published_at": "2025-06-09"
