@@ -13,7 +13,7 @@ DATA = json.loads((ROOT / "data/site.json").read_text(encoding="utf-8"))
 I18N = json.loads((ROOT / "data/i18n.json").read_text(encoding="utf-8"))
 ESC = html.escape
 ARROW = '<span aria-hidden="true">↗</span>'
-ASSET_VERSION = "20261016-love"
+ASSET_VERSION = "20261019-archive"
 
 
 def route(path="/", lang="en"):
