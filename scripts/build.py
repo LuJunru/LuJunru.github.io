@@ -13,7 +13,7 @@ DATA = json.loads((ROOT / "data/site.json").read_text(encoding="utf-8"))
 I18N = json.loads((ROOT / "data/i18n.json").read_text(encoding="utf-8"))
 ESC = html.escape
 ARROW = '<span aria-hidden="true">↗</span>'
-ASSET_VERSION = "20261019-archive"
+ASSET_VERSION = "20261019-blog-archive"
 
 
 def route(path="/", lang="en"):
@@ -67,9 +67,9 @@ def nav(active="research", lang="en", page="/"):
 </nav></div></header>'''
 
 
-def footer(lang="en", home=False):
+def footer(lang="en", home=False, blog=False):
     text = I18N[lang]
-    footer_class = "site-footer home-footer" if home else "site-footer"
+    footer_class = "site-footer home-footer" if home else ("site-footer blog-footer" if blog else "site-footer")
     return f'''<footer class="{footer_class}"><div><a class="footer-name" href="{route('/', lang)}">{text['name']} <span>{text['secondary_name']}</span></a><p>{text['footer_topics']}</p></div>
 <div class="footer-links">{link('mailto:' + DATA['email'], text['get_in_touch'] + ' ↗')}{link('https://github.com/LuJunru/LuJunru.github.io', text['source'] + ' ↗')}<span>© 2026 Junru Lu</span></div></footer></body></html>'''
 
@@ -167,7 +167,7 @@ def blogpage(lang="en"):
     rows = ''.join(f'<article class="note-row"><time>{date}</time><a href="{ESC(url)}">{ESC(title)} {ARROW}</a></article>' for date, url, title in items)
     return head(text['blog_title'], '/blog/', lang) + nav('blog', lang, '/blog/') + f'''<main id="main" class="page-shell blog-page"><p class="eyebrow">{text['blog_eyebrow']}</p><h1>{text['blog_heading']}</h1><p class="page-intro">{text['blog_intro']}</p>
 <section class="blog-writing" aria-labelledby="essays-heading"><div class="section-heading"><h2 id="essays-heading">{text['technical_essays']}</h2>{link(DATA['articles_url'], text['on_hf'] + ' ' + ARROW, 'text-link')}</div>{article_cards(lang)}</section>
-<details id="earlier-notes" class="earlier-notes"><summary><span class="archive-title">{text['earlier_notes']}</span><span class="archive-dates">2017–2019</span><span class="archive-chevron" aria-hidden="true">⌄</span></summary><div class="archive-content"><div class="notes-list">{rows}</div><a class="text-link" href="/about/">{text['personal_notes']} {ARROW}</a></div></details></main>''' + footer(lang)
+<details id="earlier-notes" class="earlier-notes"><summary><span class="archive-title">{text['earlier_notes']}</span><span class="archive-dates">2017–2019</span><span class="archive-chevron" aria-hidden="true">⌄</span></summary><div class="archive-content"><div class="notes-list">{rows}</div><a class="text-link" href="/about/">{text['personal_notes']} {ARROW}</a></div></details></main>''' + footer(lang, blog=True)
 
 
 def errorpage(lang="en"):

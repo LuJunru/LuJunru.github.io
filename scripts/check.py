@@ -58,6 +58,8 @@ archive_css = (ROOT / 'assets/site.css').read_text()
 assert '.home-archive{margin:48px 0 0}' in archive_css, 'Home archive adds an empty row before the footer'
 assert '.site-footer.home-footer{border-top:0}' in archive_css, 'Home footer draws a duplicate separator'
 assert '.home-archive{margin:32px 0 0}' in archive_css, 'Mobile archive adds an empty row before the footer'
+assert '.blog-page{padding-bottom:0}' in archive_css, 'Blog archive adds an empty row before the footer'
+assert '.site-footer.blog-footer{border-top:0}' in archive_css, 'Blog footer draws a duplicate separator'
 articles = site['articles']
 assert len({a['url'] for a in articles}) == len(articles), 'Duplicate article URL'
 assert all(a['url'].startswith('https://huggingface.co/blog/Junrulu/') for a in articles), 'Unexpected article URL'
@@ -76,6 +78,8 @@ for filename in files:
     expected_switch = '/' + ('' if is_zh else 'zh/') + suffix
     assert parser.language_switch == expected_switch, f'Wrong language-switch destination: {filename}'
     assert f'/love/?lang={"zh" if is_zh else "en"}' in parser.links, f'Missing discreet counter entry: {filename}'
+    if filename in ('blog/index.html', 'zh/blog/index.html'):
+        assert '<footer class="site-footer blog-footer">' in contents, f'Blog archive/footer seam changed: {filename}'
     if filename in ('index.html', 'zh/index.html'):
         assert '<footer class="site-footer home-footer">' in contents, f'Home archive/footer seam changed: {filename}'
         assert set(parser.papers) == set(site['papers_source_ids']) and len(parser.papers) == len(publications), f'Missing or duplicate papers: {filename}'
