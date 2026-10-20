@@ -69,6 +69,13 @@
   ],
   "news": [
     {
+      "date": "2026-10-19",
+      "label": "OCT 2026",
+      "label_zh": "2026年10月",
+      "html_zh": "合作论文<a href=\"https://huggingface.co/papers/2610.26770\" target=\"_blank\" rel=\"noopener noreferrer\">《HarnessPro》</a>发布预印本，仍在审稿中；研究 agent harness 的任务表现与执行成本权衡。<a href=\"https://github.com/pzs19/HarnessPro\" target=\"_blank\" rel=\"noopener noreferrer\">代码 ↗</a>",
+      "html": "Our co-authored paper <a href=\"https://huggingface.co/papers/2610.26770\" target=\"_blank\" rel=\"noopener noreferrer\">HarnessPro</a> is available as a preprint and remains under review. It studies the performance–cost trade-off in agent harnesses. <a href=\"https://github.com/pzs19/HarnessPro\" target=\"_blank\" rel=\"noopener noreferrer\">Code ↗</a>"
+    },
+    {
       "date": "2026-08-28",
       "label": "AUG 2026",
       "label_zh": "2026年8月",
@@ -133,6 +140,20 @@
   ],
   "papers_source": "https://huggingface.co/Junrulu/papers",
   "publications": [
+    {
+      "id": "harnesspro",
+      "arxiv_id": "2610.26770",
+      "year": 2026,
+      "topic": "agents",
+      "title": "HarnessPro: Recursive Harness Self-Improvement with Pareto Optimization for Performance-Cost Trade-offs",
+      "authors": "Zhuoshi Pan, ZhiYuan Feng, Yukuo Cen, Honglin Lin, Junru Lu, Zhongxia Chen, Shuo Yang, H. Vicky Zhao, Jie Tang",
+      "venue": "Preprint",
+      "links": {
+        "paper": "https://arxiv.org/abs/2610.26770",
+        "code": "https://github.com/pzs19/HarnessPro"
+      },
+      "published_at": "2026-10-19"
+    },
     {
       "id": "vrsd",
       "arxiv_id": "2610.16354",
@@ -489,5 +510,8 @@
     "2302.05574",
     "2210.12902",
     "2011.00519"
+  ],
+  "papers_additional_verified_ids": [
+    "2610.26770"
   ]
 }

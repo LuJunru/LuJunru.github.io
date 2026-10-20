@@ -49,7 +49,10 @@ for key in ('featured', 'education', 'news'):
 publications = site['publications']
 assert len({p['id'] for p in publications}) == len(publications), 'Duplicate publication id'
 assert len({p['arxiv_id'] for p in publications}) == len(publications), 'Duplicate arXiv work'
-assert set(p['arxiv_id'] for p in publications) == set(site['papers_source_ids']), 'Incomplete HF authored-paper coverage'
+hf_source_ids = set(site['papers_source_ids'])
+additional_verified_ids = set(site.get('papers_additional_verified_ids', []))
+assert hf_source_ids.isdisjoint(additional_verified_ids), 'Duplicate HF and externally verified paper IDs'
+assert set(p['arxiv_id'] for p in publications) == hf_source_ids | additional_verified_ids, 'Incomplete authored-paper coverage'
 assert all('Junru Lu' in p['authors'] for p in publications), 'Missing author attribution'
 assert all(p['topic'] in site['topics'] for p in publications), 'Unknown topic'
 assert all(p.get('links', {}).get('paper', '').startswith('https://') for p in publications), 'Missing publication URL'
@@ -82,7 +85,7 @@ for filename in files:
         assert '<footer class="site-footer blog-footer">' in contents, f'Blog archive/footer seam changed: {filename}'
     if filename in ('index.html', 'zh/index.html'):
         assert '<footer class="site-footer home-footer">' in contents, f'Home archive/footer seam changed: {filename}'
-        assert set(parser.papers) == set(site['papers_source_ids']) and len(parser.papers) == len(publications), f'Missing or duplicate papers: {filename}'
+        assert set(parser.papers) == hf_source_ids | additional_verified_ids and len(parser.papers) == len(publications), f'Missing or duplicate papers: {filename}'
         assert site['linkedin'] in parser.links, f'Missing LinkedIn: {filename}'
         for code in ('En', 'Zh'):
             assert f'/pdf/{code}_resume.pdf' in parser.links, f'CV path changed: {filename}'
