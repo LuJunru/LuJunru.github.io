@@ -67,6 +67,43 @@
       "url": "https://arxiv.org/abs/2608.28476"
     }
   ],
+  "open_models": [
+    {
+      "name": "Youtu-LLM-2B",
+      "variant": "BASE · INSTRUCT",
+      "variant_zh": "基座 · 指令版",
+      "summary": "A 1.96B language model pre-trained from scratch with Dense MLA and a Commonsense–STEM–Agent curriculum. The team released both Base and Instruct weights.",
+      "summary_zh": "从零预训练的 1.96B Dense MLA 语言模型，采用常识—STEM—智能体阶段课程；团队公开了基座与指令版权重。",
+      "links": [
+        {"label": "Base weights", "label_zh": "基座权重", "url": "https://huggingface.co/tencent/Youtu-LLM-2B-Base"},
+        {"label": "Instruct weights", "label_zh": "指令版权重", "url": "https://huggingface.co/tencent/Youtu-LLM-2B"},
+        {"label": "Technical report", "label_zh": "技术报告", "url": "https://arxiv.org/abs/2512.24618"}
+      ]
+    },
+    {
+      "name": "Youtu-VL-4B",
+      "variant": "INSTRUCT · GGUF",
+      "variant_zh": "指令版 · GGUF",
+      "summary": "Vision–Language Unified Autoregressive Supervision trains on visual tokens as well as text. The team released Instruct weights and a GGUF conversion.",
+      "summary_zh": "视觉—语言统一自回归监督同时预测视觉 token 与文本；团队公开了指令版权重及 GGUF 转换版本。",
+      "links": [
+        {"label": "Instruct weights", "label_zh": "指令版权重", "url": "https://huggingface.co/tencent/Youtu-VL-4B-Instruct"},
+        {"label": "GGUF", "label_zh": "GGUF", "url": "https://huggingface.co/tencent/Youtu-VL-4B-Instruct-GGUF"},
+        {"label": "Technical report", "label_zh": "技术报告", "url": "https://arxiv.org/abs/2601.19798"}
+      ]
+    },
+    {
+      "name": "Youtu-LLM-A7B-Base",
+      "variant": "120B TOTAL · ~7B ACTIVE",
+      "variant_zh": "总参约 120B · 激活约 7B",
+      "summary": "A separate team-released multimodal MoE base checkpoint trained on 11.5T multimodal tokens, with a 256K context window. It is a base model, not an Instruct release.",
+      "summary_zh": "团队另行公开的多模态 MoE 预训练基座：模型卡记录 11.5T 多模态 token 与 256K 上下文；不是指令版模型。",
+      "links": [
+        {"label": "Base weights", "label_zh": "基座权重", "url": "https://huggingface.co/tencent/Youtu-LLM-A7B-Base"},
+        {"label": "Youtu collection", "label_zh": "优图模型合集", "url": "https://huggingface.co/collections/tencent/youtu"}
+      ]
+    }
+  ],
   "news": [
     {
       "date": "2026-10-19",

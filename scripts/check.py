@@ -57,6 +57,10 @@ assert all('Junru Lu' in p['authors'] for p in publications), 'Missing author at
 assert all(p['topic'] in site['topics'] for p in publications), 'Unknown topic'
 assert all(p.get('links', {}).get('paper', '').startswith('https://') for p in publications), 'Missing publication URL'
 assert all(re.fullmatch(r'\d{4}\.\d{4,5}', p['arxiv_id']) for p in publications), 'Invalid arXiv identifier'
+open_models = site['open_models']
+assert {model['name'] for model in open_models} == {'Youtu-LLM-2B', 'Youtu-VL-4B', 'Youtu-LLM-A7B-Base'}, 'Unexpected model set'
+assert all(model.get('variant_zh') and model.get('summary_zh') and model.get('links') for model in open_models), 'Missing model translation or links'
+assert all(item.get('label_zh') and item['url'].startswith(('https://huggingface.co/', 'https://arxiv.org/')) for model in open_models for item in model['links']), 'Invalid open-model link'
 archive_css = (ROOT / 'assets/site.css').read_text()
 assert '.home-archive{margin:48px 0 0}' in archive_css, 'Home archive adds an empty row before the footer'
 assert '.site-footer.home-footer{border-top:0}' in archive_css, 'Home footer draws a duplicate separator'
@@ -87,6 +91,11 @@ for filename in files:
         assert '<footer class="site-footer home-footer">' in contents, f'Home archive/footer seam changed: {filename}'
         assert set(parser.papers) == hf_source_ids | additional_verified_ids and len(parser.papers) == len(publications), f'Missing or duplicate papers: {filename}'
         assert site['linkedin'] in parser.links, f'Missing LinkedIn: {filename}'
+        assert contents.count('class="model-card"') == len(open_models), f'Missing open-model cards: {filename}'
+        assert 'id="open-models"' in contents, f'Missing open-model section: {filename}'
+        for model in open_models:
+            for model_link in model['links']:
+                assert model_link['url'] in parser.links, f'Missing model release link: {filename}: {model["name"]}'
         for code in ('En', 'Zh'):
             assert f'/pdf/{code}_resume.pdf' in parser.links, f'CV path changed: {filename}'
     if filename.endswith('index.html') and 'resume' not in filename:

@@ -13,7 +13,7 @@ DATA = json.loads((ROOT / "data/site.json").read_text(encoding="utf-8"))
 I18N = json.loads((ROOT / "data/i18n.json").read_text(encoding="utf-8"))
 ESC = html.escape
 ARROW = '<span aria-hidden="true">↗</span>'
-ASSET_VERSION = "20261019-blog-archive"
+ASSET_VERSION = "20261021-open-models"
 
 
 def route(path="/", lang="en"):
@@ -112,6 +112,21 @@ def article_cards(lang="en"):
     return '<div class="article-grid">' + ''.join(cards) + '</div>'
 
 
+def model_cards(lang="en"):
+    text = I18N[lang]
+    cards = []
+    for model in DATA["open_models"]:
+        links = " ".join(
+            link(item["url"], ESC(localized(item, "label", lang)) + " " + ARROW, "model-link")
+            for item in model["links"]
+        )
+        cards.append(f'''<article class="model-card"><p class="model-variant">{ESC(localized(model, 'variant', lang))}</p>
+<h3>{ESC(model['name'])}</h3><p>{ESC(localized(model, 'summary', lang))}</p><div class="model-links">{links}</div></article>''')
+    return f'''<section class="models-section" id="open-models" aria-labelledby="models-title">
+<div class="section-heading"><div><p class="eyebrow">{text['open_models_eyebrow']}</p><h2 id="models-title">{text['open_models_heading']}</h2></div><p>{text['open_models_intro']}</p></div>
+<div class="model-grid">{''.join(cards)}</div></section>'''
+
+
 def homepage(lang="en"):
     text = I18N[lang]
     socials = ' '.join(link(url, label + ' ' + ARROW, 'social-link') for label, url in [(text['email'], 'mailto:' + DATA['email']), (text['scholar'], DATA['scholar']), ('GitHub', DATA['github']), ('Hugging Face', DATA['huggingface']), ('LinkedIn', DATA['linkedin'])])
@@ -133,6 +148,7 @@ def homepage(lang="en"):
 <div class="social-links">{socials}</div><div class="hero-cv"><span>{text['cv_label']}</span><a href="/pdf/En_resume.pdf">English {ARROW}</a><span class="cv-separator">/</span><a href="/pdf/Zh_resume.pdf" lang="zh-CN">中文 {ARROW}</a></div></div>
 <figure class="portrait-block"><div class="portrait-frame"><img src="/assets/portrait.jpg" width="420" height="560" alt="{text['portrait_alt']}" fetchpriority="high"></div><figcaption>{text['name']} <span>{text['secondary_name']}</span><span class="portrait-rule"></span>{text['portrait_caption']}</figcaption></figure></section>
 <section id="research" class="research-section"><div class="section-heading"><div><p class="eyebrow">{text['research_eyebrow']}</p><h2>{text['selected_work']}</h2></div><p>{text['research_caption']}</p></div><div class="feature-grid">{cards}</div></section>
+{model_cards(lang)}
 <section class="updates-section"><div class="section-heading compact"><h2>{text['recent_updates']}</h2><span class="section-note">{text['public_releases']}</span></div><ul class="news-list">{news}</ul></section>
 <section id="writing" class="writing-section"><div class="section-heading"><div><p class="eyebrow">{text['writing_eyebrow']}</p><h2>{text['writing_heading']}</h2></div><a class="text-link" href="{route('/blog/', lang)}">{text['all_writing']} {ARROW}</a></div>{article_cards(lang)}</section>
 <section id="publications" class="publications-section"><div class="section-heading"><div><p class="eyebrow">{text['publications_eyebrow']}</p><h2>{text['papers_heading']}</h2></div><div class="publication-source-links">{link(DATA['scholar'], text['full_list'] + ' ' + ARROW, 'text-link')}{link(DATA['papers_source'], 'Hugging Face ' + ARROW, 'text-link')}</div></div>
