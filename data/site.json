@@ -96,8 +96,8 @@
       "name": "Youtu-LLM-A7B-Base",
       "variant": "120B TOTAL · ~7B ACTIVE",
       "variant_zh": "总参约 120B · 激活约 7B",
-      "summary": "A separate team-released multimodal MoE base checkpoint trained on 11.5T multimodal tokens, with a 256K context window. It is a base model, not an Instruct release.",
-      "summary_zh": "团队另行公开的多模态 MoE 预训练基座：模型卡记录 11.5T 多模态 token 与 256K 上下文；不是指令版模型。",
+      "summary": "A team-released multimodal MoE base model. A pre-trained ViT is paired with a randomly initialized language model, followed by 4K, 32K, 128K and 256K context stages over 11.5T multimodal tokens.",
+      "summary_zh": "团队公开的多模态 MoE 基座。预训练视觉编码器接入随机初始化的语言模型，再经历 4K、32K、128K、256K 多阶段训练，共处理 11.5T 多模态 token。",
       "links": [
         {"label": "Base weights", "label_zh": "基座权重", "url": "https://huggingface.co/tencent/Youtu-LLM-A7B-Base"},
         {"label": "Youtu collection", "label_zh": "优图模型合集", "url": "https://huggingface.co/collections/tencent/youtu"}
