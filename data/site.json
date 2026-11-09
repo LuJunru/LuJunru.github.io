@@ -106,6 +106,13 @@
   ],
   "news": [
     {
+      "date": "2026-11-04",
+      "label": "NOV 2026",
+      "label_zh": "2026年11月",
+      "html_zh": "合作论文<a href=\"https://huggingface.co/papers/2611.06976\" target=\"_blank\" rel=\"noopener noreferrer\">《PLatour》</a>发布预印本，研究大模型到小模型的隐层通信。论文用 PACT-Check 区分真实信息传递与桥接适配带来的增益。<a href=\"https://github.com/zhenyi4/platour\" target=\"_blank\" rel=\"noopener noreferrer\">代码 ↗</a> · <a href=\"https://huggingface.co/collections/Junrulu/platour\" target=\"_blank\" rel=\"noopener noreferrer\">权重与数据 ↗</a>",
+      "html": "Our co-authored paper <a href=\"https://huggingface.co/papers/2611.06976\" target=\"_blank\" rel=\"noopener noreferrer\">PLatour</a> is available as a preprint. It studies prefill-to-autoregressive cross-model transfer and uses PACT-Check to separate genuine communication gains from bridge adaptation. <a href=\"https://github.com/zhenyi4/platour\" target=\"_blank\" rel=\"noopener noreferrer\">Code ↗</a> · <a href=\"https://huggingface.co/collections/Junrulu/platour\" target=\"_blank\" rel=\"noopener noreferrer\">Weights and data ↗</a>"
+    },
+    {
       "date": "2026-10-19",
       "label": "OCT 2026",
       "label_zh": "2026年10月",
@@ -177,6 +184,20 @@
   ],
   "papers_source": "https://huggingface.co/Junrulu/papers",
   "publications": [
+    {
+      "id": "platour-pact",
+      "arxiv_id": "2611.06976",
+      "year": 2026,
+      "topic": "foundation",
+      "title": "On the Opportunities and Challenges of Prefill-to-Autoregressive Cross-Model Transfer",
+      "authors": "Zhenyi Shen, Junru Lu, Wei Liu, Jiangnan Ye, Jiazheng Li, Di Yin, Xing Sun, Tameem Adel, Yali Du, Lin Gui, Yulan He",
+      "venue": "Preprint",
+      "links": {
+        "paper": "https://arxiv.org/abs/2611.06976",
+        "code": "https://github.com/zhenyi4/platour"
+      },
+      "published_at": "2026-11-04"
+    },
     {
       "id": "harnesspro",
       "arxiv_id": "2610.26770",
@@ -524,6 +545,7 @@
     }
   ],
   "papers_source_ids": [
+    "2611.06976",
     "2610.16354",
     "2608.28478",
     "2608.28476",
