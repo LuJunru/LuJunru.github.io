@@ -10,6 +10,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+PROFILE_VERSION = '20261110-profile'
 
 class Links(HTMLParser):
     def __init__(self):
@@ -20,10 +21,16 @@ class Links(HTMLParser):
         self.language_switch = None
         self.lang = None
         self.earlier_notes = []
+        self.portraits = []
+        self.og_images = []
     def handle_starttag(self, tag, attrs):
         data = dict(attrs)
         if tag == 'html':
             self.lang = data.get('lang')
+        if tag == 'img' and urlsplit(data.get('src', '')).path == '/assets/portrait.jpg':
+            self.portraits.append(data['src'])
+        if tag == 'meta' and data.get('property') == 'og:image':
+            self.og_images.append(data.get('content'))
         if data.get('id'):
             assert data['id'] not in self.ids, f'Duplicate HTML id: {data["id"]}'
             self.ids.add(data['id'])
@@ -60,7 +67,20 @@ assert all(re.fullmatch(r'\d{4}\.\d{4,5}', p['arxiv_id']) for p in publications)
 open_models = site['open_models']
 assert {model['name'] for model in open_models} == {'Youtu-LLM-2B', 'Youtu-VL-4B', 'Youtu-LLM-A7B-Base'}, 'Unexpected model set'
 assert all(model.get('variant_zh') and model.get('summary_zh') and model.get('links') for model in open_models), 'Missing model translation or links'
-assert all(item.get('label_zh') and item['url'].startswith(('https://huggingface.co/', 'https://arxiv.org/')) for model in open_models for item in model['links']), 'Invalid open-model link'
+official_code_urls = {
+    'https://github.com/TencentCloudADP/youtu-tip/tree/master/youtu-llm',
+    'https://github.com/TencentCloudADP/youtu-tip',
+    'https://github.com/TencentCloudADP/youtu-vl',
+}
+assert all(item.get('label_zh') and (item['url'].startswith(('https://huggingface.co/', 'https://arxiv.org/')) or item['url'] in official_code_urls) for model in open_models for item in model['links']), '模型链接必须指向模型卡、论文或指定官方代码'
+models_by_name = {model['name']: model for model in open_models}
+llm_links = {item['url'] for item in models_by_name['Youtu-LLM-2B']['links']}
+vl_links = {item['url'] for item in models_by_name['Youtu-VL-4B']['links']}
+assert {'https://huggingface.co/tencent/Youtu-LLM-2B/tree/GGUF', 'https://github.com/TencentCloudADP/youtu-tip/tree/master/youtu-llm', 'https://github.com/TencentCloudADP/youtu-tip'} <= llm_links, '缺少 Youtu-LLM 的 GGUF、代码或部署入口'
+assert {'https://github.com/TencentCloudADP/youtu-vl', 'https://github.com/TencentCloudADP/youtu-tip'} <= vl_links, '缺少 Youtu-VL 的代码或部署入口'
+for lang in ('en', 'zh'):
+    assert all(value in translations[lang]['career_summary'] for value in ('20TB+', '640B-A31B', '31B')), '工作经历缺少已确认的数据规模或 MoE 预训练规模'
+    assert '440B' not in translations[lang]['career_summary'], '工作经历仍包含旧模型规模'
 archive_css = (ROOT / 'assets/site.css').read_text()
 assert '.home-archive{margin:48px 0 0}' in archive_css, 'Home archive adds an empty row before the footer'
 assert '.site-footer.home-footer{border-top:0}' in archive_css, 'Home footer draws a duplicate separator'
@@ -81,6 +101,8 @@ for filename in files:
     parser.feed(contents)
     is_zh = filename.startswith('zh/')
     assert parser.lang == ('zh-CN' if is_zh else 'en'), f'Wrong page language: {filename}'
+    assert parser.og_images == [f'https://lujunru.github.io/assets/portrait.jpg?v={PROFILE_VERSION}'], f'头像分享图缺少新缓存版本：{filename}'
+    assert all(value == f'/assets/portrait.jpg?v={PROFILE_VERSION}' for value in parser.portraits), f'头像图片缺少新缓存版本：{filename}'
     suffix = filename.removeprefix('zh/').removesuffix('index.html')
     expected_switch = '/' + ('' if is_zh else 'zh/') + suffix
     assert parser.language_switch == expected_switch, f'Wrong language-switch destination: {filename}'
@@ -88,6 +110,7 @@ for filename in files:
     if filename in ('blog/index.html', 'zh/blog/index.html'):
         assert '<footer class="site-footer blog-footer">' in contents, f'Blog archive/footer seam changed: {filename}'
     if filename in ('index.html', 'zh/index.html'):
+        assert parser.portraits == [f'/assets/portrait.jpg?v={PROFILE_VERSION}'], f'首页头像引用不正确：{filename}'
         assert '<footer class="site-footer home-footer">' in contents, f'Home archive/footer seam changed: {filename}'
         assert set(parser.papers) == hf_source_ids | additional_verified_ids and len(parser.papers) == len(publications), f'Missing or duplicate papers: {filename}'
         assert site['linkedin'] in parser.links, f'Missing LinkedIn: {filename}'

@@ -1,5 +1,5 @@
 {
-  "description": "Junru Lu is a Foundation Model Researcher at Tencent YouTu Lab, working on foundation models, efficient attention, and memory for long-horizon agents.",
+  "description": "Junru Lu is a Foundation Model Researcher at Tencent YouTu Lab, working on foundation-model pre-training and architecture, efficient long-context modeling, and memory for long-horizon agents.",
   "email": "junru31415926@gmail.com",
   "github": "https://github.com/LuJunru",
   "huggingface": "https://huggingface.co/Junrulu",
@@ -38,45 +38,48 @@
   "featured": [
     {
       "name": "Youtu-LLM",
-      "area": "FOUNDATION MODELS",
-      "area_zh": "基础模型",
-      "summary_zh": "从零预训练的轻量语言模型，分阶段学习常识、STEM 和智能体任务，重点提升推理与规划能力。",
+      "area": "PRE-TRAINING & ARCHITECTURE",
+      "area_zh": "预训练与架构",
+      "summary_zh": "第一作者。从零预训练的 1.96B Dense MLA 语言模型，支持 128K 上下文，以常识—STEM—Agent 分阶段训练构建推理与规划能力。",
       "kind": "model",
       "venue": "Technical report",
-      "summary": "A lightweight language model pre-trained from scratch, with a Commonsense–STEM–Agent curriculum and native reasoning and planning capabilities.",
+      "summary": "First author. A 1.96B Dense MLA language model pre-trained from scratch, with 128K context and a Commonsense–STEM–Agent curriculum for reasoning and planning.",
       "url": "https://arxiv.org/abs/2512.24618"
     },
     {
       "name": "SSA",
-      "area": "EFFICIENT ATTENTION",
-      "area_zh": "高效注意力",
-      "summary_zh": "在训练中同时学习全注意力和稀疏注意力，并对齐两条路径的输出，减少切换推理模式带来的偏差。",
+      "area": "EFFICIENT LONG CONTEXT",
+      "area_zh": "高效长上下文",
+      "summary_zh": "第二作者。在训练中双向对齐全注意力与稀疏注意力的输出，处理训练与推理的失配，以及稀疏训练中梯度传播不完整的问题。",
       "kind": "sparse",
       "venue": "ICML 2026",
-      "summary": "Bidirectional alignment of full and sparse attention outputs during training, addressing the mismatch between the two attention modes.",
+      "summary": "Second author. Bidirectional alignment of full and sparse attention outputs addresses training–inference mismatch and incomplete gradient flow in sparse training.",
       "url": "https://arxiv.org/abs/2511.20102"
     },
     {
       "name": "ContextPilot",
       "area": "AGENT MEMORY",
       "area_zh": "智能体记忆",
-      "summary_zh": "面向长程智能体的上下文管理方法，结合任务规划、长期记忆、软卸载和动作级强化学习信用分配。",
+      "summary_zh": "第三作者。结合任务规划、长期记忆与软卸载（soft offloading），维持紧凑的工作上下文；通过关键动作的分支采样，为上下文管理动作分配强化学习信用。",
       "kind": "memory",
       "venue": "EMNLP 2026",
-      "summary": "Proactive context management for long-horizon agents, with planning, memory, soft offloading, and action-level credit assignment.",
+      "summary": "Third author. Planning, long-term memory, and soft offloading keep the working context compact. Branch sampling at key actions assigns RL credit to context-management decisions.",
       "url": "https://arxiv.org/abs/2608.28476"
     }
   ],
   "open_models": [
     {
       "name": "Youtu-LLM-2B",
-      "variant": "BASE · INSTRUCT",
-      "variant_zh": "基座 · 指令版",
-      "summary": "A 1.96B language model pre-trained from scratch with Dense MLA and a Commonsense–STEM–Agent curriculum. The team released both Base and Instruct weights.",
-      "summary_zh": "从零预训练的 1.96B Dense MLA 语言模型，依次学习常识、STEM 和智能体任务。团队公开了基座模型和指令微调模型。",
+      "variant": "BASE · INSTRUCT · GGUF · 128K",
+      "variant_zh": "基座 · 指令版 · GGUF · 128K",
+      "summary": "First author of Youtu-LLM. A 1.96B Dense MLA language model pre-trained from scratch with 128K context and a Commonsense–STEM–Agent curriculum. Public releases include Base / Instruct weights, a GGUF branch, and code; Youtu-Tip provides an offline deployment option.",
+      "summary_zh": "Youtu-LLM 第一作者。1.96B Dense MLA 语言模型，从零预训练，支持 128K 上下文与常识—STEM—Agent 分阶段训练。公开产物包括基座 / 指令版权重、GGUF 分支和代码，可通过 Youtu-Tip 离线部署。",
       "links": [
         {"label": "Base weights", "label_zh": "基座权重", "url": "https://huggingface.co/tencent/Youtu-LLM-2B-Base"},
         {"label": "Instruct weights", "label_zh": "指令版权重", "url": "https://huggingface.co/tencent/Youtu-LLM-2B"},
+        {"label": "GGUF branch", "label_zh": "GGUF 分支", "url": "https://huggingface.co/tencent/Youtu-LLM-2B/tree/GGUF"},
+        {"label": "Model code", "label_zh": "模型代码", "url": "https://github.com/TencentCloudADP/youtu-tip/tree/master/youtu-llm"},
+        {"label": "Offline deployment · Youtu-Tip", "label_zh": "离线部署 · Youtu-Tip", "url": "https://github.com/TencentCloudADP/youtu-tip"},
         {"label": "Technical report", "label_zh": "技术报告", "url": "https://arxiv.org/abs/2512.24618"}
       ]
     },
@@ -84,11 +87,13 @@
       "name": "Youtu-VL-4B",
       "variant": "INSTRUCT · GGUF",
       "variant_zh": "指令版 · GGUF",
-      "summary": "Vision–Language Unified Autoregressive Supervision trains on visual tokens as well as text. The team released Instruct weights and a GGUF conversion.",
-      "summary_zh": "通过视觉—语言统一自回归监督，同时学习预测视觉 token 和文本。团队公开了指令微调权重及 GGUF 版本。",
+      "summary": "Co-author of Youtu-VL. Unified vision–language autoregressive supervision learns to predict both visual and text tokens. Instruct weights, GGUF, and official code are public; the model also powers Youtu-Tip's offline multimodal deployment.",
+      "summary_zh": "Youtu-VL 合作作者。通过视觉—语言统一自回归监督，学习预测视觉与文本 token。已公开指令版权重、GGUF 和官方代码，也为 Youtu-Tip 的离线多模态部署提供模型支持。",
       "links": [
         {"label": "Instruct weights", "label_zh": "指令版权重", "url": "https://huggingface.co/tencent/Youtu-VL-4B-Instruct"},
         {"label": "GGUF", "label_zh": "GGUF", "url": "https://huggingface.co/tencent/Youtu-VL-4B-Instruct-GGUF"},
+        {"label": "Model code", "label_zh": "模型代码", "url": "https://github.com/TencentCloudADP/youtu-vl"},
+        {"label": "Offline deployment · Youtu-Tip", "label_zh": "离线部署 · Youtu-Tip", "url": "https://github.com/TencentCloudADP/youtu-tip"},
         {"label": "Technical report", "label_zh": "技术报告", "url": "https://arxiv.org/abs/2601.19798"}
       ]
     },
@@ -96,8 +101,8 @@
       "name": "Youtu-LLM-A7B-Base",
       "variant": "120B TOTAL · ~7B ACTIVE",
       "variant_zh": "总参约 120B · 激活约 7B",
-      "summary": "A team-released multimodal MoE base model. A pre-trained ViT is paired with a randomly initialized language model, followed by 4K, 32K, 128K and 256K context stages over 11.5T multimodal tokens.",
-      "summary_zh": "团队公开的多模态 MoE 基座模型。预训练视觉编码器连接随机初始化的语言模型，随后进行 4K、32K、128K 和 256K 多阶段训练，共使用 11.5T 多模态 token。",
+      "summary": "A team-released multimodal MoE base model with approximately 120B total and 7B active parameters. A pre-trained ViT is paired with a randomly initialized language model, followed by 4K, 32K, 128K and 256K context stages over 11.5T multimodal tokens.",
+      "summary_zh": "团队公开的多模态 MoE 基座模型，总参数约 120B、激活参数约 7B。预训练视觉编码器连接随机初始化的语言模型，随后进行 4K、32K、128K 和 256K 多阶段训练，共使用 11.5T 多模态 token。",
       "links": [
         {"label": "Base weights", "label_zh": "基座权重", "url": "https://huggingface.co/tencent/Youtu-LLM-A7B-Base"},
         {"label": "Youtu collection", "label_zh": "优图模型合集", "url": "https://huggingface.co/collections/tencent/youtu"}

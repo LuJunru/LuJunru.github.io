@@ -13,7 +13,7 @@ DATA = json.loads((ROOT / "data/site.json").read_text(encoding="utf-8"))
 I18N = json.loads((ROOT / "data/i18n.json").read_text(encoding="utf-8"))
 ESC = html.escape
 ARROW = '<span aria-hidden="true">↗</span>'
-ASSET_VERSION = "20261021-open-models"
+ASSET_VERSION = "20261110-profile"
 
 
 def route(path="/", lang="en"):
@@ -45,7 +45,7 @@ def head(title, path="/", lang="en"):
 <meta name="theme-color" content="#f8faf8"><meta property="og:type" content="website">
 <meta property="og:title" content="{ESC(title, quote=True)}"><meta property="og:description" content="{ESC(description, quote=True)}">
 <meta property="og:url" content="{url}"><meta property="og:locale" content="{'zh_CN' if lang == 'zh' else 'en_US'}">
-<meta property="og:image" content="https://lujunru.github.io/assets/portrait.jpg">
+<meta property="og:image" content="https://lujunru.github.io/assets/portrait.jpg?v={ASSET_VERSION}">
 <meta name="twitter:card" content="summary"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/site.css?v={ASSET_VERSION}"><script src="/assets/site.js?v={ASSET_VERSION}" defer></script>
 <script type="application/ld+json">{json.dumps(person, ensure_ascii=False)}</script>
@@ -146,7 +146,7 @@ def homepage(lang="en"):
 <h1 id="hero-title">{text['name']}<span class="chinese-name" lang="{'en' if lang == 'zh' else 'zh-CN'}">{text['secondary_name']}</span></h1><p class="hero-role">{text['role']}</p>
 <p class="hero-lead">{text['hero_lead']}</p><p class="hero-bio">{text['hero_bio']}</p>
 <div class="social-links">{socials}</div><div class="hero-cv"><span>{text['cv_label']}</span><a href="/pdf/En_resume.pdf">English {ARROW}</a><span class="cv-separator">/</span><a href="/pdf/Zh_resume.pdf" lang="zh-CN">中文 {ARROW}</a></div></div>
-<figure class="portrait-block"><div class="portrait-frame"><img src="/assets/portrait.jpg" width="420" height="560" alt="{text['portrait_alt']}" fetchpriority="high"></div><figcaption>{text['name']} <span>{text['secondary_name']}</span><span class="portrait-rule"></span>{text['portrait_caption']}</figcaption></figure></section>
+<figure class="portrait-block"><div class="portrait-frame"><img src="/assets/portrait.jpg?v={ASSET_VERSION}" width="420" height="560" alt="{text['portrait_alt']}" fetchpriority="high"></div><figcaption>{text['name']} <span>{text['secondary_name']}</span><span class="portrait-rule"></span>{text['portrait_caption']}</figcaption></figure></section>
 <section id="research" class="research-section"><div class="section-heading"><div><p class="eyebrow">{text['research_eyebrow']}</p><h2>{text['selected_work']}</h2></div><p>{text['research_caption']}</p></div><div class="feature-grid">{cards}</div></section>
 {model_cards(lang)}
 <section class="updates-section"><div class="section-heading compact"><h2>{text['recent_updates']}</h2><span class="section-note">{text['public_releases']}</span></div><ul class="news-list">{news}</ul></section>
