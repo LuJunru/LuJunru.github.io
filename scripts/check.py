@@ -10,7 +10,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-PROFILE_VERSION = '20261110-profile'
+PROFILE_VERSION = '20261110-compact'
 
 class Links(HTMLParser):
     def __init__(self):
@@ -78,9 +78,34 @@ llm_links = {item['url'] for item in models_by_name['Youtu-LLM-2B']['links']}
 vl_links = {item['url'] for item in models_by_name['Youtu-VL-4B']['links']}
 assert {'https://huggingface.co/tencent/Youtu-LLM-2B/tree/GGUF', 'https://github.com/TencentCloudADP/youtu-tip/tree/master/youtu-llm', 'https://github.com/TencentCloudADP/youtu-tip'} <= llm_links, '缺少 Youtu-LLM 的 GGUF、代码或部署入口'
 assert {'https://github.com/TencentCloudADP/youtu-vl', 'https://github.com/TencentCloudADP/youtu-tip'} <= vl_links, '缺少 Youtu-VL 的代码或部署入口'
+pretraining_scales = ('2B', '4B', '30B-A3B', '32B-A4B', '120B-A7B', '640B-A31B')
 for lang in ('en', 'zh'):
-    assert all(value in translations[lang]['career_summary'] for value in ('20TB+', '640B-A31B', '31B')), '工作经历缺少已确认的数据规模或 MoE 预训练规模'
+    assert all(value in translations[lang]['career_summary'] for value in ('31B',) + pretraining_scales), '工作经历缺少已确认的预训练模型系列'
+    duties = translations[lang]['career_responsibilities']
+    assert len(duties) == 5 and len({item['label'] for item in duties}) == 5, '五条核心研发职责缺失或重复'
+    assert all(term in duties[0]['text'] for term in ('20TB+', '5TB+')), '文本或多模态数据规模口径缺失'
+    assert all(item['label'] and item['text'] for item in duties), '研发职责正文缺失'
     assert '440B' not in translations[lang]['career_summary'], '工作经历仍包含旧模型规模'
+assert 'core member of youtu' in translations['en']['career_summary'].lower(), '英文工作经历未说明团队核心研发定位'
+assert '团队核心研发' in translations['zh']['career_summary'], '中文工作经历未说明团队核心研发定位'
+en_duties = translations['en']['career_responsibilities']
+zh_duties = translations['zh']['career_responsibilities']
+assert all(term in en_duties[1]['text'] for term in ('decisions', 'sparse-attention', 'native multimodal')), '英文架构职责未对齐定稿简历'
+assert all(term in zh_duties[1]['text'] for term in ('决策', '稀疏注意力', '原生多模态')), '中文架构职责未对齐定稿简历'
+assert all(term in en_duties[2]['text'] for term in ('Contributed', 'FP8', 'co-designed', 'LightningMoBA')), '英文算子职责未对齐定稿简历'
+assert all(term in zh_duties[2]['text'] for term in ('参与研发', 'FP8', 'co-design', 'LightningMoBA')), '中文算子职责未对齐定稿简历'
+assert all(term in en_duties[3]['text'] for term in ('downstream metrics', 'model health', 'training stability')), '英文缺少三维训练监控'
+assert all(term in zh_duties[3]['text'] for term in ('下游指标', '模型健康度', '训练稳定性')), '中文缺少三维训练监控'
+assert all(term in en_duties[4]['text'] for term in ('automated', 'long-context', 'agentic', 'benchmarks')), '英文评测职责未对齐定稿简历'
+assert all(term in zh_duties[4]['text'] for term in ('自动化', '长上下文', 'Agentic', '评测基准')), '中文评测职责未对齐定稿简历'
+for lang in ('en', 'zh'):
+    compact = translations[lang]['career_highlights']
+    assert len(compact) == 5, '主页摘要必须保留五条研发主线'
+    assert sum(len(item['text']) for item in compact) < sum(len(item['text']) for item in translations[lang]['career_responsibilities']) * 0.6, '主页摘要未明显缩短'
+    assert all(term in compact[0]['text'] for term in ('20TB+', '5TB+')), '主页摘要丢失两类语料规模'
+    assert 'LightningMoBA' in compact[2]['text'], '主页摘要丢失新版算子共同设计'
+    assert 'agentic' in compact[4]['text'].lower(), '主页摘要丢失Agentic评测'
+    assert len(compact[0]['label']) <= 10, '主页摘要标签过长'
 archive_css = (ROOT / 'assets/site.css').read_text()
 assert '.home-archive{margin:48px 0 0}' in archive_css, 'Home archive adds an empty row before the footer'
 assert '.site-footer.home-footer{border-top:0}' in archive_css, 'Home footer draws a duplicate separator'

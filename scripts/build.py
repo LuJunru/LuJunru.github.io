@@ -13,7 +13,7 @@ DATA = json.loads((ROOT / "data/site.json").read_text(encoding="utf-8"))
 I18N = json.loads((ROOT / "data/i18n.json").read_text(encoding="utf-8"))
 ESC = html.escape
 ARROW = '<span aria-hidden="true">↗</span>'
-ASSET_VERSION = "20261110-profile"
+ASSET_VERSION = "20261110-compact"
 
 
 def route(path="/", lang="en"):
@@ -139,7 +139,8 @@ def homepage(lang="en"):
     news = ''.join(f'<li><time datetime="{n["date"]}">{ESC(localized(n, "label", lang))}</time><p>{localized(n, "html", lang)}</p></li>' for n in DATA['news'])
     education = ''.join(f'<li><div><h3>{ESC(localized(e, "institution", lang))}</h3><p>{ESC(localized(e, "degree", lang))}</p>{"<small>"+localized(e,"advisor",lang)+"</small>" if e.get("advisor") else ""}</div><span>{ESC(e["dates"])}</span></li>' for e in DATA['education'])
     filters = ''.join(f'<button type="button" class="filter-button" data-filter="{k}" aria-pressed="false">{ESC(v)}</button>' for k,v in text['topics'].items())
-    tags = ''.join(f'<span>{ESC(tag)}</span>' for tag in text['tags'])
+    responsibilities = ''.join(f'<li><strong>{ESC(item["label"])}</strong><span>{ESC(item["text"])}</span></li>' for item in text['career_highlights'])
+    model_series = '<p><span>LLM</span>2B / 4B / 30B-A3B</p><p><span>MoE MLLM</span>32B-A4B / 120B-A7B / 640B-A31B</p>'
     count = text['count_all'].format(n=len(DATA['publications']))
     return head(text['home_title'], lang=lang) + nav(lang=lang) + f'''<main id="main" class="page-shell">
 <section class="hero" id="about" aria-labelledby="hero-title"><div class="hero-copy"><p class="eyebrow"><span class="status-dot"></span> {text['affiliation']}</p>
@@ -155,7 +156,7 @@ def homepage(lang="en"):
 <div class="publication-tools" hidden><div class="filters" role="group" aria-label="{text['filter_label']}"><button class="filter-button selected" type="button" data-filter="all" aria-pressed="true">{text['all_work']}</button>{filters}</div><label class="search-box"><span class="search-icon" aria-hidden="true">⌕</span><span class="sr-only">{text['search_label']}</span><input id="paper-search" type="search" placeholder="{text['search_placeholder']}" autocomplete="off"></label></div>
 <p id="pub-count" class="pub-count" aria-live="polite" data-all-template="{ESC(text['count_all'], quote=True)}" data-filtered-template="{ESC(text['count_filtered'], quote=True)}">{count}</p><div id="publication-list">{pubs}</div><p id="empty-state" hidden>{text['no_results']}</p></section>
 <section id="experience" class="experience-section"><div class="section-heading"><div><p class="eyebrow">{text['background_eyebrow']}</p><h2>{text['background_heading']}</h2></div><a class="text-link" href="{route('/resume/', lang)}">{text['view_cv']} {ARROW}</a></div>
-<div class="background-grid"><div class="career-block"><p class="mini-heading">{text['experience_label']}</p><h3>{text['tencent']}</h3><p class="role">{text['role']}</p><p class="muted">{text['career_dates']}</p><p>{text['career_summary']}</p><div class="research-tags">{tags}</div></div>
+<div class="background-grid"><div class="career-block"><p class="mini-heading">{text['experience_label']}</p><div class="career-head"><h3>{text['tencent']}</h3><p class="muted">{text['career_dates']}</p></div><p class="role">{text['role']}</p><p class="career-intro">{text['career_intro']}</p><ul class="career-responsibilities">{responsibilities}</ul><details class="career-models"><summary>{text['career_models_label']}<span aria-hidden="true">⌄</span></summary><div>{model_series}</div></details></div>
 <div class="education-block"><p class="mini-heading">{text['education_label']}</p><ul>{education}</ul></div></div></section>
 <details class="earlier-notes home-archive"><summary><span class="archive-title">{text['earlier_notes']}</span><span class="archive-dates">2017–2019</span><span class="archive-chevron" aria-hidden="true">⌄</span></summary><div class="archive-content"><p class="muted">{text['notes_intro']}</p><a class="text-link" href="{route('/blog/', lang)}#earlier-notes">{text['browse_archive']} {ARROW}</a></div></details>
 </main>''' + footer(lang, home=True)
