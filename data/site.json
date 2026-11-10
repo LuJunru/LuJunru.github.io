@@ -10,21 +10,21 @@
       "title": "大模型的记忆管理：从记忆外挂到主动管理",
       "date": "2026-10-09",
       "topic": "LLM MEMORY",
-      "summary": "记忆结构、检索策略与主动上下文管理的技术演进。",
+      "summary": "介绍记忆结构、检索策略和主动上下文管理的发展脉络。",
       "url": "https://huggingface.co/blog/Junrulu/llm-memory-overview"
     },
     {
       "title": "结合Deepseek代码探讨MLA的改进及收益",
       "date": "2025-02-20",
       "topic": "EFFICIENT ATTENTION",
-      "summary": "从代码分析低秩投影、KV cache与矩阵吸收。",
+      "summary": "结合代码理解低秩投影、KV 缓存和矩阵吸收。",
       "url": "https://huggingface.co/blog/Junrulu/mla-codebased-analysis"
     },
     {
       "title": "大模型偏好优化技术：DPO及其变种",
       "date": "2025-02-20",
       "topic": "PREFERENCE OPTIMIZATION",
-      "summary": "DPO理论、主要变体与偏好优化实践。",
+      "summary": "介绍 DPO 的原理、主要变体和实际应用。",
       "url": "https://huggingface.co/blog/Junrulu/dpo-and-variants"
     }
   ],
@@ -40,7 +40,7 @@
       "name": "Youtu-LLM",
       "area": "FOUNDATION MODELS",
       "area_zh": "基础模型",
-      "summary_zh": "从零预训练的轻量语言模型，以常识、STEM与智能体任务组成训练课程，培养原生推理与规划能力。",
+      "summary_zh": "从零预训练的轻量语言模型，分阶段学习常识、STEM 和智能体任务，重点提升推理与规划能力。",
       "kind": "model",
       "venue": "Technical report",
       "summary": "A lightweight language model pre-trained from scratch, with a Commonsense–STEM–Agent curriculum and native reasoning and planning capabilities.",
@@ -50,7 +50,7 @@
       "name": "SSA",
       "area": "EFFICIENT ATTENTION",
       "area_zh": "高效注意力",
-      "summary_zh": "在训练中双向对齐全注意力与稀疏注意力的输出，缩小两种注意力模式之间的差距。",
+      "summary_zh": "在训练中同时学习全注意力和稀疏注意力，并对齐两条路径的输出，减少切换推理模式带来的偏差。",
       "kind": "sparse",
       "venue": "ICML 2026",
       "summary": "Bidirectional alignment of full and sparse attention outputs during training, addressing the mismatch between the two attention modes.",
@@ -60,7 +60,7 @@
       "name": "ContextPilot",
       "area": "AGENT MEMORY",
       "area_zh": "智能体记忆",
-      "summary_zh": "面向长程智能体的主动上下文管理，结合规划、长期记忆、软卸载与动作级强化学习信用分配。",
+      "summary_zh": "面向长程智能体的上下文管理方法，结合任务规划、长期记忆、软卸载和动作级强化学习信用分配。",
       "kind": "memory",
       "venue": "EMNLP 2026",
       "summary": "Proactive context management for long-horizon agents, with planning, memory, soft offloading, and action-level credit assignment.",
@@ -73,7 +73,7 @@
       "variant": "BASE · INSTRUCT",
       "variant_zh": "基座 · 指令版",
       "summary": "A 1.96B language model pre-trained from scratch with Dense MLA and a Commonsense–STEM–Agent curriculum. The team released both Base and Instruct weights.",
-      "summary_zh": "从零预训练的 1.96B Dense MLA 语言模型，采用常识—STEM—智能体阶段课程；团队公开了基座与指令版权重。",
+      "summary_zh": "从零预训练的 1.96B Dense MLA 语言模型，依次学习常识、STEM 和智能体任务。团队公开了基座模型和指令微调模型。",
       "links": [
         {"label": "Base weights", "label_zh": "基座权重", "url": "https://huggingface.co/tencent/Youtu-LLM-2B-Base"},
         {"label": "Instruct weights", "label_zh": "指令版权重", "url": "https://huggingface.co/tencent/Youtu-LLM-2B"},
@@ -85,7 +85,7 @@
       "variant": "INSTRUCT · GGUF",
       "variant_zh": "指令版 · GGUF",
       "summary": "Vision–Language Unified Autoregressive Supervision trains on visual tokens as well as text. The team released Instruct weights and a GGUF conversion.",
-      "summary_zh": "视觉—语言统一自回归监督同时预测视觉 token 与文本；团队公开了指令版权重及 GGUF 转换版本。",
+      "summary_zh": "通过视觉—语言统一自回归监督，同时学习预测视觉 token 和文本。团队公开了指令微调权重及 GGUF 版本。",
       "links": [
         {"label": "Instruct weights", "label_zh": "指令版权重", "url": "https://huggingface.co/tencent/Youtu-VL-4B-Instruct"},
         {"label": "GGUF", "label_zh": "GGUF", "url": "https://huggingface.co/tencent/Youtu-VL-4B-Instruct-GGUF"},
@@ -97,7 +97,7 @@
       "variant": "120B TOTAL · ~7B ACTIVE",
       "variant_zh": "总参约 120B · 激活约 7B",
       "summary": "A team-released multimodal MoE base model. A pre-trained ViT is paired with a randomly initialized language model, followed by 4K, 32K, 128K and 256K context stages over 11.5T multimodal tokens.",
-      "summary_zh": "团队公开的多模态 MoE 基座。预训练视觉编码器接入随机初始化的语言模型，再经历 4K、32K、128K、256K 多阶段训练，共处理 11.5T 多模态 token。",
+      "summary_zh": "团队公开的多模态 MoE 基座模型。预训练视觉编码器连接随机初始化的语言模型，随后进行 4K、32K、128K 和 256K 多阶段训练，共使用 11.5T 多模态 token。",
       "links": [
         {"label": "Base weights", "label_zh": "基座权重", "url": "https://huggingface.co/tencent/Youtu-LLM-A7B-Base"},
         {"label": "Youtu collection", "label_zh": "优图模型合集", "url": "https://huggingface.co/collections/tencent/youtu"}
@@ -109,35 +109,35 @@
       "date": "2026-11-04",
       "label": "NOV 2026",
       "label_zh": "2026年11月",
-      "html_zh": "合作论文<a href=\"https://huggingface.co/papers/2611.06976\" target=\"_blank\" rel=\"noopener noreferrer\">《PLatour》</a>发布预印本，研究大模型到小模型的隐层通信。论文用 PACT-Check 区分真实信息传递与桥接适配带来的增益。<a href=\"https://github.com/zhenyi4/platour\" target=\"_blank\" rel=\"noopener noreferrer\">代码 ↗</a> · <a href=\"https://huggingface.co/collections/Junrulu/platour\" target=\"_blank\" rel=\"noopener noreferrer\">权重与数据 ↗</a>",
+      "html_zh": "合作论文<a href=\"https://huggingface.co/papers/2611.06976\" target=\"_blank\" rel=\"noopener noreferrer\">《PLatour》</a>预印本已公开，研究大模型向小模型传递隐层信息的方法。PACT-Check 用于区分跨模型通信的收益与桥接模块自身适配带来的收益。<a href=\"https://github.com/zhenyi4/platour\" target=\"_blank\" rel=\"noopener noreferrer\">代码 ↗</a> · <a href=\"https://huggingface.co/collections/Junrulu/platour\" target=\"_blank\" rel=\"noopener noreferrer\">权重与数据 ↗</a>",
       "html": "Our co-authored paper <a href=\"https://huggingface.co/papers/2611.06976\" target=\"_blank\" rel=\"noopener noreferrer\">PLatour</a> is available as a preprint. It studies prefill-to-autoregressive cross-model transfer and uses PACT-Check to separate genuine communication gains from bridge adaptation. <a href=\"https://github.com/zhenyi4/platour\" target=\"_blank\" rel=\"noopener noreferrer\">Code ↗</a> · <a href=\"https://huggingface.co/collections/Junrulu/platour\" target=\"_blank\" rel=\"noopener noreferrer\">Weights and data ↗</a>"
     },
     {
       "date": "2026-10-19",
       "label": "OCT 2026",
       "label_zh": "2026年10月",
-      "html_zh": "合作论文<a href=\"https://huggingface.co/papers/2610.26770\" target=\"_blank\" rel=\"noopener noreferrer\">《HarnessPro》</a>发布预印本，仍在审稿中；研究 agent harness 的任务表现与执行成本权衡。<a href=\"https://github.com/pzs19/HarnessPro\" target=\"_blank\" rel=\"noopener noreferrer\">代码 ↗</a>",
+      "html_zh": "合作论文<a href=\"https://huggingface.co/papers/2610.26770\" target=\"_blank\" rel=\"noopener noreferrer\">《HarnessPro》</a>预印本已公开，目前仍在审稿。论文研究智能体执行框架如何兼顾任务表现与运行成本。<a href=\"https://github.com/pzs19/HarnessPro\" target=\"_blank\" rel=\"noopener noreferrer\">代码 ↗</a>",
       "html": "Our co-authored paper <a href=\"https://huggingface.co/papers/2610.26770\" target=\"_blank\" rel=\"noopener noreferrer\">HarnessPro</a> is available as a preprint and remains under review. It studies the performance–cost trade-off in agent harnesses. <a href=\"https://github.com/pzs19/HarnessPro\" target=\"_blank\" rel=\"noopener noreferrer\">Code ↗</a>"
     },
     {
       "date": "2026-08-28",
       "label": "AUG 2026",
       "label_zh": "2026年8月",
-      "html_zh": "<a href=\"https://arxiv.org/abs/2608.28476\" target=\"_blank\" rel=\"noopener noreferrer\">ContextPilot</a> 已公开，获 EMNLP 2026 主会录用。<a href=\"https://github.com/Tencent/ContextPilot\" target=\"_blank\" rel=\"noopener noreferrer\">代码 ↗</a>",
+      "html_zh": "<a href=\"https://arxiv.org/abs/2608.28476\" target=\"_blank\" rel=\"noopener noreferrer\">ContextPilot</a> 论文与代码已公开，论文被 EMNLP 2026 主会录用。<a href=\"https://github.com/Tencent/ContextPilot\" target=\"_blank\" rel=\"noopener noreferrer\">代码 ↗</a>",
       "html": "<a href=\"https://arxiv.org/abs/2608.28476\" target=\"_blank\" rel=\"noopener noreferrer\">ContextPilot</a> is available, accepted to EMNLP 2026 Main. <a href=\"https://github.com/Tencent/ContextPilot\" target=\"_blank\" rel=\"noopener noreferrer\">Code ↗</a>"
     },
     {
       "date": "2026-05-25",
       "label": "MAY 2026",
       "label_zh": "2026年5月",
-      "html_zh": "我们发布了<a href=\"https://nmm-roadmap.github.io/\" target=\"_blank\" rel=\"noopener noreferrer\">《Toward Native Multimodal Modeling: A Roadmap》</a>，梳理原生多模态架构、训练、数据、部署与评测。",
+      "html_zh": "我们发布了<a href=\"https://nmm-roadmap.github.io/\" target=\"_blank\" rel=\"noopener noreferrer\">《Toward Native Multimodal Modeling: A Roadmap》</a>，讨论原生多模态模型的架构、训练、数据、部署与评测。",
       "html": "We released <a href=\"https://nmm-roadmap.github.io/\" target=\"_blank\" rel=\"noopener noreferrer\">Toward Native Multimodal Modeling: A Roadmap</a>, covering architectures, training, data, deployment, and evaluation."
     },
     {
       "date": "2026-01-27",
       "label": "JAN 2026",
       "label_zh": "2026年1月",
-      "html_zh": "<a href=\"https://arxiv.org/abs/2601.19798\" target=\"_blank\" rel=\"noopener noreferrer\">Youtu-VL</a> 将视觉与语言词元纳入统一的自回归监督。",
+      "html_zh": "<a href=\"https://arxiv.org/abs/2601.19798\" target=\"_blank\" rel=\"noopener noreferrer\">Youtu-VL</a> 技术报告已公开，采用统一的自回归目标学习预测视觉与语言 token。",
       "html": "<a href=\"https://arxiv.org/abs/2601.19798\" target=\"_blank\" rel=\"noopener noreferrer\">Youtu-VL</a> introduces unified autoregressive supervision for visual and language tokens."
     },
     {
@@ -175,7 +175,7 @@
     {
       "institution": "University of International Relations",
       "institution_zh": "国际关系学院",
-      "degree_zh": "信息管理与信息系统专业工学学士",
+      "degree_zh": "工学学士，信息管理与信息系统专业",
       "advisor_zh": "导师：<a href=\"https://aclanthology.org/people/b/binyang-li/\" target=\"_blank\" rel=\"noopener noreferrer\">李斌阳教授</a>",
       "degree": "B.Eng. in Information Management and Information System",
       "dates": "2014–2018",
