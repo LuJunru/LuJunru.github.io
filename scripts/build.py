@@ -81,7 +81,7 @@ def authors_markup(authors):
 def publication(p, lang="en"):
     text = I18N[lang]
     links = " ".join(link(v, f'{ESC(text["link_labels"].get(k, k.capitalize()))} {ARROW}', 'paper-link') for k, v in p.get("links", {}).items())
-    searchable = ' '.join([p['title'], p['authors'], p['venue'], p['topic'], I18N['en']['topics'][p['topic']], I18N['zh']['topics'][p['topic']]]).lower()
+    searchable = ' '.join([p['title'], p.get('short_name', ''), p['authors'], p['venue'], p['topic'], I18N['en']['topics'][p['topic']], I18N['zh']['topics'][p['topic']]]).lower()
     venue = text['venues'].get(p['venue'], p['venue'])
     return f'''<article class="publication" data-id="{ESC(p['id'])}" data-arxiv="{ESC(p['arxiv_id'])}" data-topic="{ESC(p['topic'])}" data-search="{ESC(searchable, quote=True)}">
 <div class="pub-year">{p['year']}</div><div class="pub-main"><h3 lang="en">{ESC(p['title'])}</h3>

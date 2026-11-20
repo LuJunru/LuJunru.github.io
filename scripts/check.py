@@ -64,6 +64,11 @@ assert all('Junru Lu' in p['authors'] for p in publications), 'Missing author at
 assert all(p['topic'] in site['topics'] for p in publications), 'Unknown topic'
 assert all(p.get('links', {}).get('paper', '').startswith('https://') for p in publications), 'Missing publication URL'
 assert all(re.fullmatch(r'\d{4}\.\d{4,5}', p['arxiv_id']) for p in publications), 'Invalid arXiv identifier'
+lightning = next(p for p in publications if p['id'] == 'lightningmoba')
+assert lightning['arxiv_id'] == '2611.26268' and lightning['venue'] == 'Preprint', 'LightningMoBA公开状态或论文标识错误'
+assert lightning['authors'] == 'Yingqi Shi, Junru Lu, Yun Liu, Di Yin, Xing Sun', 'LightningMoBA作者顺序不匹配公开版'
+assert lightning['links']['code'] == 'https://github.com/Tencent/LightningMoBA', 'LightningMoBA官方代码链接缺失'
+assert lightning['short_name'] == 'LightningMoBA', '论文标题未包含方法名，需保留检索别名'
 open_models = site['open_models']
 assert {model['name'] for model in open_models} == {'Youtu-LLM-2B', 'Youtu-VL-4B', 'Youtu-LLM-A7B-Base'}, 'Unexpected model set'
 assert all(model.get('variant_zh') and model.get('summary_zh') and model.get('links') for model in open_models), 'Missing model translation or links'
@@ -140,6 +145,8 @@ for filename in files:
         assert set(parser.papers) == hf_source_ids | additional_verified_ids and len(parser.papers) == len(publications), f'Missing or duplicate papers: {filename}'
         assert site['linkedin'] in parser.links, f'Missing LinkedIn: {filename}'
         assert contents.count('class="model-card"') == len(open_models), f'Missing open-model cards: {filename}'
+        assert contents.count('class="feature-card ') == len(site['featured']) == 4, f'Missing selected research cards: {filename}'
+        assert 'lightningmoba' in contents and lightning['links']['paper'] in parser.links, f'Missing LightningMoBA entry: {filename}'
         assert 'id="open-models"' in contents, f'Missing open-model section: {filename}'
         for model in open_models:
             for model_link in model['links']:

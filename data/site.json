@@ -47,6 +47,16 @@
       "url": "https://arxiv.org/abs/2512.24618"
     },
     {
+      "name": "LightningMoBA",
+      "area": "SPARSE ATTENTION CO-DESIGN",
+      "area_zh": "稀疏注意力协同设计",
+      "summary_zh": "第二作者。主导总体设计与算法协同设计，指导内核实现与验证。动态阈值路由、KV消费者聚合与流水线共同减少稀疏执行开销。五个检查点的完整生成回路加速1.20–1.60倍。",
+      "kind": "sparse",
+      "venue": "Preprint",
+      "summary": "Second author. Led overall design and algorithm–system co-design, mentoring kernel implementation and validation. Dynamic routing, KV-centric execution, and pipelining accelerate complete generation loops by 1.20–1.60× across five checkpoints.",
+      "url": "https://arxiv.org/abs/2611.26268"
+    },
+    {
       "name": "SSA",
       "area": "EFFICIENT LONG CONTEXT",
       "area_zh": "高效长上下文",
@@ -110,6 +120,13 @@
     }
   ],
   "news": [
+    {
+      "date": "2026-11-19",
+      "label": "NOV 2026",
+      "label_zh": "2026年11月",
+      "html_zh": "我们公开了<a href=\"https://huggingface.co/papers/2611.26268\" target=\"_blank\" rel=\"noopener noreferrer\">LightningMoBA</a>预印本与<a href=\"https://github.com/Tencent/LightningMoBA\" target=\"_blank\" rel=\"noopener noreferrer\">代码 ↗</a>。通过动态路由、KV中心执行与运行时流水线，在匹配Top-16保留预算下，五个检查点的完整生成回路加速1.20–1.60倍，平均RULER得分从74.42提高到75.28。",
+      "html": "We released the <a href=\"https://huggingface.co/papers/2611.26268\" target=\"_blank\" rel=\"noopener noreferrer\">LightningMoBA</a> preprint and <a href=\"https://github.com/Tencent/LightningMoBA\" target=\"_blank\" rel=\"noopener noreferrer\">code ↗</a>. Dynamic routing, KV-centric execution, and runtime pipelining accelerate complete generation loops by 1.20–1.60× across five checkpoints at matched Top-16 retention, with mean RULER score rising from 74.42 to 75.28."
+    },
     {
       "date": "2026-11-04",
       "label": "NOV 2026",
@@ -189,6 +206,21 @@
   ],
   "papers_source": "https://huggingface.co/Junrulu/papers",
   "publications": [
+    {
+      "id": "lightningmoba",
+      "short_name": "LightningMoBA",
+      "arxiv_id": "2611.26268",
+      "year": 2026,
+      "topic": "efficient",
+      "title": "Accelerating Mixture of Block Attention via Dynamic Routing, KV-Centric Execution and Runtime Pipelining",
+      "authors": "Yingqi Shi, Junru Lu, Yun Liu, Di Yin, Xing Sun",
+      "venue": "Preprint",
+      "links": {
+        "paper": "https://arxiv.org/abs/2611.26268",
+        "code": "https://github.com/Tencent/LightningMoBA"
+      },
+      "published_at": "2026-11-19"
+    },
     {
       "id": "platour-pact",
       "arxiv_id": "2611.06976",
@@ -551,6 +583,7 @@
   ],
   "papers_source_ids": [
     "2611.06976",
+    "2610.26770",
     "2610.16354",
     "2608.28478",
     "2608.28476",
@@ -576,6 +609,6 @@
     "2011.00519"
   ],
   "papers_additional_verified_ids": [
-    "2610.26770"
+    "2611.26268"
   ]
 }
