@@ -13,7 +13,8 @@ DATA = json.loads((ROOT / "data/site.json").read_text(encoding="utf-8"))
 I18N = json.loads((ROOT / "data/i18n.json").read_text(encoding="utf-8"))
 ESC = html.escape
 ARROW = '<span aria-hidden="true">↗</span>'
-ASSET_VERSION = "20261110-compact"
+ASSET_VERSION = "20261110-compact"  # portrait cache key
+STYLE_VERSION = "20261123-reference-v2"  # 共享样式与脚本缓存版本
 
 
 def route(path="/", lang="en"):
@@ -42,12 +43,12 @@ def head(title, path="/", lang="en"):
 <link rel="alternate" hreflang="en" href="https://lujunru.github.io{route(path, 'en')}">
 <link rel="alternate" hreflang="zh-CN" href="https://lujunru.github.io{route(path, 'zh')}">
 <link rel="alternate" hreflang="x-default" href="https://lujunru.github.io{route(path, 'en')}">
-<meta name="theme-color" content="#f8faf8"><meta property="og:type" content="website">
+<meta name="theme-color" content="#F7F9FC"><meta property="og:type" content="website">
 <meta property="og:title" content="{ESC(title, quote=True)}"><meta property="og:description" content="{ESC(description, quote=True)}">
 <meta property="og:url" content="{url}"><meta property="og:locale" content="{'zh_CN' if lang == 'zh' else 'en_US'}">
 <meta property="og:image" content="https://lujunru.github.io/assets/portrait.jpg?v={ASSET_VERSION}">
 <meta name="twitter:card" content="summary"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/assets/site.css?v={ASSET_VERSION}"><script src="/assets/site.js?v={ASSET_VERSION}" defer></script>
+<link rel="stylesheet" href="/assets/site.css?v={STYLE_VERSION}"><script src="/assets/site.js?v={STYLE_VERSION}" defer></script>
 <script type="application/ld+json">{json.dumps(person, ensure_ascii=False)}</script>
 </head><body><a class="skip-link" href="#main">{text['skip']}</a>'''
 
@@ -89,15 +90,16 @@ def publication(p, lang="en"):
 
 
 def diagram(kind):
-    # Decorative motifs, not experimental results or architecture claims.
+    # 装饰图沿用模块语义色，不表达实验结果或架构结论。
+    navy, mid, pale, accent, rule = "#2346B4", "#1D63DC", "#B9CEFF", "#C85A17", "#D6DFEB"
     if kind == "model":
-        shapes = ''.join(f'<rect x="{38+i*52}" y="{30+j*28}" width="38" height="18" rx="4" fill="{["#bad3cc", "#79a99c", "#316d61"][j]}" opacity="{0.48+i*0.10}"/>' for j in range(3) for i in range(4))
-        shapes += '<path d="M38 127 H232" stroke="#316d61" stroke-width="1"/><text x="135" y="145" text-anchor="middle" fill="#316d61" font-family="monospace" font-size="11">PRETRAIN · REASON · ACT</text>'
+        shapes = ''.join(f'<rect x="{38+i*52}" y="{30+j*28}" width="38" height="18" rx="3" fill="{[pale, mid, navy][j]}" opacity="{0.55+i*0.15}"/>' for j in range(3) for i in range(4))
+        shapes += f'<path d="M38 127 H232" stroke="{mid}" stroke-width="1.2"/><text x="135" y="145" text-anchor="middle" fill="{navy}" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="10.5" font-weight="600" letter-spacing="1.6">PRETRAIN · REASON · ACT</text>'
     elif kind == "sparse":
-        shapes = ''.join(f'<rect x="{44+i*24}" y="{25+j*24}" width="17" height="17" rx="2" fill="{("#477884" if (i==j or i==0 or i==j-2) else "#dce7e8")}"/>' for j in range(5) for i in range(7))
+        shapes = ''.join(f'<rect x="{44+i*24}" y="{25+j*24}" width="17" height="17" rx="2" fill="{(accent if i == 0 else navy) if (i==j or i==0 or i==j-2) else rule}"/>' for j in range(5) for i in range(7))
     else:
-        shapes = '<path d="M40 85 H238 M75 85 V42 H185 V85 M130 85 V128 H220 V85" stroke="#9c94b0" stroke-width="1.3" fill="none"/>'
-        shapes += ''.join(f'<rect x="{x}" y="{y}" width="35" height="27" rx="6" fill="{c}"/>' for x, y, c in [(34,72,'#d9d5e1'),(92,72,'#b1a7c3'),(150,72,'#7c6d99'),(208,72,'#54456f'),(109,29,'#c7bfd5'),(166,114,'#c7bfd5')])
+        shapes = f'<path d="M40 85 H238 M75 85 V42 H185 V85 M130 85 V128 H220 V85" stroke="{mid}" stroke-width="1.3" fill="none"/>'
+        shapes += ''.join(f'<rect x="{x}" y="{y}" width="35" height="27" rx="4" fill="{c}"/>' for x, y, c in [(34,72,pale),(92,72,mid),(150,72,navy),(208,72,"#0D1321"),(109,29,"#6D35DE"),(166,114,"#6D35DE")])
     return f'<svg viewBox="0 0 270 166" aria-hidden="true">{shapes}</svg>'
 
 
