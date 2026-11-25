@@ -90,17 +90,21 @@ def publication(p, lang="en"):
 
 
 def diagram(kind):
-    # 装饰图沿用模块语义色，不表达实验结果或架构结论。
-    brick, peach, ink, rule = "#A8351A", "#E0A08A", "#1A1A1A", "#D9D3C4"
-    navy, mid, pale, accent = brick, "#D9D3C4", peach, brick
+    # 学术风装饰图：以暖灰阶为主，砖红只作极少量点状锚点，不表达实验结果。
+    ink = "#1A1A1A"
+    g1, g2, g3 = "#EFEADC", "#D9D3C4", "#B9B2A2"
+    accent = "#A8351A"
     if kind == "model":
-        shapes = ''.join(f'<rect x="{38+i*52}" y="{30+j*28}" width="38" height="18" rx="3" fill="{[pale, mid, navy][j]}" opacity="{0.55+i*0.15}"/>' for j in range(3) for i in range(4))
-        shapes += f'<path d="M38 127 H232" stroke="{mid}" stroke-width="1.2"/><text x="135" y="145" text-anchor="middle" fill="{ink}" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="10.5" font-weight="600" letter-spacing="1.6">PRETRAIN · REASON · ACT</text>'
+        ramp = [g1, g2, g3]
+        shapes = ''.join(f'<rect x="{38+i*52}" y="{30+j*28}" width="38" height="18" rx="3" fill="{ramp[j]}" opacity="{0.5+i*0.12}"/>' for j in range(3) for i in range(4))
+        shapes += f'<circle cx="232" cy="39" r="3" fill="{accent}"/>'
+        shapes += f'<path d="M38 127 H232" stroke="{g2}" stroke-width="1.2"/><text x="135" y="145" text-anchor="middle" fill="{ink}" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="10.5" font-weight="600" letter-spacing="1.6">PRETRAIN · REASON · ACT</text>'
     elif kind == "sparse":
-        shapes = ''.join(f'<rect x="{44+i*24}" y="{25+j*24}" width="17" height="17" rx="2" fill="{(accent if i == 0 else navy) if (i==j or i==0 or i==j-2) else rule}"/>' for j in range(5) for i in range(7))
+        shapes = ''.join(f'<rect x="{44+i*24}" y="{25+j*24}" width="17" height="17" rx="2" fill="{(accent if (i, j) == (3, 2) else g3 if (i==j or i==0 or i==j-2) else g1)}"/>' for j in range(5) for i in range(7))
     else:
-        shapes = f'<path d="M40 85 H238 M75 85 V42 H185 V85 M130 85 V128 H220 V85" stroke="{mid}" stroke-width="1.3" fill="none"/>'
-        shapes += ''.join(f'<rect x="{x}" y="{y}" width="35" height="27" rx="4" fill="{c}"/>' for x, y, c in [(34,72,pale),(92,72,mid),(150,72,navy),(208,72,"#B9B2A2"),(109,29,"#E0A08A"),(166,114,"#E0A08A")])
+        shapes = f'<path d="M40 85 H238 M75 85 V42 H185 V85 M130 85 V128 H220 V85" stroke="{g2}" stroke-width="1.3" fill="none"/>'
+        shapes += ''.join(f'<rect x="{x}" y="{y}" width="35" height="27" rx="4" fill="{c}"/>' for x, y, c in [(34,72,g1),(92,72,g2),(150,72,g3),(208,72,g1),(109,29,g2),(166,114,g3)])
+        shapes += f'<circle cx="177" cy="128" r="3" fill="{accent}"/>'
     return f'<svg viewBox="0 0 270 166" aria-hidden="true">{shapes}</svg>'
 
 
